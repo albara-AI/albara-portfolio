@@ -3,6 +3,7 @@
 // only move whole sections, or the carousel's <li> wrappers *once* while it
 // enters — the cards (and the active card) stay under swipe/drag/arrows.
 import { gsap } from 'gsap';
+import type Lenis from 'lenis';
 
 /**
  * Layered transitions: each section slides up over the previous one, while
@@ -31,6 +32,48 @@ export function stackedSections(): void {
         invalidateOnRefresh: true,
       },
     });
+  });
+}
+
+/**
+ * Keyboard focus must never land under the next sheet. With the layered
+ * sections, an element can be inside the viewport (so the browser doesn't
+ * scroll to it) yet covered by the section sliding over it. When focus lands
+ * on something covered, scroll to where its section is fully settled and
+ * uncovered, with the element as close to the middle of the screen as that
+ * allows. Positions come from the layout (offsetTop), which the scroll-driven
+ * transforms don't change.
+ * (Entrances below fade with opacity only — never visibility: hidden — so
+ * everything stays in the Tab order before it has been scrolled to.)
+ */
+export function keepFocusInView(lenis: Lenis): void {
+  const layoutTop = (el: HTMLElement) => {
+    let y = 0;
+    for (let n: HTMLElement | null = el; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop;
+    return y;
+  };
+  document.addEventListener('focusin', (e) => {
+    const el = e.target;
+    if (!(el instanceof HTMLElement) || el.closest('dialog, .nav, #menu, .skip-link')) return;
+    const section = el.closest<HTMLElement>('.section');
+    if (!section) return;
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Still see-through = its entrance hasn't played yet (needs scrolling to).
+    let faded = false;
+    for (let n: HTMLElement | null = el; n && n !== section; n = n.parentElement) {
+      if (parseFloat(getComputedStyle(n).opacity) < 0.5) faded = true;
+    }
+    if (!faded && r.bottom > 0 && r.top < vh) {
+      const x = Math.min(Math.max(r.left + r.width / 2, 0), window.innerWidth - 1);
+      const y = Math.min(Math.max(r.top + Math.min(r.height / 2, 24), 0), vh - 1);
+      const hit = document.elementFromPoint(x, y);
+      if (hit && (hit === el || el.contains(hit))) return; // visible — nothing to do
+    }
+    const top = layoutTop(section);
+    const settled = top + Math.max(0, section.offsetHeight - vh); // last scroll before the next sheet rises
+    const centre = layoutTop(el) - (vh - el.offsetHeight) / 2;
+    lenis.scrollTo(Math.min(Math.max(centre, top), settled), { duration: 0.8 });
   });
 }
 
@@ -70,9 +113,9 @@ export function llmEntrance(): void {
     z: -900,
     rotateY: (i) => (i - mid) * -40,
     rotateX: 18,
-    autoAlpha: 0,
+    opacity: 0,
     stagger: 0.08,
-  }).from(controls, { autoAlpha: 0, y: 20 }, 0.2);
+  }).from(controls, { opacity: 0, y: 20 }, 0.2);
 }
 
 /** Data & ML: cards rise and fade in with a stagger; light parallax on images. */
@@ -82,14 +125,14 @@ export function dataEntrance(): void {
   const items = root.querySelectorAll('.carousel__item');
   gsap.from(items, {
     y: 70,
-    autoAlpha: 0,
+    opacity: 0,
     duration: 1,
     ease: 'power3.out',
     stagger: 0.12,
     scrollTrigger: { trigger: root, start: 'clamp(top 85%)', once: true },
   });
   gsap.from(root.querySelector('.carousel__controls'), {
-    autoAlpha: 0,
+    opacity: 0,
     duration: 0.8,
     scrollTrigger: { trigger: root, start: 'clamp(top 85%)', once: true },
   });
@@ -112,7 +155,7 @@ export function contactEntrance(): void {
   const btns = document.querySelectorAll('#contact .cta .btn');
   gsap.from(btns, {
     y: 24,
-    autoAlpha: 0,
+    opacity: 0,
     duration: 0.9,
     ease: 'power3.out',
     stagger: 0.08,

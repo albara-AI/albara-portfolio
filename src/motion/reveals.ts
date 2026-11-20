@@ -57,7 +57,7 @@ export function fadeUps(): void {
   gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
     gsap.from(el, {
       y: 30,
-      autoAlpha: 0,
+      opacity: 0,
       duration: 1,
       ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'clamp(top 88%)', once: true },

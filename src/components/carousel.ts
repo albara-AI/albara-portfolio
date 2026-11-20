@@ -109,6 +109,14 @@ export function initCarousel(root: HTMLElement): void {
     }
   });
 
+  // Tabbing onto a card brings it to the front, so it's never half hidden
+  // behind its neighbour. Keyboard focus only (:focus-visible) — a mouse
+  // click must not move the card out from under the pointer.
+  track.addEventListener('focusin', (e) => {
+    const i = cards.indexOf(e.target as HTMLElement);
+    if (i >= 0 && i !== current && (e.target as HTMLElement).matches(':focus-visible')) goTo(i);
+  });
+
   // Mouse drag (touch and trackpads already scroll natively).
   let down = false;
   let moved = false;
