@@ -6,7 +6,7 @@ export function renderContact(): string {
     <div class="contact__main">
       ${label(contactSection.label)}
       <h2 data-split>${emph(contact.heading)}</h2>
-      <div class="cta" data-reveal>
+      <div class="cta">
         ${links.map((l) => siteLink(l, { button: true })).join('\n        ')}
       </div>
       <p class="email" data-reveal>

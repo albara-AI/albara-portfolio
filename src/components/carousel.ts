@@ -15,7 +15,7 @@ export type CarouselVariant = 'cover' | 'flat';
 export function carouselMarkup(opts: { label: string; variant: CarouselVariant; items: string[] }): string {
   const n = String(opts.items.length).padStart(2, '0');
   return `
-    <div class="carousel carousel--${opts.variant}" data-carousel="${opts.variant}" data-reveal>
+    <div class="carousel carousel--${opts.variant}" data-carousel="${opts.variant}">
       <div class="carousel__controls">
         <p class="carousel__count mono" aria-hidden="true"><span data-current>01</span> / ${n}</p>
         <button class="carousel__arrow" type="button" data-dir="-1" aria-label="${esc(ui.prev)}">←</button>
