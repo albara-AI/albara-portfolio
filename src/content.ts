@@ -39,3 +39,25 @@ export const nav: { label: string; href: `#${SectionId}` }[] = [
   { label: 'Data', href: '#data' },
   { label: 'Contact', href: '#contact' },
 ];
+
+// Repos — found on https://github.com/albara-AI (Phase 1). All public.
+// Project text/numbers still come only from these READMEs or the CV.
+export const repos = {
+  flyrank: 'https://github.com/albara-AI/flyrank-capstone-widget-platform',
+  minirag: 'https://github.com/albara-AI/Mini-rag',
+  albayan: 'https://github.com/albara-AI/arabic-legal-classifier',
+  imdb: 'https://github.com/albara-AI/imdb-top250-scraper',
+  co2Loan: 'https://github.com/albara-AI/ml-co2-loan-analysis',
+  alexnet: 'https://github.com/albara-AI/image-classifier-alexnet',
+  fashionMnist: 'https://github.com/albara-AI/fashion-mnist-ssl',
+} as const;
+
+// Contact — number and English message confirmed by Albara (Phase 1).
+const waMessage = 'Hi Albara, I came across your portfolio and would like to talk.';
+export const contact = {
+  email: 'albaraaljaberwork@gmail.com',
+  whatsapp: `https://wa.me/97431066519?text=${encodeURIComponent(waMessage)}`,
+  linkedin: 'https://linkedin.com/in/albara-aljaber',
+  github: 'https://github.com/albara-AI',
+  cv: '/cv/Albara_Aljaber_CV.pdf',
+} as const;
