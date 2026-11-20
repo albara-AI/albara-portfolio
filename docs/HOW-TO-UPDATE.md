@@ -90,6 +90,15 @@ Edit the `links` array in `src/content.ts` (order = button order; `primary: true
 - **Change a project's card image:** set its `cover` (LLM) or put the image first in `media` (Data & ML).
 - **Remove an image:** delete its line from `approved.json` *and* its id from `content.ts`; `npm run assets` deletes the old files from `public/media`.
 
+## Change your name, role or the hero label
+
+Edit them in `src/content.ts`, then regenerate the link-preview image and icons (they're drawn from the same text):
+```bash
+npm run brand
+git add src/content.ts docs/CONTENT.md public/og.png public/favicon.* public/apple-touch-icon.png
+git commit -m "Update role line"
+```
+
 ## Update the CV
 
 Replace `photo/cv/Albara_Aljaber_CV.pdf`, then copy it over and commit:
@@ -108,3 +117,5 @@ git add public/cv && git commit -m "Update CV"
 | `npm run assets` | Whole image pipeline: frames + contact sheets + generated images + export |
 | `npm run export` | Just the export step (faster, when only `approved.json` changed) |
 | `npm run build` | Production build — run before pushing to be sure nothing is broken |
+| `npm run brand` | Redraw `og.png` (link preview) and the favicons from `content.ts` |
+| `npm run glyphs` | Re-fetch the tiny →/←/₂ glyph fonts (only if you add another special character) |

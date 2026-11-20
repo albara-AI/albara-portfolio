@@ -8,6 +8,8 @@
 
 ## Rules
 - Lazy-load everything below the hero; hero loads low-res thumbs first.
+- The hero (and 404) markup is prerendered into the HTML at build time and its fonts are preloaded, so the name paints before any JS runs (vite.config.ts). The motion chunk loads after the first paint.
+- Fonts are never inlined into CSS (`assetsInlineLimit`).
 - Animate only `transform` and `opacity`. Use `will-change` only on moving elements.
 - No layout reads inside scroll handlers (cache sizes on resize).
 - Mobile (< 820px): hero photos smaller, carousel cards ~78vw (LLM) / ~70vw (data), no hover effects.

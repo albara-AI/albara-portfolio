@@ -10,7 +10,7 @@ Editorial magazine feel, not a tech demo. Soul comes from: real images, big seri
 | `--paper-2` | `#E8E5DD` | cards, panels |
 | `--ink` | `#1A1A2E` | text, buttons, dark panels (badges, code) |
 | `--ink-2` | `#4A4A5E` | body text |
-| `--muted` | `#8A877E` | labels, captions |
+| `--muted` | `#68655D` | labels, captions (darkened from #8A877E in Phase 7 for 4.5:1 contrast) |
 | `--accent` | `#6EC8C8` | lines, progress bar, accents on dark |
 | `--accent-ink` | `#2E8F8F` | accent text on light (contrast-safe) |
 
@@ -79,6 +79,21 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Footer: © 2026 Albara Aljaber · Doha, Qatar.
 - Behaviour: Download CV downloads `Albara_Aljaber_CV.pdf` (the `download` attribute, plus a `Content-Disposition: attachment` header in `vercel.json` so it still downloads when opened directly or in in-app browsers that ignore `download`). WhatsApp, LinkedIn and GitHub open in a new tab (`rel="noopener noreferrer"`). Email is a plain `mailto:` link — Copy is there for visitors with no mail app set up.
 - Every tap target is at least 44px tall (buttons 48px, Copy 44px, the address link has an invisible padded hit area).
+
+### 404 page
+- One screen on `--paper` with the accent top line: label "Error 404", big serif line with an italic accent, one sentence, and a primary "Back to the portfolio" button. Text in `content.ts → notFound`. Vercel serves `404.html` for any unknown URL.
+
+## Accessibility & keyboard
+- Every focusable element shows a 2px `--accent-ink` outline (`:focus-visible`, 3px offset). It is ≥ 3:1 against paper, paper-2 and ink.
+- Tab order reaches everything, top to bottom, at every width. Entrance animations fade with **opacity only** (never `visibility: hidden`), so elements stay in the Tab order before they've been scrolled to.
+- Layered sections: if keyboard focus lands on something covered by the next sheet (or not yet faded in), the page scrolls so its section is settled and uncovered.
+- Carousels: tabbing onto a card brings it to the front (keyboard only — a mouse click never moves a card).
+- Text that the hero fades out on scroll is hidden from Tab while it's gone.
+- Every image has alt text from `content.ts → alt`; the AL-BAYAN# clip has an `aria-label`.
+- Glyphs the Latin font subsets lack (→ ← ₂) come from tiny self-hosted glyph fonts (`src/styles/glyphs.css`); serif titles draw "₂" as a real subscript.
+
+## Link previews & icons
+- `og.png` (1200×630): the hero in miniature — label, serif name with italic accent, role, place — drawn from `content.ts` in the real fonts by `npm run brand`. Same script makes `favicon.svg` / `favicon.ico` / `apple-touch-icon.png`: an italic serif "A" in `--accent` on `--ink`.
 
 ## Nav
 Fixed top bar, mono labels: name left; About · Work · Data · Contact right. Links smooth-scroll via Lenis and stop below the bar.

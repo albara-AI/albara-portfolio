@@ -38,8 +38,10 @@
 ## Phase 7 — Polish
 - PERFORMANCE.md checks, Lighthouse, meta/OG image, favicon, 404, keyboard focus states, alt text for every image.
 - Done when: all PERFORMANCE.md budgets pass.
+- Status: done. Lighthouse (production build) mobile 100/100/100/100, desktop 100/100/100/100 (Performance/Accessibility/Best practices/SEO); mobile LCP 1.7s; JS 63 KB gzipped; ~364 KB first load.
 
 ## Phase 8 — Deploy
+- Link previews need the site's full address: Vercel provides it automatically at build time (`VERCEL_PROJECT_PRODUCTION_URL`); for a custom domain set `SITE_URL=https://…` in the Vercel project settings. Check the preview with LinkedIn's Post Inspector after deploying.
 - Vercel deploy from GitHub repo. Share the URL.
 
 ## Future (not scheduled — don't build until Albara asks)
