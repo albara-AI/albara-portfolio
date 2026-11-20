@@ -67,18 +67,6 @@
   ],
   "loops": [
     {
-      "id": "flyrank-loop",
-      "project": "flyrank",
-      "video": "flyrank",
-      "segments": [
-        [
-          62,
-          74
-        ]
-      ],
-      "posterTime": 62.144
-    },
-    {
       "id": "albayan-loop",
       "project": "albayan",
       "video": "albayan",
@@ -123,26 +111,6 @@
       "src": "photo/about/me-5.jpg"
     },
     {
-      "id": "albayan-pipeline",
-      "project": "albayan",
-      "src": "photo/projects/albayan-pipeline.png"
-    },
-    {
-      "id": "albayan-results-1",
-      "project": "albayan",
-      "src": "photo/projects/albayan-results-1.png"
-    },
-    {
-      "id": "albayan-results-2",
-      "project": "albayan",
-      "src": "photo/projects/albayan-results-2.png"
-    },
-    {
-      "id": "minirag-pipeline",
-      "project": "minirag",
-      "src": "photo/projects/minirag-pipeline.png"
-    },
-    {
       "id": "powerbi-report",
       "project": "powerbi",
       "src": "photo/projects/powerbi-1-1.png",
@@ -159,5 +127,6 @@
       "src": "photo/projects/ssl_fashion_mnist_best/plots/05_confusion_matrix.png"
     }
   ],
-  "pendingLoops": []
+  "pendingLoops": [],
+  "_generated": "albayan-pipeline, albayan-results-1/2, minirag-pipeline are recreated by scripts/results.mjs (label numbers removed); minirag-api and minirag-code are new. FlyRank loop dropped (almost static) — FlyRank uses stills only."
 }

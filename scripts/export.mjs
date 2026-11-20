@@ -8,7 +8,7 @@
 // Usage: node scripts/export.mjs
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -123,6 +123,14 @@ try {
 for (const g of generated) {
   const r = await exportImage(g.id, path.join(GENERATED, `${g.id}.png`));
   assets.push({ id: g.id, project: g.project, type: 'generated', source: g.source, path: r.full.path, card: r.card.path, thumb: r.thumb.path, poster: null, width: r.full.width, height: r.full.height });
+}
+
+// Remove files from earlier runs that are no longer in the manifest
+// (e.g. a dropped loop), so public/ only ever holds approved assets.
+const keep = new Set(['assets.json', '.gitkeep']);
+for (const a of assets) for (const k of ['path', 'card', 'thumb', 'poster', 'posterFull', 'webm']) if (a[k]) keep.add(path.basename(a[k]));
+for (const f of await readdir(OUT)) {
+  if (!keep.has(f)) { await rm(path.join(OUT, f)); console.log(`removed stale public/media/${f}`); }
 }
 
 await writeFile(path.join(OUT, 'assets.json'), JSON.stringify({ generated: 'scripts/export.mjs', assets }, null, 2) + '\n');
