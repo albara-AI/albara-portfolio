@@ -6,21 +6,21 @@ export function renderContact(): string {
   return `
     <div class="contact__main">
       ${label(contactSection.label)}
-      <h2>${emph(contact.heading)}</h2>
-      <div class="cta">
+      <h2 data-split>${emph(contact.heading)}</h2>
+      <div class="cta" data-reveal>
         <a class="btn" href="${contact.cv}" download="${contact.cvFilename}">${esc(b.cv)}</a>
         ${extLink(contact.whatsapp, b.whatsapp, 'btn btn--ghost')}
         <a class="btn btn--ghost" href="mailto:${contact.email}">${esc(b.email)}</a>
         ${extLink(contact.linkedin, b.linkedin, 'btn btn--ghost')}
         ${extLink(contact.github, b.github, 'btn btn--ghost')}
       </div>
-      <p class="email">
+      <p class="email" data-reveal>
         <a class="email__addr" href="mailto:${contact.email}">${esc(contact.email)}</a>
         <button class="email__copy mono" type="button" data-copy="${esc(contact.email)}">${esc(b.copy)}</button>
         <span class="sr-only" role="status" data-copy-status></span>
       </p>
     </div>
-    <footer class="foot mono"><span>${esc(contact.footer)}</span></footer>`;
+    <footer class="foot mono" data-reveal><span>${esc(contact.footer)}</span></footer>`;
 }
 
 /** Copy email → button shows "Copied" for 2s (DESIGN.md → Contact). */

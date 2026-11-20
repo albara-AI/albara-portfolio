@@ -22,7 +22,7 @@ export function renderData(): string {
   return `
     <header class="section-head">
       ${label(data.label)}
-      <h2>${emph(data.heading)}</h2>
+      <h2 data-split>${emph(data.heading)}</h2>
     </header>
     <div class="dgrid">${cards}</div>`;
 }

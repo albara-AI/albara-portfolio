@@ -139,6 +139,18 @@ html.menu-open body {
   overflow: hidden;
 }
 
+/* ---------- Word-reveal masks (Phase 3) ---------- */
+.w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em; /* room for descenders inside the mask */
+  margin-bottom: -0.08em;
+}
+.w > span {
+  display: inline-block;
+}
+
 /* ---------- No-JS fallback ---------- */
 .noscript {
   padding: 20vh var(--gutter);

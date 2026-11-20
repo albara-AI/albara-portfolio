@@ -70,6 +70,13 @@
   width: 1px;
   height: 42px;
   background: var(--ink);
+  transform-origin: top;
+  animation: hint 1.8s ease-in-out infinite; /* off under reduced motion (base.css) */
+}
+@keyframes hint {
+  0% { transform: scaleY(0); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
 /* Static collage: cards scattered around the name, centre kept clear. */
@@ -141,6 +148,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* With motion: the photo is 24% taller than its frame so it can drift
+   (parallax) without showing an edge. Starts with the frame inset. */
+.has-motion .about__portrait {
+  position: relative;
+  clip-path: inset(12% 8% 12% 8%);
+}
+.has-motion .about__portrait img {
+  position: absolute;
+  inset: -12% 0;
+  height: 124%;
+  will-change: transform;
 }
 
 /* ================= 3. LLM projects ================= */

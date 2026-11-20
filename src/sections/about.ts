@@ -9,9 +9,9 @@ export function renderAbout(): string {
   return `
     <div class="about__text">
       ${label(about.label)}
-      <h2>${emph(about.heading)}</h2>
-      ${about.paragraphs.map((p) => `<p class="body">${esc(p)}</p>`).join('')}
-      <dl class="facts">${facts}</dl>
+      <h2 data-split>${emph(about.heading)}</h2>
+      ${about.paragraphs.map((p) => `<p class="body" data-reveal>${esc(p)}</p>`).join('')}
+      <dl class="facts" data-reveal>${facts}</dl>
     </div>
     <figure class="about__portrait">
       ${img(about.portrait, { sizes: '(max-width: 820px) 100vw, 40vw' })}

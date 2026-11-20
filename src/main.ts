@@ -34,6 +34,13 @@ fill('contact', renderContact());
 bindNav(document);
 bindContact(document);
 
-// Phase 2 renders with JS, so the browser's own jump to #hash on load
+// Sections are rendered with JS, so the browser's own jump to #hash on load
 // happens before the content exists — redo it once the sections are filled.
 if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+
+// Motion (Lenis + GSAP) is a separate chunk, loaded only if the visitor
+// hasn't asked for reduced motion. Those visitors keep the static layout
+// and never download it.
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  import('./motion').then((m) => m.initMotion());
+}

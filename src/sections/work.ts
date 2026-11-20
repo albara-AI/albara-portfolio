@@ -19,7 +19,7 @@ export function renderWork(): string {
         .join('');
       return `
         <article class="project" id="project-${p.id}" aria-labelledby="project-${p.id}-name">
-          <div class="project__info">
+          <div class="project__info" data-reveal>
             <p class="project__idx mono">${idx}${p.status ? badge(p.status) : ''}</p>
             <h3 id="project-${p.id}-name">${esc(p.name)}</h3>
             <p class="project__title">${esc(p.title)}</p>
@@ -30,14 +30,14 @@ export function renderWork(): string {
             ${tags(p.tags)}
             ${p.repo ? extLink(p.repo, `${work.viewCode} →`, 'project__code mono') : ''}
           </div>
-          <ul class="project__media" aria-label="${esc(p.name)} screenshots and results">${cards}</ul>
+          <ul class="project__media" data-reveal aria-label="${esc(p.name)} screenshots and results">${cards}</ul>
         </article>`;
     })
     .join('');
   return `
     <header class="section-head">
       ${label(work.label)}
-      <h2>${emph(work.heading)}</h2>
+      <h2 data-split>${emph(work.heading)}</h2>
     </header>
     <div class="projects">${projects}</div>`;
 }
