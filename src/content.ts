@@ -111,7 +111,7 @@ export const about = {
   heading: 'Curious by nature, *engineer* by choice.',
   paragraphs: [
     "I'm Albara — a Data Science & AI graduate from the Hashemite University in Jordan, now based in Doha.",
-    'Outside of code, I lead a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events.',
+    "Outside of code, I've led a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events.",
     "I like starting from a messy problem and staying with it until it's actually useful to someone. Every day I learn something new 🌱",
   ],
   // "I work with" + a typewriter cycling these (static list under reduced motion)

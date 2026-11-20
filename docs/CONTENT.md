@@ -13,7 +13,7 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 (About Albara the person — not the projects.)
 - Heading: "Curious by nature, *engineer* by choice."
 - P1: "I'm Albara — a Data Science & AI graduate from the Hashemite University in Jordan, now based in Doha."
-- P2: "Outside of code, I lead a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events."
+- P2: "Outside of code, I've led a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events."
 - P3: "I like starting from a messy problem and staying with it until it's actually useful to someone. Every day I learn something new 🌱"
 - Skills line: "I work with" + typewriter cycling: LLMs, RAG pipelines, LLM evaluation, Prompt engineering, LangChain, Arabic NLP, Hugging Face Transformers, PyTorch, FastAPI, PostgreSQL, Docker
 - Facts: `Doha` Based in | `Arabic · English` Languages | `2026` Graduated
