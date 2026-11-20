@@ -1,0 +1,36 @@
+/* Phase 0 section shells. Real layouts replace these in Phase 2. */
+.section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* mobile: ignore the collapsing URL bar */
+  padding: calc(var(--nav-h) + 8vh) var(--gutter) 10vh;
+  border-top: 1px solid var(--line);
+}
+.section--hero {
+  border-top: 0;
+}
+
+/* Placeholder name so each empty shell is identifiable while building. */
+.shell__name {
+  margin-top: 28px;
+  font-size: var(--fs-h2);
+  color: var(--ink);
+}
+.shell__note {
+  margin-top: 24px;
+  color: var(--muted);
+}
+
+/* Moments is the one dark section. */
+.section--moments {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 0;
+}
+.section--moments .label,
+.section--moments .shell__note {
+  color: rgb(242 240 235 / 0.6);
+}
+.section--moments .shell__name {
+  color: var(--paper);
+}
