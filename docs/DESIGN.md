@@ -64,6 +64,14 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Content: index/kicker (+ "In progress" badge), serif title, subtitle, meta; a small horizontal gallery of **all** the project's media (stills, the AL-BAYAN# clip — muted and looping, result images); full description; key result; extra details; tags; "View code".
 - Close with ✕, Esc, or a click outside. Focus is trapped inside while open and returns to the card on close. The page behind doesn't scroll.
 
+### Scroll story after About (GSAP ScrollTrigger)
+- **Layered sections:** About → LLM projects → Data & ML → Contact are opaque sheets stacked in that order. As each section rises over the previous one (its top travelling from the bottom of the screen to the top), the one behind is held back (moves up only ~15% as fast), scales to 0.92 and darkens (ink shade up to 0.55) — scrubbed. The page behind the sheets is `--ink`, and the rising sheet has a soft top shadow. Implemented by counter-translating the section behind (no pinning).
+- **LLM projects entrance:** heading word reveal; the carousel comes in from depth — cards spread out, turned (~40°), tilted and far back (z −900) — and settles into the coverflow as the section scrolls into view (scrubbed). Once settled the trigger is removed, so scroll never touches the carousel again (also when scrolling back up).
+- **Data & ML entrance:** cards rise and fade in with a stagger; light scrubbed parallax on the card images inside their frames.
+- **Contact:** the big line reveals word by word; buttons fade up one after another.
+- **Carousels are never driven by vertical scroll** — only swipe/drag/arrows/keys change the active card.
+- Reduced motion: none of the above — everything is simply shown.
+
 ### 5. Contact
 - Huge serif line: "Let's build something *intelligent*."
 - Buttons (one primary, rest ghost): Download CV · WhatsApp · Email · LinkedIn · GitHub. Details in CONTENT.md.
