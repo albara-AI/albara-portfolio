@@ -15,3 +15,12 @@ dist
 # Review screenshots (generated)
 /shots
 /rec
+
+# Scratch / local-only files
+*.tmp
+*.tmp.*
+*.bak
+*.swp
+.env
+.env.*
+.claude/settings.local.json
