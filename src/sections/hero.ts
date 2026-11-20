@@ -1,6 +1,6 @@
-import { contact, contactSection, hero, identity } from '../content';
-import { esc, extLink, label } from '../lib/html';
-import { img } from '../lib/media';
+import { hero, identity, link } from '../content';
+import { esc, label, siteLink } from '../lib/html';
+import { asset, img } from '../lib/media';
 
 // The first screen is text only: who Albara is + CV/GitHub (recruiters skim).
 // With motion (src/motion/hero.ts) the stage sticks while the text lifts away
@@ -9,15 +9,16 @@ import { img } from '../lib/media';
 export function renderHero(): string {
   // sizes = the photo's size at its closest pass, so it stays sharp then.
   const cards = hero.media
-    .map(
-      (id, i) =>
-        `<figure class="hero__card hero__card--${i + 1}">${img(id, {
-          sizes: '(max-width: 820px) 64vw, 34vw',
-        })}</figure>`,
-    )
+    .map((id, i) => {
+      const a = asset(id);
+      const wide = a.width > a.height ? ' hero__card--wide' : ''; // landscape spans 2 columns on phones
+      return `<figure class="hero__card hero__card--${i + 1}${wide}">${img(id, {
+        sizes: '(max-width: 820px) 64vw, 34vw',
+      })}</figure>`;
+    })
     .join('');
   return `
-   <div class="hero__stage">
+   <div class="hero__stage" style="--photos:${hero.media.length}">
     <div class="hero__screen">
       <div class="hero__text">
         ${label(hero.label)}
@@ -25,8 +26,7 @@ export function renderHero(): string {
         <p class="hero__role">${esc(hero.role)}</p>
         <p class="hero__sentence">${esc(hero.sentence)}</p>
         <div class="hero__cta">
-          <a class="btn" href="${contact.cv}" download="${contact.cvFilename}">${esc(contactSection.buttons.cv)}</a>
-          ${extLink(contact.github, contactSection.buttons.github, 'btn btn--ghost')}
+          ${hero.buttons.map((id) => siteLink(link(id), { button: true })).join('')}
         </div>
       </div>
       <p class="hero__place mono">${esc(hero.place)}</p>

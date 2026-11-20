@@ -7,7 +7,14 @@ export function renderData(): string {
     .map(
       (p, i) => `
       <article class="dcard" aria-labelledby="data-${p.id}">
-        <figure class="dcard__media">${img(p.media, { sizes: '(max-width: 820px) 100vw, 45vw' })}</figure>
+        ${
+          p.media
+            ? `<figure class="dcard__media">${img(p.media, { sizes: '(max-width: 820px) 100vw, 45vw' })}</figure>`
+            : `<div class="dcard__media dcard__media--designed" aria-hidden="true">
+                 <span class="mono">${String(i + 1).padStart(2, '0')} — ${esc(p.title)}</span>
+                 <b>${esc(p.metric ?? p.title)}</b>
+               </div>`
+        }
         <div class="dcard__body">
           <p class="dcard__idx mono">${String(i + 1).padStart(2, '0')}</p>
           <h3 id="data-${p.id}">${esc(p.title)}</h3>

@@ -1,6 +1,10 @@
-// All site text lives here and comes from docs/CONTENT.md (or, for section
-// names, docs/DESIGN.md). Never add claims or numbers that aren't there.
+// All site text and data lives here and comes from docs/CONTENT.md (or, for
+// section names, docs/DESIGN.md). Never add claims or numbers that aren't there.
 // `*word*` in a heading marks the one italic accent word (DESIGN.md → Type).
+//
+// Everything is data: to add a project, data card, skill, link or
+// certificate, add one entry to the right array below (+ its images — see
+// docs/HOW-TO-UPDATE.md). The layout code adapts to any number of items.
 
 export const meta = {
   title: 'Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)',
@@ -34,17 +38,53 @@ export const repos = {
   fashionMnist: 'https://github.com/albara-AI/fashion-mnist-ssl',
 } as const;
 
-// Contact — number and English message confirmed by Albara (Phase 1).
+// ---------- Links (Contact buttons, hero buttons, mobile menu) ----------
+// WhatsApp number and English message confirmed by Albara (Phase 1).
 const waMessage = 'Hi Albara, I came across your portfolio and would like to talk.';
+
+export interface SiteLink {
+  id: string;
+  label: string;
+  href: string;
+  /** opens in a new tab */
+  external?: boolean;
+  /** set → the browser downloads the file under this name */
+  download?: string;
+  /** the one filled (primary) button; the rest are outlined */
+  primary?: boolean;
+}
+
+/** Contact buttons, in this order. */
+export const links: SiteLink[] = [
+  { id: 'cv', label: 'Download CV', href: '/cv/Albara_Aljaber_CV.pdf', download: 'Albara_Aljaber_CV.pdf', primary: true },
+  { id: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/97431066519?text=${encodeURIComponent(waMessage)}`, external: true },
+  { id: 'email', label: 'Email', href: 'mailto:albaraaljaberwork@gmail.com' },
+  { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/albara-aljaber', external: true },
+  { id: 'github', label: 'GitHub', href: 'https://github.com/albara-AI', external: true },
+];
+
+/** Look up a link by id (throws on a typo, so mistakes show up in dev). */
+export function link(id: string): SiteLink {
+  const l = links.find((x) => x.id === id);
+  if (!l) throw new Error(`No link with id "${id}" in content.ts → links`);
+  return l;
+}
+
 export const contact = {
   heading: "Let's build something *intelligent*.",
   email: 'albaraaljaberwork@gmail.com',
-  whatsapp: `https://wa.me/97431066519?text=${encodeURIComponent(waMessage)}`,
-  linkedin: 'https://linkedin.com/in/albara-aljaber',
-  github: 'https://github.com/albara-AI',
-  cv: '/cv/Albara_Aljaber_CV.pdf',
-  cvFilename: 'Albara_Aljaber_CV.pdf',
   footer: '© 2026 Albara Aljaber · Doha, Qatar',
+} as const;
+
+/** Small interface words (buttons, screen-reader labels). */
+export const ui = {
+  menu: 'Menu',
+  close: 'Close',
+  sections: 'Sections',
+  newTab: '(opens in a new tab)',
+  tech: 'Tech',
+  showCard: 'show this card',
+  screenshots: 'screenshots and results',
 } as const;
 
 // ---------- 1. Hero ----------
@@ -57,6 +97,8 @@ export const hero = {
   // Albara's event photos (me-2 … me-5), in fly-through order. No project
   // screenshots in the hero; me-1 is the About portrait only.
   media: ['hero-1', 'hero-2', 'hero-3', 'hero-4'],
+  /** links shown as the two hero buttons (ids from `links`) */
+  buttons: ['cv', 'github'],
 } as const;
 
 // ---------- 2. About ----------
@@ -164,7 +206,8 @@ export interface DataProject {
   metric?: string;
   tags: string[];
   repo?: string;
-  media: string;
+  /** asset id; leave out → a designed text card (metric or title) is shown */
+  media?: string;
 }
 
 export const data = {
@@ -208,19 +251,33 @@ export const data = {
   ] satisfies DataProject[],
 };
 
-// ---------- Contact labels ----------
+// ---------- Contact ----------
 export const contactSection = {
   label: '04 — Contact',
-  buttons: {
-    cv: 'Download CV',
-    whatsapp: 'WhatsApp',
-    email: 'Email',
-    linkedin: 'LinkedIn',
-    github: 'GitHub',
-    copy: 'Copy',
-    copied: 'Copied',
-  },
+  copy: 'Copy',
+  copied: 'Copied',
 } as const;
+
+// ---------- Certificates (data only — not on the site yet; see ROADMAP → Future) ----------
+// From the CV (photo/cv). verifyUrl: TODO — Albara to send the AI-901 credential link.
+export interface Certificate {
+  name: string;
+  issuer?: string;
+  year?: string;
+  verifyUrl?: string;
+}
+
+export const education = {
+  degree: 'B.Sc. Data Science & Artificial Intelligence — The Hashemite University, Jordan',
+  year: '2026',
+} as const;
+
+export const certificates: Certificate[] = [
+  { name: 'Azure AI Fundamentals (AI-901)', issuer: 'Microsoft Certified', year: '2026' },
+  { name: 'AIDEL — International AI Driving License' },
+  { name: 'Python & AI/ML Training', issuer: 'Al-Raja International', year: '2024' },
+  { name: 'Business Intelligence & Data Analysis', issuer: 'Sigma Agency', year: '2024' },
+];
 
 // ---------- Image alt text (describes what is in each image) ----------
 export const alt: Record<string, string> = {

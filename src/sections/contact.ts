@@ -1,22 +1,17 @@
-import { contact, contactSection } from '../content';
-import { emph, esc, extLink, label } from '../lib/html';
+import { contact, contactSection, links } from '../content';
+import { emph, esc, label, siteLink } from '../lib/html';
 
 export function renderContact(): string {
-  const b = contactSection.buttons;
   return `
     <div class="contact__main">
       ${label(contactSection.label)}
       <h2 data-split>${emph(contact.heading)}</h2>
       <div class="cta" data-reveal>
-        <a class="btn" href="${contact.cv}" download="${contact.cvFilename}">${esc(b.cv)}</a>
-        ${extLink(contact.whatsapp, b.whatsapp, 'btn btn--ghost')}
-        <a class="btn btn--ghost" href="mailto:${contact.email}">${esc(b.email)}</a>
-        ${extLink(contact.linkedin, b.linkedin, 'btn btn--ghost')}
-        ${extLink(contact.github, b.github, 'btn btn--ghost')}
+        ${links.map((l) => siteLink(l, { button: true })).join('\n        ')}
       </div>
       <p class="email" data-reveal>
         <a class="email__addr" href="mailto:${contact.email}">${esc(contact.email)}</a>
-        <button class="email__copy mono" type="button" data-copy="${esc(contact.email)}">${esc(b.copy)}</button>
+        <button class="email__copy mono" type="button" data-copy="${esc(contact.email)}">${esc(contactSection.copy)}</button>
         <span class="sr-only" role="status" data-copy-status></span>
       </p>
     </div>
@@ -45,11 +40,11 @@ export function bindContact(root: ParentNode): void {
       document.execCommand('copy');
       ta.remove();
     }
-    btn.textContent = contactSection.buttons.copied;
-    if (status) status.textContent = `${contactSection.buttons.copied}: ${value}`;
+    btn.textContent = contactSection.copied;
+    if (status) status.textContent = `${contactSection.copied}: ${value}`;
     clearTimeout(timer);
     timer = window.setTimeout(() => {
-      btn.textContent = contactSection.buttons.copy;
+      btn.textContent = contactSection.copy;
       if (status) status.textContent = '';
     }, 2000);
   });

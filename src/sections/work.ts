@@ -1,4 +1,4 @@
-import { work, type LlmProject } from '../content';
+import { ui, work, type LlmProject } from '../content';
 import { badge, emph, esc, extLink, label, tags } from '../lib/html';
 import { asset, img } from '../lib/media';
 
@@ -30,7 +30,7 @@ function staticBlocks(): string {
             ${tags(p.tags)}
             ${p.repo ? extLink(p.repo, `${work.viewCode} →`, 'project__code mono') : ''}
           </div>
-          <ul class="project__media" data-reveal aria-label="${esc(p.name)} screenshots and results">${cards}</ul>
+          <ul class="project__media" data-reveal aria-label="${esc(p.name)} — ${esc(ui.screenshots)}">${cards}</ul>
         </article>`;
     })
     .join('');
@@ -45,7 +45,7 @@ function ringCards(): string {
       p.media.map((id) => {
         const kind = asset(id).type; // generated charts are anchored left (titles live there)
         return `<li class="rcard rcard--${kind}" data-project="${pi}">
-          <button class="rcard__btn" type="button" aria-label="${esc(p.name)} — show this card">
+          <button class="rcard__btn" type="button" aria-label="${esc(p.name)} — ${esc(ui.showCard)}">
             ${img(id, { sizes: '(max-width: 820px) 340px, 660px', cls: 'rcard__media' }) /* cover-cropped: rendered width ≈ card height × image aspect */}
           </button>
           ${p.status ? badge(p.status) : ''}
@@ -79,7 +79,7 @@ function panel(p: LlmProject, i: number): string {
 
 function ring(): string {
   return `
-    <div class="ring">
+    <div class="ring" style="--cards:${work.projects.reduce((n, p) => n + p.media.length, 0)}">
       <div class="ring__stage">
         <header class="ring__head">
           <div>${label(work.label)}<h2>${emph(work.heading)}</h2></div>
@@ -87,7 +87,7 @@ function ring(): string {
         </header>
         <div class="ring__area">
           <div class="ring__wrap">
-            <ul class="ring__track" aria-label="Project screenshots and results">${ringCards()}</ul>
+            <ul class="ring__track" aria-label="${esc(work.heading.replace(/\*/g, ''))} — ${esc(ui.screenshots)}">${ringCards()}</ul>
           </div>
         </div>
         <div class="ring__info">${work.projects.map(panel).join('')}</div>

@@ -1,5 +1,5 @@
-import { contact, contactSection, identity, nav } from '../content';
-import { esc, extLink } from '../lib/html';
+import { hero, identity, link, nav, ui } from '../content';
+import { esc, siteLink } from '../lib/html';
 
 // The bar uses mix-blend-mode: difference, so it can't contain the mobile
 // menu panel (the panel would blend too). The panel is a sibling element.
@@ -8,14 +8,13 @@ export function renderNav(): string {
   return `
     <header class="nav mono">
       <a class="nav__name" href="#top">${esc(identity.firstName)} ${esc(identity.lastName)}</a>
-      <nav class="nav__links" aria-label="Sections">${links}</nav>
-      <button class="nav__menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="nav__links" aria-label="${esc(ui.sections)}">${links}</nav>
+      <button class="nav__menu-btn" type="button" aria-expanded="false" aria-controls="menu">${esc(ui.menu)}</button>
     </header>
     <div class="menu" id="menu" hidden>
-      <nav class="menu__links" aria-label="Sections">${links}</nav>
+      <nav class="menu__links" aria-label="${esc(ui.sections)}">${links}</nav>
       <div class="menu__extra mono">
-        <a href="${contact.cv}" download="${contact.cvFilename}">${esc(contactSection.buttons.cv)}</a>
-        ${extLink(contact.github, contactSection.buttons.github)}
+        ${hero.buttons.map((id) => siteLink(link(id))).join('')}
       </div>
     </div>`;
 }
@@ -26,7 +25,7 @@ export function bindNav(root: ParentNode): void {
   if (!btn || !menu) return;
   const set = (open: boolean) => {
     btn.setAttribute('aria-expanded', String(open));
-    btn.textContent = open ? 'Close' : 'Menu';
+    btn.textContent = open ? ui.close : ui.menu;
     menu.hidden = !open;
     document.documentElement.classList.toggle('menu-open', open);
     // Smooth scroll (Phase 3) listens to pause/resume while the menu is open.

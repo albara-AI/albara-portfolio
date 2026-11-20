@@ -19,8 +19,8 @@ const NEAR = 560; //  z where it ends (camera is at 900; here a photo is ~2.6× 
 const FADE_OUT_FROM = 40; //  starts fading as it passes (~1.05× size)...
 const FADE_OUT_TO = 320; //   ...gone by ~1.6× — no giant washed-out overlay
 const START = 0.15; // first photo appears as the text has gone
-const STEP = 0.16; //  next photo starts this much later
-const SPAN = 0.27; //  each photo's flight (SPAN > STEP → short overlap); last ends at 0.90
+const END = 0.9; //    last photo has passed
+const OVERLAP = 0.4; // next photo starts when the current one is 60% through
 const TEXT_OUT = 0.15;
 const TEXT_LIFT = 40; // px the text rises while fading
 const Y_PATTERN = [-0.04, 0.05, -0.03, 0.04]; // small vertical offsets (× viewport height)
@@ -45,6 +45,12 @@ export function heroFlyThrough(): void {
     const img = el.querySelector('img')!;
     return { el, aspect: Number(img.getAttribute('width')) / Number(img.getAttribute('height')), w: 0, h: 0, x: 0, y: 0 };
   });
+
+  // Spread any number of photos evenly over START → END:
+  // n flights of SPAN, each starting STEP = SPAN·(1 − OVERLAP) after the last.
+  const n = cards.length;
+  const SPAN = (END - START) / (1 + (n - 1) * (1 - OVERLAP)); // 4 photos → 0.27
+  const STEP = SPAN * (1 - OVERLAP); //                          4 photos → 0.16
 
   // Sizes depend on the viewport only, so they're measured on load/resize —
   // never inside the scroll handler (PERFORMANCE.md).
