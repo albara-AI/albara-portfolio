@@ -78,7 +78,7 @@ Same as above, with two differences:
 
 ## Add or change a contact link / button
 
-Edit the `links` array in `src/content.ts` (order = button order; `primary: true` = the filled button; `external: true` = opens in a new tab). The hero and mobile menu show the ids listed in `hero.buttons`.
+Edit the `links` array in `src/content.ts` (order = button order; `primary: true` = the filled button; `external: true` = opens in a new tab). The hero and mobile menu show the ids listed in `hero.buttons`. The email address is defined once (`const email` above `links`) and feeds the Email button, the visible address and the Copy button.
 
 ## Swap an image
 

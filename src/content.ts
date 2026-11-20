@@ -41,6 +41,8 @@ export const repos = {
 // ---------- Links (Contact buttons, hero buttons, mobile menu) ----------
 // WhatsApp number and English message confirmed by Albara (Phase 1).
 const waMessage = 'Hi Albara, I came across your portfolio and would like to talk.';
+/** One place for the address: the Email button, the visible text and Copy all use it. */
+const email = 'albaraaljaberwork@gmail.com';
 
 export interface SiteLink {
   id: string;
@@ -58,7 +60,7 @@ export interface SiteLink {
 export const links: SiteLink[] = [
   { id: 'cv', label: 'Download CV', href: '/cv/Albara_Aljaber_CV.pdf', download: 'Albara_Aljaber_CV.pdf', primary: true },
   { id: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/97431066519?text=${encodeURIComponent(waMessage)}`, external: true },
-  { id: 'email', label: 'Email', href: 'mailto:albaraaljaberwork@gmail.com' },
+  { id: 'email', label: 'Email', href: `mailto:${email}` },
   { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/albara-aljaber', external: true },
   { id: 'github', label: 'GitHub', href: 'https://github.com/albara-AI', external: true },
 ];
@@ -72,7 +74,7 @@ export function link(id: string): SiteLink {
 
 export const contact = {
   heading: "Let's build something *intelligent*.",
-  email: 'albaraaljaberwork@gmail.com',
+  email,
   footer: '© 2026 Albara Aljaber · Doha, Qatar',
 } as const;
 

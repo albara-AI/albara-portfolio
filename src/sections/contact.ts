@@ -10,7 +10,7 @@ export function renderContact(): string {
         ${links.map((l) => siteLink(l, { button: true })).join('\n        ')}
       </div>
       <p class="email" data-reveal>
-        <a class="email__addr" href="mailto:${contact.email}">${esc(contact.email)}</a>
+        <a class="email__addr" href="mailto:${esc(contact.email)}">${esc(contact.email)}</a>
         <button class="email__copy mono" type="button" data-copy="${esc(contact.email)}">${esc(contactSection.copy)}</button>
         <span class="sr-only" role="status" data-copy-status></span>
       </p>
