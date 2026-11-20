@@ -1,5 +1,6 @@
-// Generate result/pipeline images (1600×1200) in the same style as
-// photo/projects/albayan-results-1.png and minirag-pipeline.png.
+// Generate result/pipeline images (1600×1200) in one shared style.
+// The AL-BAYAN# and Mini-RAG images recreate Albara's originals in
+// photo/projects/ exactly, minus the "02 —"/"03 —" label numbers.
 // Every word and number below comes from the project's README or the CV —
 // the `source` line on each image says which.
 //
@@ -13,7 +14,7 @@ const OUT = path.join(ROOT, '.work/generated');
 const W = 1600;
 const H = 1200;
 const C = {
-  paper: '#F1F0EC', card: '#E8E5DD', ink: '#1A1A2E', muted: '#8A877E',
+  paper: '#F2F0EB', card: '#E8E5DD', ink: '#1A1A2E', muted: '#8A877E',
   accent: '#2E8F8F', line: '#1A1A2E',
 };
 const SERIF = 'DejaVu Serif, serif';
@@ -25,10 +26,16 @@ const text = (x, y, s, { size = 22, font = SANS, fill = C.ink, anchor = 'start',
   `<text x="${x}" y="${y}" font-family="${font}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${esc(s)}</text>`;
 const lines = (x, y, arr, opts = {}, lh = 34) => arr.map((s, i) => text(x, y + i * lh, s, opts)).join('');
 
-function frame({ label, title, subtitle, source }, body) {
+/** Filled "IN PROGRESS" pill, top-right — on every Mini-RAG image. */
+const BADGE = `<rect x="1284" y="50" width="220" height="48" rx="24" fill="${C.ink}"/>
+  <circle cx="1314" cy="74" r="7" fill="#6EC8C8"/>
+  ${text(1334, 81, 'IN PROGRESS', { size: 20, font: MONO, fill: '#F2F0EB' })}`;
+
+function frame({ label, title, subtitle, source, badge = false }, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
     <rect width="100%" height="100%" fill="${C.paper}"/>
     ${text(96, 84, label, { size: 20, font: MONO, fill: C.muted })}
+    ${badge ? BADGE : ''}
     ${text(96, 180, title, { size: 64, font: SERIF })}
     ${text(96, 234, subtitle, { size: 24, fill: C.muted })}
     ${body}
@@ -66,12 +73,261 @@ function grid(rows, top = 300, h = 240, gapY = 90) {
   return out;
 }
 
+
+/** Horizontal bar chart, same geometry as albayan-results-1/2.png. */
+function bars(rows, scale) {
+  return rows
+    .map((r, i) => {
+      const y = 347 + i * 124.4;
+      const w = Math.round(r.value * scale);
+      const light = r.fill === C.accent;
+      return `<rect x="96" y="${y}" width="${w}" height="76" fill="${r.fill}"/>` +
+        text(r.labelX ?? 109, y + 45, r.label, { size: 23, fill: light ? '#FFFFFF' : C.ink }) +
+        text(96 + w + 13, y + 49, r.valueText, { size: 32, font: SERIF, fill: r.valueFill ?? C.ink }) +
+        (r.pr ? text(96 + w + 13 + r.valueText.length * 19.5 + 38, y + 45, r.pr, { size: 18, font: MONO, fill: C.muted }) : '');
+    })
+    .join('');
+}
+
+/** Step cards as in albayan-pipeline.png: muted mono file name + one line. */
+function steps(rows) {
+  const xs = [100, 600, 1100];
+  return rows
+    .map((row, r) =>
+      row
+        .map((c, i) => {
+          const x = xs[i];
+          const y = 260 + r * 340;
+          const on = c.accent;
+          return `<rect x="${x}" y="${y}" width="430" height="240" rx="22" fill="${on ? C.accent : C.card}"/>` +
+            text(x + 30, y + 65, c.head, { size: 21, font: MONO, fill: on ? '#FFFFFF' : C.muted }) +
+            text(x + 30, y + 165, c.body, { size: 24, fill: on ? '#FFFFFF' : C.ink });
+        })
+        .join(''),
+    )
+    .join('');
+}
+
+/** minirag-pipeline.png style: solid cards = built (✓), dashed = next. */
+function ragCards(rows) {
+  const xs = [100, 600, 1100];
+  return rows
+    .map((row, r) =>
+      row
+        .map((c, i) => {
+          const x = xs[i];
+          const y = 260 + r * 340;
+          const box = c.next
+            ? `<rect x="${x}" y="${y}" width="430" height="240" rx="22" fill="none" stroke="${C.ink}" stroke-width="2" stroke-dasharray="7 5"/>`
+            : `<rect x="${x}" y="${y}" width="430" height="240" rx="22" fill="${C.card}"/>`;
+          return box +
+            text(x + 30, y + 66, c.head, { size: 27, font: MONO }) +
+            text(x + 390, y + 66, c.next ? 'next' : '✓', { size: 22, fill: c.next ? C.muted : C.accent, anchor: 'end' }) +
+            text(x + 30, y + 156, c.body, { size: 22, fill: c.next ? C.muted : C.ink });
+        })
+        .join(''),
+    )
+    .join('');
+}
+
+/** Dark code panel with light syntax colouring. Lines are copied verbatim from the repo. */
+function code(x, y, w, file, src) {
+  const KW = /\b(async|await|with|as|while|return|def|class|if|import|from)\b/g;
+  const lineH = 38;
+  const rows = src.split('\n');
+  const h = 86 + rows.length * lineH;
+  const body = rows
+    .map((ln, i) => {
+      const parts = esc(ln)
+        .replace(/(&quot;|")(.*?)("|&quot;)/g, '<tspan fill="#6EC8C8">"$2"</tspan>')
+        .replace(KW, '<tspan fill="#E3B9A0">$1</tspan>');
+      return `<text x="${x + 36}" y="${y + 92 + i * lineH}" font-family="${MONO}" font-size="22" fill="#F2F0EB" xml:space="preserve">${parts}</text>`;
+    })
+    .join('');
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${C.ink}"/>` +
+    text(x + 36, y + 46, file, { size: 18, font: MONO, fill: '#8A877E' }) + body;
+}
+
 const images = [
+  // ---- AL-BAYAN# (recreated from photo/projects/, label numbers removed) ----
+  {
+    id: 'albayan-pipeline',
+    project: 'albayan',
+    meta: {
+      label: 'AL-BAYAN#  ·  ARCHITECTURE',
+      title: 'The pipeline',
+      subtitle: 'PDF → OCR → Arabic NLP → multi-label classification → tags',
+      source: 'Source: github.com/albara-AI/arabic-legal-classifier — README',
+    },
+    body: () =>
+      steps([
+        [
+          { head: '01_fetch', body: 'Scrape Gazette PDFs' },
+          { head: '02_ocr', body: 'Tesseract OCR · 300 DPI' },
+          { head: '03_augment', body: 'EDA + AraBERT MLM' },
+        ],
+        [
+          { head: '04_train', body: 'AraBERT · MARBERT · CaMeLBERT' },
+          { head: '05_ensemble', body: 'Average probs → F1 0.769', accent: true },
+          { head: '07_generate', body: 'AraT5 + BiEncoder + RAG' },
+        ],
+      ]),
+  },
+  {
+    id: 'albayan-results-1',
+    project: 'albayan',
+    meta: {
+      label: 'AL-BAYAN#  ·  RESULTS',
+      title: 'F1-Macro, stage by stage',
+      subtitle: 'From a 0.558 baseline to a 0.769 three-model ensemble (+38%)',
+      source: 'Source: github.com/albara-AI/arabic-legal-classifier — README',
+    },
+    body: () =>
+      bars(
+        [
+          { label: 'TF-IDF + LogReg (baseline)', value: 0.558, valueText: '0.558', fill: '#D3CFC4' },
+          { label: 'AraBERT — global threshold', value: 0.648, valueText: '0.648', fill: '#B9C9C9' },
+          { label: 'AraBERT — per-label threshold', value: 0.644, valueText: '0.644', fill: '#B9C9C9' },
+          { label: 'AraBERT + Hard Negative Mining', value: 0.682, valueText: '0.682', fill: '#B9C9C9' },
+          { label: 'CaMeLBERT + HNM (best single)', value: 0.695, valueText: '0.695', fill: '#B9C9C9' },
+          { label: 'Ensemble × 3', value: 0.769, valueText: '0.769', fill: C.accent, valueFill: C.accent },
+        ],
+        1638,
+      ),
+  },
+  {
+    id: 'albayan-results-2',
+    project: 'albayan',
+    meta: {
+      label: 'AL-BAYAN#  ·  SECTORS',
+      title: 'Per-sector performance',
+      subtitle: 'Best ensemble — strongest and weakest sectors out of 17',
+      source: 'Source: github.com/albara-AI/arabic-legal-classifier — README',
+    },
+    body: () =>
+      bars(
+        [
+          ['Security & Defense', 0.973, 'P 1.00 · R 0.95'],
+          ['Tourism', 0.941, 'P 1.00 · R 0.89'],
+          ['Land', 0.909, 'P 1.00 · R 0.83'],
+          ['Education', 0.906, 'P 0.96 · R 0.86'],
+          ['Legislation', 0.597, 'P 0.50 · R 0.75'],
+          ['Labor', 0.508, 'P 0.48 · R 0.54'],
+        ].map(([label, v, pr]) => ({
+          label, value: v, valueText: `F1 ${v.toFixed(3)}`, pr, labelX: 106,
+          fill: v > 0.8 ? C.accent : '#E3B9A0',
+        })),
+        1020,
+      ),
+  },
+  // ---- Mini-RAG (in progress) — only what exists in the repo today ----
+  {
+    id: 'minirag-pipeline',
+    project: 'minirag',
+    meta: {
+      label: 'MINI-RAG  ·  PIPELINE',
+      title: 'AI lawyer for Qatar',
+      subtitle: 'RAG over Qatari legal documents — FastAPI · LangChain · MongoDB · Docker',
+      source: 'Source: github.com/albara-AI/Mini-rag — app/ structure',
+      badge: true,
+    },
+    body: () =>
+      ragCards([
+        [
+          { head: 'POST /upload', body: 'FastAPI router' },
+          { head: 'Load', body: 'PyMuPDF · Arabic + English' },
+          { head: 'Chunk', body: 'Configurable size + overlap' },
+        ],
+        [
+          { head: 'Embed', body: 'Embeddings', next: true },
+          { head: 'Retrieve', body: 'Vector search', next: true },
+          { head: 'Answer', body: 'LLM over Qatari law', next: true },
+        ],
+      ]),
+  },
+  {
+    id: 'minirag-api',
+    project: 'minirag',
+    meta: {
+      label: 'MINI-RAG  ·  API & STACK',
+      title: 'What runs today',
+      subtitle: 'Three endpoints — upload a document, then load and chunk it',
+      source: 'Source: github.com/albara-AI/Mini-rag — app/routers, app/controllers, requirements.txt',
+      badge: true,
+    },
+    body: () => {
+      const eps = [
+        ['GET', '/api/v1/', 'App name + version'],
+        ['POST', '/api/v1/data/upload/{project_id}', 'Validate type + size, stream to disk'],
+        ['POST', '/api/v1/data/process/{project_id}', 'Load TXT / PDF, split into chunks'],
+      ];
+      const epRows = eps
+        .map(([m, p, d], i) => {
+          const y = 300 + i * 100;
+          return `<rect x="96" y="${y}" width="1408" height="80" rx="14" fill="${C.card}"/>` +
+            `<rect x="120" y="${y + 22}" width="76" height="36" rx="8" fill="${m === 'GET' ? '#B9C9C9' : C.accent}"/>` +
+            text(158, y + 48, m, { size: 18, font: MONO, fill: m === 'GET' ? C.ink : '#FFFFFF', anchor: 'middle' }) +
+            text(220, y + 50, p, { size: 23, font: MONO }) +
+            text(1480, y + 50, d, { size: 20, fill: C.muted, anchor: 'end' });
+        })
+        .join('');
+      const cw = (s) => Math.round(s.length * 12.4 + 48); // DejaVu Sans 21px ≈ 12.4px/char
+      const chip = (x, y, s, dashed) =>
+        (dashed
+          ? `<rect x="${x}" y="${y}" width="${cw(s)}" height="54" rx="27" fill="none" stroke="${C.ink}" stroke-width="2" stroke-dasharray="7 5"/>`
+          : `<rect x="${x}" y="${y}" width="${cw(s)}" height="54" rx="27" fill="${C.card}"/>`) +
+        text(x + 24, y + 35, s, { size: 21, fill: dashed ? C.muted : C.ink });
+      // lay chips out left→right, wrapping before the 1504px right margin
+      const row = (y, items, dashed) => {
+        let x = 96;
+        return items
+          .map((s) => {
+            if (x + cw(s) > 1504) { x = 96; y += 70; }
+            const out = chip(x, y, s, dashed);
+            x += cw(s) + 16;
+            return out;
+          })
+          .join('');
+      };
+      return epRows +
+        text(96, 670, 'STACK — IN THE REPO NOW', { size: 20, font: MONO, fill: C.muted }) +
+        row(696, ['FastAPI', 'LangChain', 'PyMuPDF', 'MongoDB (Motor)', 'aiofiles', 'pydantic-settings', 'Docker Compose']) +
+        text(96, 880, 'NEXT', { size: 20, font: MONO, fill: C.muted }) +
+        row(906, ['Embeddings', 'Vector search', 'LLM over Qatari law'], true);
+    },
+  },
+  {
+    id: 'minirag-code',
+    project: 'minirag',
+    meta: {
+      label: 'MINI-RAG  ·  CODE',
+      title: 'Stream the upload, then chunk',
+      subtitle: 'Two excerpts, copied as-is from the repo',
+      source: 'Source: github.com/albara-AI/Mini-rag — app/routers/data_routers.py, app/controllers/process_controllers.py',
+      badge: true,
+    },
+    body: () =>
+      code(96, 290, 1408, 'app/routers/data_routers.py',
+        [
+          'async with aiofiles.open(file_path, "wb") as f:',
+          '    while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):',
+          '        await f.write(chunk)',
+        ].join('\n')) +
+      code(96, 560, 1408, 'app/controllers/process_controllers.py',
+        [
+          'text_spliter = RecursiveCharacterTextSplitter(',
+          '    chunk_size = chunk_size,',
+          '    chunk_overlap = overlap_size,',
+          '    length_function = len, ',
+          ')',
+        ].join('\n')),
+  },
+  // ---- FlyRank, IMDb, CO₂ ----
   {
     id: 'flyrank-pipeline',
     project: 'flyrank',
     meta: {
-      label: '01 — FLYRANK  ·  ARCHITECTURE',
+      label: 'FLYRANK  ·  ARCHITECTURE',
       title: 'From form to classified lead',
       subtitle: 'Validated, rate limited, geo-enriched, stored, classified by intent in Arabic',
       source: 'Source: github.com/albara-AI/flyrank-capstone-widget-platform — README',
@@ -95,7 +351,7 @@ const images = [
     id: 'flyrank-quality',
     project: 'flyrank',
     meta: {
-      label: '01 — FLYRANK  ·  QUALITY',
+      label: 'FLYRANK  ·  QUALITY',
       title: 'Tests & LLM guardrails',
       subtitle: 'Shipped with 185 automated tests on real PostgreSQL',
       source: 'Source: flyrank-capstone-widget-platform README (make check, make probes) + CV',
