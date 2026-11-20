@@ -5,7 +5,7 @@
   --paper-2: #e8e5dd;    /* cards, panels */
   --ink: #1a1a2e;        /* text, dark section bg, buttons */
   --ink-2: #4a4a5e;      /* body text */
-  --muted: #8a877e;      /* labels, captions */
+  --muted: #68655d;      /* labels, captions — ≥ 4.5:1 on paper and paper-2 */
   --accent: #6ec8c8;     /* lines, progress bar, accents on dark */
   --accent-ink: #2e8f8f; /* accent TEXT on paper (contrast-safe) */
   --line: rgb(26 26 46 / 0.15);
