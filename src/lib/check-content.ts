@@ -6,10 +6,11 @@ import { asset } from './media';
 export function checkContent(): void {
   const problems: string[] = [];
   const ids: string[] = [...hero.media, ...work.projects.flatMap((p) => p.media)];
-  data.projects.forEach((p) => p.media && ids.push(p.media));
+  data.projects.forEach((p) => p.media && ids.push(...p.media));
+  work.projects.forEach((p) => p.cover && ids.push(p.cover));
 
   work.projects.forEach((p) => {
-    if (p.media.length === 0) problems.push(`LLM project "${p.name}" has no media — it needs at least 1 card for the ring.`);
+    if (p.media.length === 0 && !p.cover) problems.push(`LLM project "${p.name}" has no media — it needs at least a cover image.`);
   });
   for (const id of ids) {
     try {

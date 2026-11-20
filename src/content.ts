@@ -83,8 +83,12 @@ export const ui = {
   sections: 'Sections',
   newTab: '(opens in a new tab)',
   tech: 'Tech',
-  showCard: 'show this card',
-  screenshots: 'screenshots and results',
+  prev: 'Previous project',
+  next: 'Next project',
+  openDetails: 'Open project details',
+  closeDetails: 'Close details',
+  gallery: 'Screenshots and results',
+  keyMetric: 'Key result',
 } as const;
 
 // ---------- 1. Hero ----------
@@ -145,7 +149,9 @@ export interface LlmProject {
   tags: string[];
   status?: 'In progress';
   repo?: string;
-  /** asset ids from public/media/assets.json, in ring order */
+  /** card image (asset id); defaults to the first item in `media` */
+  cover?: string;
+  /** every image/clip for the details gallery, in order (asset ids) */
   media: string[];
 }
 
@@ -153,7 +159,6 @@ export const work = {
   label: '02 — LLM projects',
   heading: 'LLM *projects*',
   viewCode: 'View code',
-  ringHint: 'Scroll to rotate', // from the approved prototype
   projects: [
     {
       id: 'flyrank',
@@ -166,7 +171,8 @@ export const work = {
       extra: '83-message Arabic evaluation set and harness to benchmark LLM providers.',
       tags: ['FastAPI', 'PostgreSQL', 'LLMs', 'Docker'],
       repo: repos.flyrank,
-      media: ['flyrank-pipeline', 'flyrank-overview', 'flyrank-quality', 'flyrank-builder'],
+      cover: 'flyrank-builder',
+      media: ['flyrank-builder', 'flyrank-overview', 'flyrank-theme', 'flyrank-demo-site', 'flyrank-companies', 'flyrank-pipeline', 'flyrank-quality'],
     },
     {
       id: 'minirag',
@@ -192,7 +198,8 @@ export const work = {
         'Focal Loss, Hard Negative Mining, per-label thresholds; tag generation with AraT5 + InfoNCE bi-encoder + RAG fallback. Presented at Hashemite University Scientific Day (June 2026), five-member team.',
       tags: ['PyTorch', 'Transformers', 'RAG', 'OCR'],
       repo: repos.albayan,
-      media: ['albayan-loop', 'albayan-results-1', 'albayan-pipeline', 'albayan-results-2'],
+      cover: 'albayan-landing',
+      media: ['albayan-loop', 'albayan-results-1', 'albayan-results-2', 'albayan-pipeline', 'albayan-report', 'albayan-upload'],
     },
   ] satisfies LlmProject[],
 };
@@ -206,8 +213,9 @@ export interface DataProject {
   metric?: string;
   tags: string[];
   repo?: string;
-  /** asset id; leave out → a designed text card (metric or title) is shown */
-  media?: string;
+  /** asset ids for the card (first = cover) and details gallery; leave out →
+   *  a designed text card (metric or title) is shown */
+  media?: string[];
 }
 
 export const data = {
@@ -221,7 +229,7 @@ export const data = {
       detail:
         'Pipeline: discovery → cleaning → transformation → integration; remodeled 9 tables into a star schema (1 fact + 5 dimension tables). Interactive Power BI report with KPI cards for sales, profit, cost and quantity; filters by date, seller, order status and state.',
       tags: ['Power BI', 'DAX', 'Star schema', 'Data cleaning'],
-      media: 'powerbi-report',
+      media: ['powerbi-report'],
     },
     {
       id: 'fashion-mnist',
@@ -230,7 +238,7 @@ export const data = {
       metric: '83.66% test accuracy with 960 labels',
       tags: ['TensorFlow', 'Autoencoder', 'Pseudo-labeling'],
       repo: repos.fashionMnist,
-      media: 'fashion-pipeline',
+      media: ['fashion-pipeline', 'fashion-confusion'],
     },
     {
       id: 'imdb',
@@ -238,7 +246,7 @@ export const data = {
       line: 'IMDb Top-250 scraper (Selenium, BeautifulSoup, SQLite).',
       tags: ['Selenium', 'BeautifulSoup', 'SQLite'],
       repo: repos.imdb,
-      media: 'imdb-pipeline',
+      media: ['imdb-pipeline'],
     },
     {
       id: 'co2-loan',
@@ -246,7 +254,7 @@ export const data = {
       line: 'Predictive models validated with 10-fold cross-validation.',
       tags: ['Scikit-learn', 'Regression', 'Classification'],
       repo: repos.co2Loan,
-      media: 'co2-loan-pipeline',
+      media: ['co2-loan-pipeline'],
     },
   ] satisfies DataProject[],
 };
