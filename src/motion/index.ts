@@ -42,13 +42,20 @@ export function initMotion(): void {
       const params = new URLSearchParams(location.search);
       const slide = Number(params.get('slide') ?? 0);
       const open = params.get('open');
+      const center = params.get('center'); // CSS selector to centre on screen instead
+      document.querySelectorAll('img').forEach((im) => (im.loading = 'eager'));
       document.fonts.ready.then(() => {
         ScrollTrigger.refresh();
         const el = document.getElementById(id);
         if (!el) return;
         const top = el.getBoundingClientRect().top + window.scrollY;
         lenis.resize();
-        lenis.scrollTo(top + Math.max(0, el.offsetHeight - window.innerHeight) * Number(p), { immediate: true, force: true });
+        const c = center ? document.querySelector<HTMLElement>(center) : null;
+        const y0 = c
+          ? c.getBoundingClientRect().top + window.scrollY + c.offsetHeight / 2 - window.innerHeight / 2
+          : top + Math.max(0, el.offsetHeight - window.innerHeight) * Number(p);
+        const dy = Number(params.get('dy') ?? 0); // manual nudge for framing (px)
+        lenis.scrollTo(y0 + dy, { immediate: true, force: true });
         setTimeout(() => {
           const y = window.scrollY;
           ScrollTrigger.getAll().forEach((t) => t.disable(false)); // keep rendered state
