@@ -8,3 +8,6 @@ dist
 # (see CLAUDE.md sensitive-data rule). Only approved, optimized
 # outputs in /public/media go into the repo.
 /photo
+
+# Asset pipeline working files (frames, contact sheets) — may hold sensitive data
+/.work
