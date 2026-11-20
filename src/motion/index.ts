@@ -56,7 +56,10 @@ export function initMotion(): void {
         const top = el.getBoundingClientRect().top + window.scrollY;
         lenis.resize();
         const c = center ? document.querySelector<HTMLElement>(center) : null;
-        const y0 = c
+        const abs = params.get('y'); // absolute scroll position (px), for recordings
+        const y0 = abs !== null
+          ? Number(abs)
+          : c
           ? c.getBoundingClientRect().top + window.scrollY + c.offsetHeight / 2 - window.innerHeight / 2
           : top + Math.max(0, el.offsetHeight - window.innerHeight) * Number(p);
         const dy = Number(params.get('dy') ?? 0); // manual nudge for framing (px)
