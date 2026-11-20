@@ -78,7 +78,6 @@
 
 /* Text link with an accent underline (View code, hero links) */
 .project__code,
-.hero__links a,
 .menu__extra a {
   display: inline-block;
   padding-bottom: 3px;

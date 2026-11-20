@@ -5,11 +5,10 @@
 // progress value p (0 → 1), and render(p) places everything from p alone —
 // scrolling back up simply plays it in reverse.
 //
-//   p 0.00–0.12  intro + "Scroll" hint fade out
-//   p 0.00–0.83  the 4 photos fly past the camera one by one (brief overlaps).
-//                The first is already mid-flight at p = 0, so the very first
-//                screen is never empty.
-//   p 0.80–0.94  the name fades/scales in, then holds until the section ends
+//   p 0.00–0.15  the text screen (name, role, buttons, corners) fades out
+//                and lifts slightly — no photos are visible yet
+//   p 0.15–0.90  the 4 photos fly past the camera one by one (brief overlaps)
+//   p 0.90–1.00  empty stage, then the page flows on into About
 //
 // Photos move only in z (towards the camera); CSS perspective turns that into
 // "growing and drifting outwards". Only transform + opacity change per frame.
@@ -17,13 +16,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const FAR = -2600; // z where a photo appears (small, far away)
 const NEAR = 560; //  z where it ends (camera is at 900; here a photo is ~2.6× its size)
-const FADE_OUT_FROM = 80; //  starts fading as it passes (~1.1× size)...
-const FADE_OUT_TO = 420; //   ...gone by ~1.9× — no giant washed-out overlay
-const START = -0.07; // first photo "started" before the page loaded (already visible at p = 0)
-const STEP = 0.2; //    next photo starts this much later
-const SPAN = 0.3; //    each photo's flight (SPAN > STEP → short overlap)
-const NAME_IN: [number, number] = [0.8, 0.94];
-const INTRO_OUT = 0.12;
+const FADE_OUT_FROM = 40; //  starts fading as it passes (~1.05× size)...
+const FADE_OUT_TO = 320; //   ...gone by ~1.6× — no giant washed-out overlay
+const START = 0.15; // first photo appears as the text has gone
+const STEP = 0.16; //  next photo starts this much later
+const SPAN = 0.27; //  each photo's flight (SPAN > STEP → short overlap); last ends at 0.90
+const TEXT_OUT = 0.15;
+const TEXT_LIFT = 40; // px the text rises while fading
 const Y_PATTERN = [-0.04, 0.05, -0.03, 0.04]; // small vertical offsets (× viewport height)
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -41,8 +40,7 @@ interface Card {
 export function heroFlyThrough(): void {
   const stage = document.querySelector<HTMLElement>('.hero__stage');
   if (!stage) return;
-  const name = stage.querySelector<HTMLElement>('.hero__name')!;
-  const fades = [...stage.querySelectorAll<HTMLElement>('.hero__intro, .hero__hint')];
+  const fades = [...stage.querySelectorAll<HTMLElement>('.hero__text, .hero__place, .hero__hint')];
   const cards: Card[] = [...stage.querySelectorAll<HTMLElement>('.hero__card')].map((el) => {
     const img = el.querySelector('img')!;
     return { el, aspect: Number(img.getAttribute('width')) / Number(img.getAttribute('height')), w: 0, h: 0, x: 0, y: 0 };
@@ -71,8 +69,13 @@ export function heroFlyThrough(): void {
   };
 
   const render = (p: number) => {
-    const introOpacity = String(1 - range(p, 0, INTRO_OUT));
-    fades.forEach((el) => (el.style.opacity = introOpacity));
+    const out = range(p, 0, TEXT_OUT);
+    fades.forEach((el) => {
+      el.style.opacity = String(1 - out);
+      el.style.transform = `translate3d(0, ${-TEXT_LIFT * out}px, 0)`;
+      // Once gone, hidden text can't be clicked or tabbed to by accident.
+      el.style.visibility = out < 1 ? 'visible' : 'hidden';
+    });
 
     cards.forEach((c, i) => {
       const t = range(p, START + i * STEP, START + i * STEP + SPAN);
@@ -84,10 +87,6 @@ export function heroFlyThrough(): void {
       c.el.style.transform = `translate(-50%, -50%) translate3d(${c.x}px, ${c.y}px, ${z}px)`;
     });
 
-    const n = range(p, NAME_IN[0], NAME_IN[1]);
-    const eased = 1 - Math.pow(1 - n, 3); // power3.out — settles softly
-    name.style.opacity = String(eased);
-    name.style.transform = `scale(${0.9 + 0.1 * eased})`;
   };
 
   measure();

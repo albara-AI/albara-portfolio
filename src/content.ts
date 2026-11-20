@@ -49,9 +49,11 @@ export const contact = {
 
 // ---------- 1. Hero ----------
 export const hero = {
-  intro: { label: 'Portfolio — 2026', text: 'I build AI systems — from raw data to production backends.' },
-  sentence: 'AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them.',
-  scrollHint: 'Scroll',
+  label: 'Portfolio · 2026',
+  role: 'AI Engineer — LLMs · RAG · Arabic NLP',
+  sentence: 'I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them.',
+  place: 'Doha, Qatar',
+  scrollHint: 'Scroll ↓',
   // Albara's event photos (me-2 … me-5), in fly-through order. No project
   // screenshots in the hero; me-1 is the About portrait only.
   media: ['hero-1', 'hero-2', 'hero-3', 'hero-4'],

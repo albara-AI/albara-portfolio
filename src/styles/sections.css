@@ -10,103 +10,84 @@
 .section.hero {
   padding: 0; /* the stage pads itself; .section.hero beats the mobile .section rule */
 }
-.hero__stage {
+
+/* First screen: text block centred-left, place + hint in the bottom corners. */
+.hero__screen {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr auto;
   grid-template-areas:
-    'name name'
-    'intro hint';
+    'text text'
+    'place hint';
   min-height: 100vh;
   min-height: 100svh;
   padding: var(--nav-h) var(--gutter) 6vh;
-  overflow: hidden;
 }
-.hero__name {
-  grid-area: name;
+.hero__text {
+  grid-area: text;
   align-self: center;
-  position: relative;
-  z-index: 2;
-  text-align: center;
+  max-width: 900px;
 }
-.hero__name h1 {
+.hero__text h1 {
+  margin-top: 26px;
   font-size: var(--fs-hero);
   line-height: 0.85;
   letter-spacing: -0.02em;
 }
+.hero__role {
+  margin-top: 30px;
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-weight: 500;
+}
 .hero__sentence {
-  max-width: 520px;
-  margin: 28px auto 0;
-  color: var(--ink-2);
-  font-size: clamp(15px, 1.3vw, 19px);
-  line-height: 1.5;
-}
-.hero__intro {
-  grid-area: intro;
-  position: relative;
-  z-index: 2;
-  max-width: 420px;
-}
-.hero__intro-text {
+  max-width: 560px;
   margin-top: 12px;
-  font-family: var(--serif);
-  font-size: clamp(22px, 2.2vw, 30px);
-  line-height: 1.2;
+  color: var(--ink-2);
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.6;
 }
-.hero__links {
+.hero__cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 22px;
-  margin-top: 18px;
+  gap: 12px;
+  margin-top: 30px;
+}
+.hero__place {
+  grid-area: place;
+  align-self: end;
+  color: var(--muted);
 }
 .hero__hint {
   grid-area: hint;
   align-self: end;
-  display: flex;
-  align-items: center;
-  gap: 10px;
   color: var(--muted);
 }
-.hero__hint i {
-  display: block;
-  width: 1px;
-  height: 42px;
-  background: var(--ink);
-  transform-origin: top;
-  animation: hint 1.8s ease-in-out infinite; /* off under reduced motion (base.css) */
-}
-@keyframes hint {
-  0% { transform: scaleY(0); }
-  50% { transform: scaleY(1); }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
 
-/* Static collage: cards scattered around the name, centre kept clear. */
+/* Without motion (reduced motion): the photos sit in a row under the text. */
 .hero__collage {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 0 var(--gutter) 12vh;
 }
 .hero__card {
-  position: absolute;
   overflow: hidden;
   border-radius: 3px;
   box-shadow: 0 20px 50px -20px rgb(26 26 46 / 0.35);
 }
 .hero__card img {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: clamp(200px, 30vh, 340px); /* all 4 fit one row at 1440px */
 }
-.hero__card--1 { left: 4%;   top: 14%; width: 15vw; }  /* me-2, portrait */
-.hero__card--2 { right: 5%;  top: 9%;  width: 16vw; }  /* me-3, portrait */
-.hero__card--3 { right: 13%; top: 57%; width: 12vw; }  /* me-4, portrait */
-.hero__card--4 { left: 40%;  top: 76%; width: 18vw; }  /* me-5, landscape — below the sentence */
 
 /* ---- Fly-through (only when src/motion/hero.ts is running) ----
    The section is 340vh tall; the stage sticks for the extra 240vh of scroll.
-   Photos are centred at z=0 and positioned only by transform (JS), sized
-   by JS on resize. perspective = how strong the 3D depth looks. */
+   The text screen and the photos share the stage; photos are centred at
+   z = 0, positioned only by transform (JS) and sized by JS on resize.
+   perspective = how strong the 3D depth looks. */
 .has-motion .hero {
   height: 340vh;
 }
@@ -115,27 +96,40 @@
   top: 0;
   height: 100vh;
   height: 100svh;
-  min-height: 0;
+  overflow: hidden;
   perspective: 900px;
 }
+.has-motion .hero__screen {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+}
+.has-motion .hero__text,
+.has-motion .hero__place,
+.has-motion .hero__hint {
+  will-change: transform, opacity;
+}
 .has-motion .hero__collage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  pointer-events: none;
   transform-style: preserve-3d;
 }
 .has-motion .hero__card {
+  position: absolute;
   left: 50%;
   top: 50%;
-  right: auto;
   opacity: 0;
+  visibility: hidden;
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
 .has-motion .hero__card img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.has-motion .hero__name {
-  opacity: 0; /* revealed by the fly-through at the end */
-  will-change: transform, opacity;
 }
 
 /* ================= 2. About ================= */
@@ -375,23 +369,28 @@
     padding: 14vh var(--gutter);
   }
 
-  .hero__stage {
-    grid-template-columns: 1fr;
-    grid-template-areas: 'name' 'intro';
+  .hero__screen {
     padding-top: calc(var(--nav-h) + 4vh);
   }
-  .hero__hint {
-    display: none;
+  .hero__text h1 {
+    margin-top: 20px;
   }
-  :root:not(.has-motion) .hero__card--3,
-  :root:not(.has-motion) .hero__card--4 {
-    display: none; /* static mobile hero: two photos keep the name clear */
+  .hero__collage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
-  .hero__card--1 { left: var(--gutter); top: 10%; width: 40vw; }
-  .hero__card--2 { right: var(--gutter); top: 15%; width: 36vw; }
-  .hero__name {
-    align-self: end;
-    margin-bottom: 7vh;
+  .hero__card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+  .hero__card--4 {
+    grid-column: span 2; /* the landscape photo gets the full row */
+  }
+  .hero__card--4 img {
+    aspect-ratio: auto;
   }
 
   .about {

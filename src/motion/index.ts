@@ -9,6 +9,8 @@ import { initAnchors, initProgress, initSmoothScroll } from './scroll';
 
 export function initMotion(): void {
   gsap.registerPlugin(ScrollTrigger);
+  // Dev builds only: lets tests switch motion off to check the static layout.
+  if (import.meta.env.DEV) (window as unknown as { __ST: typeof ScrollTrigger }).__ST = ScrollTrigger;
   document.documentElement.classList.add('has-motion'); // already set by main.ts; harmless
 
   const lenis = initSmoothScroll();
