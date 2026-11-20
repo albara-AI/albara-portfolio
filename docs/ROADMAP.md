@@ -40,3 +40,9 @@
 
 ## Phase 8 — Deploy
 - Vercel deploy from GitHub repo. Share the URL.
+
+## Future (not scheduled — don't build until Albara asks)
+- **Education & Certifications strip** — text only (no logos/images): degree + certificates from the CV, each with year; Microsoft Certified: Azure AI Fundamentals (AI-901) gets a "Verify" link (TODO: Albara to send the credential URL). Data already lives in `certificates` in `src/content.ts`.
+- **Power BI image** — replace the current filtered screenshot (`photo/projects/powerbi-1-1.png`, state = AC) with the unfiltered version; then put the KPI numbers back in CONTENT.md if they match.
+- **Mini-RAG update** — when the project is finished: new screenshots/results from the repo, drop the "In progress" badge (`status` in content.ts), add a key metric if the README has one.
+- **Arabic version (RTL)** — `lang="ar" dir="rtl"`, Arabic copy from Albara (never machine-translated without his review), mirrored layouts and motion directions, an Arabic font pairing, and a language switch in the nav.
