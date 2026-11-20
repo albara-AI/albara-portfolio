@@ -46,7 +46,7 @@ function ringCards(): string {
         const kind = asset(id).type; // generated charts are anchored left (titles live there)
         return `<li class="rcard rcard--${kind}" data-project="${pi}">
           <button class="rcard__btn" type="button" aria-label="${esc(p.name)} — show this card">
-            ${img(id, { sizes: '(max-width: 820px) 190px, 260px', cls: 'rcard__media' })}
+            ${img(id, { sizes: '(max-width: 820px) 340px, 660px', cls: 'rcard__media' }) /* cover-cropped: rendered width ≈ card height × image aspect */}
           </button>
           ${p.status ? badge(p.status) : ''}
         </li>`;

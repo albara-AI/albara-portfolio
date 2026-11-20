@@ -103,6 +103,15 @@ export function ringScroll(lenis: Lenis): void {
 
   measure();
   ScrollTrigger.addEventListener('refreshInit', measure);
+
+  // Cards rotate in from off-screen, so lazy loading would show them blank
+  // for a moment. Start loading all ring images one screen before the ring.
+  ScrollTrigger.create({
+    trigger: root,
+    start: 'top bottom+=100%',
+    once: true,
+    onEnter: () => root.querySelectorAll('img').forEach((img) => (img.loading = 'eager')),
+  });
   const st = ScrollTrigger.create({
     trigger: root,
     start: 'top top',
