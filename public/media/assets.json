@@ -221,7 +221,7 @@
       "id": "powerbi-report",
       "project": "powerbi",
       "type": "image",
-      "source": "photo/projects/powerbi-1.png",
+      "source": "photo/projects/powerbi-1-1.png",
       "path": "/media/powerbi-report.webp",
       "card": "/media/powerbi-report-800.webp",
       "thumb": "/media/powerbi-report-400.webp",
@@ -268,6 +268,23 @@
       "bytes": {
         "mp4": 43209,
         "webm": 47437
+      }
+    },
+    {
+      "id": "albayan-loop",
+      "project": "albayan",
+      "type": "loop",
+      "source": "albayan.mp4 34–37.4s + 40.4–46s",
+      "path": "/media/albayan-loop.mp4",
+      "webm": "/media/albayan-loop.webm",
+      "poster": "/media/albayan-loop-poster-800.webp",
+      "posterFull": "/media/albayan-loop-poster.webp",
+      "width": 960,
+      "height": 496,
+      "duration": 9.04,
+      "bytes": {
+        "mp4": 81780,
+        "webm": 74645
       }
     },
     {
