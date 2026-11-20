@@ -19,6 +19,15 @@ import { renderHero } from './sections/hero';
 import { bindNav, renderNav } from './sections/nav';
 import { renderWork } from './sections/work';
 
+// Motion (Lenis + GSAP) is a separate chunk, loaded only if the visitor
+// hasn't asked for reduced motion. Those visitors keep the static layout
+// and never download it.
+const motion = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Switch the CSS to the motion layout *before* anything renders (tall hero,
+// hidden photos and name), so there's no flash of the static layout while
+// the chunk loads, and #hash jumps below use the final page height.
+if (motion) document.documentElement.classList.add('has-motion');
+
 const fill = (id: string, html: string) => {
   const el = document.getElementById(id);
   if (el) el.innerHTML = html;
@@ -38,9 +47,4 @@ bindContact(document);
 // happens before the content exists — redo it once the sections are filled.
 if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
 
-// Motion (Lenis + GSAP) is a separate chunk, loaded only if the visitor
-// hasn't asked for reduced motion. Those visitors keep the static layout
-// and never download it.
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  import('./motion').then((m) => m.initMotion());
-}
+if (motion) import('./motion').then((m) => m.initMotion());

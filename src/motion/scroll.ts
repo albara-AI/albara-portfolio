@@ -18,6 +18,8 @@ export function initSmoothScroll(): Lenis {
   });
 
   lenis.on('scroll', ScrollTrigger.update);
+  // Dev builds only: lets tests drive the real smooth scroll (lenis.scrollTo).
+  if (import.meta.env.DEV) (window as unknown as { __lenis: Lenis }).__lenis = lenis;
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0); // don't "catch up" after a slow frame — Lenis handles timing
 
