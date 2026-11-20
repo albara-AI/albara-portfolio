@@ -7,6 +7,7 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Role line: AI Engineer — LLMs · RAG · Arabic NLP
 - Hero sentence: "AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them."
 - Intro (hero bottom-left): "Portfolio — 2026" / "I build AI systems — from raw data to production backends."
+- Hero photos (fly-through, in this order): `photo/about/me-2`, `me-3`, `me-4`, `me-5` — personal/event photos only, no project screenshots. Alt text: me-2/me-3 "Albara at the World Investment Forum 2026 in Doha", me-4 "Albara's World Investment Forum 2026 badge, UNCTAD", me-5 "Event screen at the World Investment Forum 2026, Doha".
 - Location: Doha, Qatar
 
 ## About
@@ -63,11 +64,6 @@ For each: text from the CV ("Additional projects") or the repo README; numbers o
    - Repo: https://github.com/albara-AI/ml-co2-loan-analysis
 If a project has no image → designed card (metric / pipeline / code) per DESIGN.md, using README data only.
 
-## Moments
-- me-2: World Investment Forum 2026 · Doha
-- me-3: World Investment Forum 2026 · Doha
-- me-4: WIF 2026 · UNCTAD
-- me-5: WIF 2026 · UNCTAD · Doha · 2026
 ## Contact
 - Heading: "Let's build something *intelligent*."
 - Download CV: `/cv/Albara_Aljaber_CV.pdf` (copied from `photo/cv/`), `download` attribute, filename `Albara_Aljaber_CV.pdf`

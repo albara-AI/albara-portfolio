@@ -8,7 +8,7 @@ Editorial magazine feel, not a tech demo. Soul comes from: real images, big seri
 |---|---|---|
 | `--paper` | `#F2F0EB` | page background |
 | `--paper-2` | `#E8E5DD` | cards, panels |
-| `--ink` | `#1A1A2E` | text, dark section background, buttons |
+| `--ink` | `#1A1A2E` | text, buttons, dark panels (badges, code) |
 | `--ink-2` | `#4A4A5E` | body text |
 | `--muted` | `#8A877E` | labels, captions |
 | `--accent` | `#6EC8C8` | lines, progress bar, accents on dark |
@@ -34,10 +34,11 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 
 ### 1. Hero — fly-through
 - Sticky full-screen stage, section height ~340vh, `perspective: 900px`.
-- ~18–20 media cards (frames from the FlyRank and AL-BAYAN# videos, generated result images, Power BI screenshots) scattered in x/y, spread deep in z.
-- Scrolling moves them toward the camera; each fades out as it passes. Center area kept clear.
-- At ~55–85% progress the name fades/scales in: "Albara / *Aljaber*" + one-line role.
+- Only Albara's personal/event photos: `photo/about/me-2 … me-5` (4 photos). **No project screenshots in the hero.** `me-1` is the About portrait only.
+- Few and large: the photos pass the camera **slowly, one by one** — each starts deep in z, travels toward the camera, and fades as it passes before the next one takes over (at most a brief overlap). Alternate them left/right of centre so the middle stays mostly clear.
+- After the last photo has passed, the name fades/scales in: "Albara / *Aljaber*" + one-line role.
 - Start state: small intro bottom-left ("Portfolio — 2026" + one sentence) and a "Scroll" hint bottom-right; both fade out in the first 12%.
+- Mobile: same 4 photos, smaller. Reduced motion: static hero — name plus the photos placed around it, no movement.
 
 ### 2. About — split screen
 - Left: label, big serif heading (word reveal), 2 short paragraphs, 3 metric facts (big serif number + mono label).
@@ -56,18 +57,16 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Order: Power BI Dashboard → Fashion-MNIST SSL → IMDb Scraper → CO₂ & Loan Models.
 - Card = image (or designed metric/pipeline/code card if no image) + title + one line + tags.
 
-### 5. Moments
-- Dark section (`--ink` bg, `--paper` text). Albara's event/about photos (me-2 … me-5).
-- Horizontal track moved by vertical scroll (sticky stage); photos reveal with clip-path from top. Mono caption per photo (event name, place, year — from CONTENT.md).
-
-### 6. Contact
+### 5. Contact
 - Huge serif line: "Let's build something *intelligent*."
 - Buttons (one primary, rest ghost): Download CV · WhatsApp · Email · LinkedIn · GitHub. Details in CONTENT.md.
 - Email shown as text with a Copy button (shows "Copied" for 2s).
 - Footer: © 2026 Albara Aljaber · Doha, Qatar.
 
 ## Nav
-Fixed top bar, `mix-blend-mode: difference`, mono labels: name left; About · Work · Data · Contact right (hidden on mobile, replaced by a minimal menu). Links smooth-scroll via Lenis.
+Fixed top bar, mono labels: name left; About · Work · Data · Contact right. Links smooth-scroll via Lenis and stop below the bar.
+- Desktop: transparent, `mix-blend-mode: difference`.
+- Mobile (< 820px): solid `--paper` bar with a hairline bottom border, links replaced by a minimal full-screen menu. The nav must never overlap section labels — content scrolls under the solid bar, and anchor jumps land below it.
 
 ## Designed cards (for projects without images)
 Same 3:4 card, `--paper-2` background, mono label top-left (`02 — PROJECT`):

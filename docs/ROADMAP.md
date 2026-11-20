@@ -15,7 +15,7 @@
 - Done when: `public/media/` holds every approved asset + `assets.json` manifest (id, project, type, path, poster, width, height).
 
 ## Phase 2 — Static layout
-- All 6 sections with real content from `src/content.ts`, no animation yet. Responsive (375 / 768 / 1440).
+- All sections (now 5: Hero, About, LLM projects, Data & ML, Contact — Moments was removed) with real content from `src/content.ts`, no animation yet. Responsive (375 / 768 / 1440).
 - Done when: the whole site reads well with JavaScript turned off for motion.
 
 ## Phase 3 — Smooth scroll + reveals
@@ -24,14 +24,14 @@
 
 ## Phase 4 — Hero fly-through
 - Per DESIGN.md §1, media from the manifest.
-- Done when: 60fps on desktop, name reveal lands cleanly, mobile uses fewer cards (~10).
+- Done when: 60fps on desktop, the 4 photos pass one by one, name reveal lands cleanly.
 
 ## Phase 5 — LLM ring
 - Per DESIGN.md §3: arc, rotation, active scaling, info panel cross-fade, clip play on active card, click-to-scroll.
 - Done when: every card maps to the right project and the info panel never lags or flickers.
 
-## Phase 6 — Data grid, Moments, Contact
-- Grid with hover tilt; Moments horizontal track; Contact buttons: CV download, WhatsApp, email + copy, LinkedIn, GitHub.
+## Phase 6 — Data grid, Contact
+- Grid with hover tilt; Contact buttons: CV download, WhatsApp, email + copy, LinkedIn, GitHub.
 - Done when: every button works on desktop and phone (test WhatsApp on a real phone).
 
 ## Phase 7 — Polish
