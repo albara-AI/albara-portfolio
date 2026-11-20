@@ -77,9 +77,7 @@
         ]
       ],
       "posterTime": 62.144
-    }
-  ],
-  "pendingLoops": [
+    },
     {
       "id": "albayan-loop",
       "project": "albayan",
@@ -95,7 +93,7 @@
         ]
       ],
       "posterTime": 34.0,
-      "_why": "Approved range 34–46s contains the file-picker dialog (37.5–40.3s). This candidate skips it — waiting for approval."
+      "_why": "Approved by Albara. Skips the file-picker dialog at 37.5–40.3s that is inside the original 34–46s range."
     }
   ],
   "stills": [
@@ -147,8 +145,8 @@
     {
       "id": "powerbi-report",
       "project": "powerbi",
-      "src": "photo/projects/powerbi-1.png",
-      "_crop": "current file (970×556) has no Power BI toolbar/page list, so no crop. Re-add a crop if the file is replaced with a full-window screenshot."
+      "src": "photo/projects/powerbi-1-1.png",
+      "_crop": "No crop: this file is already just the report canvas (no Power BI toolbar or page list). Temporary filtered view (state = AC) — Albara will replace it with an unfiltered screenshot; add a crop then if it is a full-window capture."
     },
     {
       "id": "fashion-pipeline",
@@ -160,5 +158,6 @@
       "project": "fashion-mnist",
       "src": "photo/projects/ssl_fashion_mnist_best/plots/05_confusion_matrix.png"
     }
-  ]
+  ],
+  "pendingLoops": []
 }
