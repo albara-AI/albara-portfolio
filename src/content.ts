@@ -161,6 +161,7 @@ export const work = {
   label: '02 — LLM projects',
   heading: 'LLM *projects*',
   viewCode: 'View code',
+  // Order = carousel order (and the 01/03 counters). Mini-RAG last: in progress.
   projects: [
     {
       id: 'flyrank',
@@ -177,18 +178,6 @@ export const work = {
       media: ['flyrank-builder', 'flyrank-overview', 'flyrank-theme', 'flyrank-demo-site', 'flyrank-companies', 'flyrank-pipeline', 'flyrank-quality'],
     },
     {
-      id: 'minirag',
-      name: 'Mini-RAG',
-      title: 'AI legal assistant for Qatari law',
-      meta: 'In progress',
-      description:
-        'RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next.',
-      tags: ['FastAPI', 'LangChain', 'MongoDB', 'Docker'],
-      status: 'In progress',
-      repo: repos.minirag,
-      media: ['minirag-pipeline', 'minirag-api', 'minirag-code'],
-    },
-    {
       id: 'albayan',
       name: 'AL-BAYAN#',
       title: 'Legal document intelligence',
@@ -202,6 +191,18 @@ export const work = {
       repo: repos.albayan,
       cover: 'albayan-landing',
       media: ['albayan-loop', 'albayan-results-1', 'albayan-results-2', 'albayan-pipeline', 'albayan-report', 'albayan-upload'],
+    },
+    {
+      id: 'minirag',
+      name: 'Mini-RAG',
+      title: 'AI legal assistant for Qatari law',
+      meta: 'In progress',
+      description:
+        'RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next.',
+      tags: ['FastAPI', 'LangChain', 'MongoDB', 'Docker'],
+      status: 'In progress',
+      repo: repos.minirag,
+      media: ['minirag-pipeline', 'minirag-api', 'minirag-code'],
     },
   ] satisfies LlmProject[],
 };

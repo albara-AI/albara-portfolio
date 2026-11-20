@@ -18,7 +18,7 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Skills line: "I work with" + typewriter cycling: LLMs, RAG pipelines, LLM evaluation, Prompt engineering, LangChain, Arabic NLP, Hugging Face Transformers, PyTorch, FastAPI, PostgreSQL, Docker
 - Facts: `Doha` Based in | `Arabic · English` Languages | `2026` Graduated
 
-## LLM projects (carousel, one card each, in this order)
+## LLM projects (carousel, one card each, in this order — Mini-RAG last while it's in progress)
 
 ### 01 FlyRank Capstone — Backend AI Engineering Intern (Jul 2026 – Nov 2026)
 - Title: Multi-tenant AI platform
@@ -29,20 +29,20 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Extra (from CV): 83-message Arabic evaluation set and harness to benchmark LLM providers. (No accuracy number on the site.)
 - Repo: https://github.com/albara-AI/flyrank-capstone-widget-platform (public)
 
-### 02 Mini-RAG — AI legal assistant for Qatari law (in progress)
-- Description: "RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next."
-- Tags: FastAPI · LangChain · MongoDB · Docker
-- Status badge: In progress
-- Media: `photo/projects/minirag-pipeline.png` (generated from repo structure)
-- Repo: https://github.com/albara-AI/Mini-rag
-
-### 03 AL-BAYAN# — Legal document intelligence (graduation project, 2026)
+### 02 AL-BAYAN# — Legal document intelligence (graduation project, 2026)
 - Description: "End-to-end pipeline: scrapes Official Gazette PDFs, extracts Arabic text with OCR, and classifies documents across 17 legal sectors with a 3-model transformer ensemble."
 - Key metric: Macro-F1 0.769 vs 0.558 TF-IDF baseline (+38%)
 - Tags: PyTorch · Transformers · RAG · OCR
 - Extra (from README): Focal Loss, Hard Negative Mining, per-label thresholds; tag generation with AraT5 + InfoNCE bi-encoder + RAG fallback. Presented at Hashemite University Scientific Day (June 2026), five-member team.
 - Media: frames/clips from `photo/videos/albayan.mp4` + `photo/projects/albayan-results-1.png`, `albayan-results-2.png`, `albayan-pipeline.png`
 - Repo: https://github.com/albara-AI/arabic-legal-classifier (README copy in `reference/README-albayan.md`)
+
+### 03 Mini-RAG — AI legal assistant for Qatari law (in progress)
+- Description: "RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next."
+- Tags: FastAPI · LangChain · MongoDB · Docker
+- Status badge: In progress
+- Media: `photo/projects/minirag-pipeline.png` (generated from repo structure)
+- Repo: https://github.com/albara-AI/Mini-rag
 
 ## Data & ML projects (carousel, in this order)
 For each: text from the CV ("Additional projects") or the repo README; numbers only from those. AlexNet was removed (not in the CV; README accuracy ~12%).

@@ -49,7 +49,7 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 
 ### 3. LLM projects — coverflow carousel (heart of the site)
 - Normal section height (no sticky stage). Vertical page scroll never moves the carousel.
-- **One card per project**, in order: FlyRank Capstone → Mini-RAG → AL-BAYAN#. Card = cover image (`cover` in content.ts, else the first media) + serif title + one-line subtitle + index; Mini-RAG shows the "In progress" badge on its card.
+- **One card per project**, in order: FlyRank Capstone → AL-BAYAN# → Mini-RAG (Mini-RAG last while in progress). Card = cover image (`cover` in content.ts, else the first media) + serif title + one-line subtitle + index; Mini-RAG shows the "In progress" badge on its card.
 - Horizontal carousel built on native scroll + scroll-snap: drag/swipe, trackpad sideways scroll, ← → buttons with a `01 / 03` counter, keyboard ← → / Home / End. Snaps each card to the centre.
 - Light 3D (coverflow): the centred card full size; side cards slightly smaller (~0.86), turned (~24°) and a little faded; follows the scroll smoothly.
 - Clicking a card opens the **details panel** (below).
