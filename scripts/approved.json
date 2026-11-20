@@ -1,0 +1,164 @@
+{
+  "_note": "Everything here was approved by Albara from the contact sheets (sensitive-data rule). Only items listed here are exported to public/media. Frames are re-grabbed from the video by timestamp, so they don't depend on .work/.",
+  "frames": [
+    {
+      "id": "albayan-landing",
+      "project": "albayan",
+      "video": "albayan",
+      "sheet": 1,
+      "time": 0.0
+    },
+    {
+      "id": "albayan-upload",
+      "project": "albayan",
+      "video": "albayan",
+      "sheet": 14,
+      "time": 36.978
+    },
+    {
+      "id": "albayan-uploading",
+      "project": "albayan",
+      "video": "albayan",
+      "sheet": 16,
+      "time": 42.23
+    },
+    {
+      "id": "albayan-report",
+      "project": "albayan",
+      "video": "albayan",
+      "sheet": 17,
+      "time": 46.23
+    },
+    {
+      "id": "flyrank-overview",
+      "project": "flyrank",
+      "video": "flyrank",
+      "sheet": 55,
+      "time": 205.241
+    },
+    {
+      "id": "flyrank-builder",
+      "project": "flyrank",
+      "video": "flyrank",
+      "sheet": 12,
+      "time": 39.732
+    },
+    {
+      "id": "flyrank-theme",
+      "project": "flyrank",
+      "video": "flyrank",
+      "sheet": 16,
+      "time": 62.144
+    },
+    {
+      "id": "flyrank-demo-site",
+      "project": "flyrank",
+      "video": "flyrank",
+      "sheet": 35,
+      "time": 130.863
+    },
+    {
+      "id": "flyrank-companies",
+      "project": "flyrank",
+      "video": "flyrank",
+      "sheet": 4,
+      "time": 10.929
+    }
+  ],
+  "loops": [
+    {
+      "id": "flyrank-loop",
+      "project": "flyrank",
+      "video": "flyrank",
+      "segments": [
+        [
+          62,
+          74
+        ]
+      ],
+      "posterTime": 62.144
+    }
+  ],
+  "pendingLoops": [
+    {
+      "id": "albayan-loop",
+      "project": "albayan",
+      "video": "albayan",
+      "segments": [
+        [
+          34.0,
+          37.4
+        ],
+        [
+          40.4,
+          46.0
+        ]
+      ],
+      "posterTime": 34.0,
+      "_why": "Approved range 34–46s contains the file-picker dialog (37.5–40.3s). This candidate skips it — waiting for approval."
+    }
+  ],
+  "stills": [
+    {
+      "id": "about-portrait",
+      "project": "about",
+      "src": "photo/about/me-1.jpg"
+    },
+    {
+      "id": "moment-1",
+      "project": "moments",
+      "src": "photo/about/me-2.jpg"
+    },
+    {
+      "id": "moment-2",
+      "project": "moments",
+      "src": "photo/about/me-3.jpg"
+    },
+    {
+      "id": "moment-3",
+      "project": "moments",
+      "src": "photo/about/me-4.jpg"
+    },
+    {
+      "id": "moment-4",
+      "project": "moments",
+      "src": "photo/about/me-5.jpg"
+    },
+    {
+      "id": "albayan-pipeline",
+      "project": "albayan",
+      "src": "photo/projects/albayan-pipeline.png"
+    },
+    {
+      "id": "albayan-results-1",
+      "project": "albayan",
+      "src": "photo/projects/albayan-results-1.png"
+    },
+    {
+      "id": "albayan-results-2",
+      "project": "albayan",
+      "src": "photo/projects/albayan-results-2.png"
+    },
+    {
+      "id": "minirag-pipeline",
+      "project": "minirag",
+      "src": "photo/projects/minirag-pipeline.png"
+    },
+    {
+      "id": "powerbi-report",
+      "project": "powerbi",
+      "src": "photo/projects/powerbi-1.png",
+      "_crop": "current file (970×556) has no Power BI toolbar/page list, so no crop. Re-add a crop if the file is replaced with a full-window screenshot."
+    },
+    {
+      "id": "fashion-pipeline",
+      "project": "fashion-mnist",
+      "src": "photo/projects/ssl_fashion_mnist_best/Screenshot from 2026-07-28 15-05-13-Picsart-AiImageEnhancer.png"
+    },
+    {
+      "id": "fashion-confusion",
+      "project": "fashion-mnist",
+      "src": "photo/projects/ssl_fashion_mnist_best/plots/05_confusion_matrix.png"
+    }
+  ]
+}
