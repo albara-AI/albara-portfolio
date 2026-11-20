@@ -1,0 +1,151 @@
+/* Shared pieces: screen-reader text, section heads, tags, badge, buttons,
+   media cards, mobile menu, no-JS fallback. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.section-head h2 {
+  margin-top: 22px;
+  font-size: clamp(40px, 5vw, 76px);
+  line-height: 1;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.tags li {
+  padding: 6px 12px;
+  border: 1px solid rgb(26 26 46 / 0.25);
+  border-radius: 999px;
+  font-size: 10.5px;
+}
+
+/* ---------- "In progress" badge ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 10.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- Buttons (Contact) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px; /* comfortable tap target */
+  padding: 14px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 15px;
+  line-height: 1.2;
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: rgb(26 26 46 / 0.3);
+}
+.btn--ghost:hover {
+  border-color: var(--ink);
+}
+
+/* Text link with an accent underline (View code, hero links) */
+.project__code,
+.hero__links a,
+.menu__extra a {
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--accent-ink);
+  color: var(--ink);
+}
+
+/* ---------- Media card (LLM projects) ---------- */
+.mcard {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--paper-2);
+  box-shadow: 0 20px 50px -28px rgb(26 26 46 / 0.35);
+}
+.mcard__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mcard .badge {
+  /* bottom-right: the one corner every Mini-RAG image leaves empty, and it
+     stays visible when Phase 5 crops cards to portrait */
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+/* ---------- Mobile menu (sibling of the blended nav bar) ---------- */
+.menu:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 49; /* under the nav bar so the Close button stays clickable */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+  padding: var(--nav-h) var(--gutter);
+  background: var(--paper);
+}
+.menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.menu__links a {
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 1.15;
+}
+.menu__extra {
+  display: flex;
+  gap: 24px;
+}
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+/* ---------- No-JS fallback ---------- */
+.noscript {
+  padding: 20vh var(--gutter);
+}
+.noscript h1 {
+  font-size: var(--fs-hero);
+}
+.noscript a {
+  border-bottom: 1px solid var(--accent-ink);
+}
