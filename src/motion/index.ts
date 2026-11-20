@@ -3,16 +3,18 @@
 // keep the static Phase 2 layout.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { heroFlyThrough } from './hero';
 import { fadeUps, headingReveals, portrait } from './reveals';
 import { initAnchors, initProgress, initSmoothScroll } from './scroll';
 
 export function initMotion(): void {
   gsap.registerPlugin(ScrollTrigger);
-  document.documentElement.classList.add('has-motion');
+  document.documentElement.classList.add('has-motion'); // already set by main.ts; harmless
 
   const lenis = initSmoothScroll();
   initAnchors(lenis);
   initProgress();
+  heroFlyThrough();
   headingReveals();
   fadeUps();
   portrait();
