@@ -349,6 +349,7 @@
 .pcard__media {
   position: relative;
   display: block;
+  overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--paper);
 }
@@ -356,6 +357,10 @@
   aspect-ratio: 16 / 10;
 }
 .pcard__media img {
+  /* absolutely placed, so an image of a different shape can't stretch the
+     frame — every card's image area keeps the same proportions */
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -632,7 +637,7 @@ html.modal-open body {
 
 
   .carousel--cover {
-    --cw: 78vw;
+    --cw: 70vw; /* leaves a sliver of the neighbours visible: "you can swipe" */
   }
   .carousel--flat {
     --cw: 70vw;
