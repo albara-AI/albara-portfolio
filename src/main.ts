@@ -9,49 +9,33 @@ import '@fontsource/jetbrains-mono/latin-500.css';
 
 import './styles/tokens.css';
 import './styles/base.css';
+import './styles/components.css';
 import './styles/sections.css';
 
-import { identity, nav, sections } from './content';
+import { bindContact, renderContact } from './sections/contact';
+import { renderAbout } from './sections/about';
+import { renderData } from './sections/data';
+import { renderHero } from './sections/hero';
+import { renderMoments } from './sections/moments';
+import { bindNav, renderNav } from './sections/nav';
+import { renderWork } from './sections/work';
 
-function el<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  className: string,
-  text: string,
-): HTMLElementTagNameMap[K] {
-  const node = document.createElement(tag);
-  node.className = className;
-  node.textContent = text;
-  return node;
-}
+const fill = (id: string, html: string) => {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+};
 
-function renderNav(): void {
-  const name = document.querySelector<HTMLAnchorElement>('[data-nav-name]');
-  const links = document.querySelector<HTMLElement>('[data-nav-links]');
-  if (name) name.textContent = `${identity.firstName} ${identity.lastName}`;
-  if (links) {
-    links.replaceChildren(
-      ...nav.map(({ label, href }) => {
-        const a = el('a', '', label);
-        a.href = href;
-        return a;
-      }),
-    );
-  }
-}
+fill('nav-root', renderNav());
+fill('top', renderHero());
+fill('about', renderAbout());
+fill('work', renderWork());
+fill('data', renderData());
+fill('moments', renderMoments());
+fill('contact', renderContact());
 
-// Phase 0: each shell shows its label + name so the 6 sections are easy to see.
-function renderShells(): void {
-  for (const { id, label } of sections) {
-    const section = document.getElementById(id);
-    if (!section) continue;
-    const name = label.split('—').pop()?.trim() ?? label;
-    section.replaceChildren(
-      el('div', 'label mono', label),
-      el('h2', 'shell__name', name),
-      el('p', 'shell__note mono', `#${id} — empty shell`),
-    );
-  }
-}
+bindNav(document);
+bindContact(document);
 
-renderNav();
-renderShells();
+// Phase 2 renders with JS, so the browser's own jump to #hash on load
+// happens before the content exists — redo it once the sections are filled.
+if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();

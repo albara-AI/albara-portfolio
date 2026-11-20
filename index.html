@@ -11,21 +11,30 @@
   <body>
     <a class="skip-link mono" href="#about">Skip to content</a>
     <div class="progress" aria-hidden="true"></div>
-
-    <header class="nav mono">
-      <a class="nav__name" href="#top" data-nav-name></a>
-      <nav class="nav__links" aria-label="Sections" data-nav-links></nav>
-    </header>
+    <div id="nav-root"></div>
 
     <main>
-      <!-- Phase 0: empty shells. Each section is filled in Phase 2 (layout) and animated in Phases 3–6. -->
-      <section class="section section--hero" id="top" data-section></section>
-      <section class="section section--about" id="about" data-section></section>
-      <section class="section section--work" id="work" data-section></section>
-      <section class="section section--data" id="data" data-section></section>
-      <section class="section section--moments" id="moments" data-section></section>
-      <section class="section section--contact" id="contact" data-section></section>
+      <!-- Filled from src/content.ts by src/sections/*.ts -->
+      <section class="section hero" id="top" aria-label="Introduction"></section>
+      <section class="section about" id="about" aria-label="About"></section>
+      <section class="section work" id="work" aria-label="LLM projects"></section>
+      <section class="section data" id="data" aria-label="Data and ML projects"></section>
+      <section class="section moments" id="moments" aria-label="Moments"></section>
+      <section class="section contact" id="contact" aria-label="Contact"></section>
     </main>
+
+    <noscript>
+      <div class="noscript">
+        <h1>Albara Aljaber</h1>
+        <p>AI Engineer — LLMs · RAG · Arabic NLP · Doha, Qatar</p>
+        <p>
+          <a href="/cv/Albara_Aljaber_CV.pdf" download>Download CV</a> ·
+          <a href="https://github.com/albara-AI">GitHub</a> ·
+          <a href="https://linkedin.com/in/albara-aljaber">LinkedIn</a> ·
+          <a href="mailto:albaraaljaberwork@gmail.com">albaraaljaberwork@gmail.com</a>
+        </p>
+      </div>
+    </noscript>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
