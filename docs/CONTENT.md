@@ -5,16 +5,18 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 ## Identity
 - Name: Albara Aljaber
 - Role line: AI Engineer — LLMs · RAG · Arabic NLP
-- Hero sentence: "AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them."
-- Intro (hero bottom-left): "Portfolio — 2026" / "I build AI systems — from raw data to production backends."
+- Hero (first screen, text only): label "Portfolio · 2026" · name "Albara / *Aljaber*" · role line (above) · sentence "I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them." · buttons "Download CV" (primary), "GitHub" (ghost) · bottom-left "Doha, Qatar" · bottom-right "Scroll ↓"
 - Hero photos (fly-through, in this order): `photo/about/me-2`, `me-3`, `me-4`, `me-5` — personal/event photos only, no project screenshots. Alt text: me-2/me-3 "Albara at the World Investment Forum 2026 in Doha", me-4 "Albara's World Investment Forum 2026 badge, UNCTAD", me-5 "Event screen at the World Investment Forum 2026, Doha".
 - Location: Doha, Qatar
 
 ## About
-- Heading: "Engineer by training, *builder* by habit."
-- P1: "Data Science & AI graduate from the Hashemite University, based in Doha. I build end-to-end AI systems — from data ingestion and OCR to fine-tuned transformers, RAG pipelines and production-style FastAPI backends."
-- P2: "I care about the parts most demos skip: evaluation, cost control, safety and tests."
-- Facts: `0.769` Macro-F1 · AL-BAYAN# | `185` Tests · FlyRank | `Doha` Based in
+(About Albara the person — not the projects.)
+- Heading: "Curious by nature, *engineer* by choice."
+- P1: "I'm Albara — a Data Science & AI graduate from the Hashemite University in Jordan, now based in Doha."
+- P2: "Outside of code, I lead a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events."
+- P3: "I like starting from a messy problem and staying with it until it's actually useful to someone. Every day I learn something new 🌱"
+- Skills line: "I work with" + typewriter cycling: LLMs, RAG pipelines, LLM evaluation, Prompt engineering, LangChain, Arabic NLP, Hugging Face Transformers, PyTorch, FastAPI, PostgreSQL, Docker
+- Facts: `Doha` Based in | `Arabic · English` Languages | `2026` Graduated
 
 ## LLM projects (ring, in this order)
 

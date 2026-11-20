@@ -35,13 +35,16 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 ### 1. Hero — fly-through
 - Sticky full-screen stage, section height ~340vh, `perspective: 900px`.
 - Only Albara's personal/event photos: `photo/about/me-2 … me-5` (4 photos). **No project screenshots in the hero.** `me-1` is the About portrait only.
-- Few and large: the photos pass the camera **slowly, one by one** — each starts deep in z, travels toward the camera, and fades as it passes before the next one takes over (at most a brief overlap). Alternate them left/right of centre so the middle stays mostly clear.
-- After the last photo has passed, the name fades/scales in: "Albara / *Aljaber*" + one-line role.
-- Start state: small intro bottom-left ("Portfolio — 2026" + one sentence) and a "Scroll" hint bottom-right; both fade out in the first 12%.
-- Mobile: same 4 photos, smaller. Reduced motion: static hero — name plus the photos placed around it, no movement.
+- **On load (no scroll): text only, no photos.** Centred-left: mono label "Portfolio · 2026", name "Albara / *Aljaber*" (Aljaber italic, `--accent-ink`), role line, one sentence, buttons Download CV (primary) + GitHub (ghost). Bottom-left "Doha, Qatar", bottom-right "Scroll ↓" (mono).
+- 0–15% scroll: all of that text fades out and lifts slightly.
+- 15–90%: few and large, the photos pass the camera **slowly, one by one** — each starts deep in z, travels toward the camera, and fades as it passes before the next one takes over (at most a brief overlap). Alternate them left/right of centre.
+- End: the stage empties and the page flows into About. The name is **not** shown again.
+- Mobile: same 4 photos, smaller. Reduced motion: text screen on top, the photos in a row below (2 columns on phones), no movement.
 
 ### 2. About — split screen
-- Left: label, big serif heading (word reveal), 2 short paragraphs, 3 metric facts (big serif number + mono label).
+- About Albara the person, not the projects.
+- Left: label, big serif heading (word reveal), 3 short paragraphs, a skills line, 3 facts (big serif value + mono label).
+- Skills line: "I work with" + a typewriter that types a skill, pauses ~1.5s, deletes it, types the next, looping (list in CONTENT.md). The rotating word is `--accent-ink` with a blinking cursor; the line has a fixed height so nothing shifts (on phones the word gets its own line). Pauses off-screen. Reduced motion: a static comma-separated list.
 - Right: tall portrait (`photo/about/me-1`) with clip-path opening on scroll (`inset(12% 8%)` → `inset(0)`) and slow parallax inside.
 
 ### 3. LLM projects — the ring (heart of the site)
