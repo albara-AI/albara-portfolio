@@ -42,7 +42,13 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 
 ## Data & ML projects (grid, in this order)
 For each: read the repo README; take title, one-line description, and the main result number from it. If the link is TODO, ask Albara.
-1. Power BI Dashboard — media: `photo/projects/powerbi-*.png`. Text: TODO — ask Albara for the dataset and what the dashboard shows.
+1. Power BI — Olist E-commerce Sales Dashboard
+   - Title: Olist E-commerce Sales Dashboard
+   - Data: Kaggle Olist Brazilian e-commerce data (9 tables).
+   - Pipeline: discovery → cleaning → transformation → integration; remodeled 9 tables into a star schema (1 fact + 5 dimension tables).
+   - Report: interactive Power BI report with KPIs: Sales 19.26M, Profit 3.41M, Cost 15.84M, Quantity 112.65K; filters by date, seller, order status and state.
+   - Tags: Power BI · DAX · Star schema · Data cleaning
+   - Media: `photo/projects/powerbi-1.png`
 2. IMDb Top-250 Warehouse — "Selenium scraper feeding a star-schema data warehouse." Repo: TODO
 3. CO₂ & Loan-Approval Models — "Predictive models validated with 10-fold cross-validation." Repo: TODO
 4. AlexNet Image Classifier — "TensorFlow image classifier across 1,000+ classes." Repo: TODO
