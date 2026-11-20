@@ -3,14 +3,14 @@
 // the rest of CONTENT.md is added in Phase 2.
 
 export const meta = {
-  title: 'Albara Aljaber — AI Engineer (LLMs · RAG · NLP)',
+  title: 'Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)',
   description: 'AI Engineer in Doha building end-to-end LLM, RAG and NLP systems.',
 } as const;
 
 export const identity = {
   firstName: 'Albara',
   lastName: 'Aljaber',
-  role: 'AI Engineer — LLMs · RAG · NLP',
+  role: 'AI Engineer — LLMs · RAG · Arabic NLP',
   location: 'Doha, Qatar',
 } as const;
 
@@ -48,7 +48,6 @@ export const repos = {
   albayan: 'https://github.com/albara-AI/arabic-legal-classifier',
   imdb: 'https://github.com/albara-AI/imdb-top250-scraper',
   co2Loan: 'https://github.com/albara-AI/ml-co2-loan-analysis',
-  alexnet: 'https://github.com/albara-AI/image-classifier-alexnet',
   fashionMnist: 'https://github.com/albara-AI/fashion-mnist-ssl',
 } as const;
 
