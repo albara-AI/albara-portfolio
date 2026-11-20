@@ -75,10 +75,16 @@ If a project has no image → designed card (metric / pipeline / code) per DESIG
 - GitHub: https://github.com/albara-AI
 - Footer: © 2026 Albara Aljaber · Doha, Qatar
 
+## 404 page
+- Label: Error 404
+- Heading: "This page *doesn’t exist*."
+- Text: "The link may be old or mistyped."
+- Button: "Back to the portfolio" → `/`
+
 ## Meta / SEO
 - Title: Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)
 - Description: AI Engineer in Doha building end-to-end LLM, RAG and NLP systems.
-- OG image: generate 1200×630 in site style (name + role on `--paper`).
+- OG image: generate 1200×630 in site style (name + role on `--paper`) → `public/og.png`, made by `npm run brand` (also makes the favicons).
 
 ## Education & Certifications (data only — not on the site yet, see ROADMAP → Future)
 From the CV. Lives in `education` / `certificates` in `src/content.ts`.

@@ -1,0 +1,18 @@
+/* 404 page — one screen, content near the bottom-left like the hero text */
+.notfound {
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--gutter);
+  padding-bottom: clamp(48px, 12vh, 140px);
+  border-top: 3px solid var(--accent);
+}
+.notfound h1 {
+  margin: 20px 0 16px;
+  font-size: clamp(48px, 9vw, 120px);
+  line-height: 0.95;
+}
+.notfound__text {
+  margin-bottom: 32px;
+  color: var(--ink-2);
+}

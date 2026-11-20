@@ -29,6 +29,7 @@ const motion = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Switch the CSS to the motion layout *before* anything renders (tall hero,
 // hidden photos and name), so there's no flash of the static layout while
 // the chunk loads, and #hash jumps below use the final page height.
+// (index.html already does this in <head> for the prerendered hero.)
 if (motion) document.documentElement.classList.add('has-motion');
 
 const fill = (id: string, html: string) => {
@@ -37,7 +38,9 @@ const fill = (id: string, html: string) => {
 };
 
 fill('nav-root', renderNav());
-fill('top', renderHero());
+// The production build already has the hero in index.html (vite.config.ts →
+// prerenderHero); re-rendering it would only repaint the name later.
+if (!document.getElementById('top')?.childElementCount) fill('top', renderHero());
 fill('about', renderAbout());
 fill('work', renderWork());
 fill('data', renderData());
@@ -54,7 +57,13 @@ initDetails();
 // happens before the content exists — redo it once the sections are filled.
 if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
 
-if (motion) import('./motion').then((m) => m.initMotion());
+// The motion code (GSAP, Lenis — the biggest file) is fetched only after the
+// first screen has painted, so it never competes with the name for bandwidth.
+// The page is fully readable and usable before it arrives.
+if (motion) {
+  const loadMotion = () => import('./motion').then((m) => m.initMotion());
+  requestAnimationFrame(() => setTimeout(loadMotion, 0));
+}
 
 // Dev only: point out content mistakes clearly in the console.
 if (import.meta.env.DEV) import('./lib/check-content').then((m) => m.checkContent());

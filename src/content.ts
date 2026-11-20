@@ -268,6 +268,14 @@ export const contactSection = {
   copied: 'Copied',
 } as const;
 
+// ---------- 404 page (404.html) ----------
+export const notFound = {
+  label: 'Error 404',
+  heading: 'This page *doesn’t exist*.',
+  text: 'The link may be old or mistyped.',
+  back: 'Back to the portfolio',
+} as const;
+
 // ---------- Certificates (data only — not on the site yet; see ROADMAP → Future) ----------
 // From the CV (photo/cv). verifyUrl: TODO — Albara to send the AI-901 credential link.
 export interface Certificate {
