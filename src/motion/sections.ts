@@ -56,9 +56,13 @@ export function keepFocusInView(lenis: Lenis): void {
     const el = e.target;
     if (!(el instanceof HTMLElement) || el.closest('dialog, .nav, #menu, .skip-link')) return;
     const section = el.closest<HTMLElement>('.section');
-    if (!section) return;
+    // A whole section gets focus after a nav/anchor jump, which already put it
+    // exactly where it belongs (e.g. the logo → scrollY 0): never move it.
+    if (!section || el === section) return;
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight;
+    // Test points below the fixed nav bar — the bar itself isn't "covering".
+    const navH = document.querySelector<HTMLElement>('.nav')?.offsetHeight ?? 0;
     // Still see-through = its entrance hasn't played yet (needs scrolling to).
     let faded = false;
     for (let n: HTMLElement | null = el; n && n !== section; n = n.parentElement) {
@@ -66,7 +70,7 @@ export function keepFocusInView(lenis: Lenis): void {
     }
     if (!faded && r.bottom > 0 && r.top < vh) {
       const x = Math.min(Math.max(r.left + r.width / 2, 0), window.innerWidth - 1);
-      const y = Math.min(Math.max(r.top + Math.min(r.height / 2, 24), 0), vh - 1);
+      const y = Math.min(Math.max(r.top + Math.min(r.height / 2, 24), navH), vh - 1);
       const hit = document.elementFromPoint(x, y);
       if (hit && (hit === el || el.contains(hit))) return; // visible — nothing to do
     }
