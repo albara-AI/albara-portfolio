@@ -111,6 +111,7 @@ export const work = {
   label: '02 — LLM projects',
   heading: 'LLM *projects*',
   viewCode: 'View code',
+  ringHint: 'Scroll to rotate', // from the approved prototype
   projects: [
     {
       id: 'flyrank',
