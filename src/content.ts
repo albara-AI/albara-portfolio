@@ -1,6 +1,6 @@
-// All site text lives here and comes from docs/CONTENT.md.
-// Phase 0 only needs identity, meta, nav and section labels;
-// the rest of CONTENT.md is added in Phase 2.
+// All site text lives here and comes from docs/CONTENT.md (or, for section
+// names, docs/DESIGN.md). Never add claims or numbers that aren't there.
+// `*word*` in a heading marks the one italic accent word (DESIGN.md → Type).
 
 export const meta = {
   title: 'Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)',
@@ -16,22 +16,6 @@ export const identity = {
 
 export type SectionId = 'top' | 'about' | 'work' | 'data' | 'moments' | 'contact';
 
-export interface SectionShell {
-  id: SectionId;
-  /** Mono label, e.g. "01 — About". Hero has no number. */
-  label: string;
-}
-
-// Section order and names follow docs/DESIGN.md → "Sections (in order)".
-export const sections: SectionShell[] = [
-  { id: 'top', label: 'Hero' },
-  { id: 'about', label: '01 — About' },
-  { id: 'work', label: '02 — LLM projects' },
-  { id: 'data', label: '03 — Data & ML' },
-  { id: 'moments', label: '04 — Moments' },
-  { id: 'contact', label: '05 — Contact' },
-];
-
 // Nav labels from docs/DESIGN.md → "Nav".
 export const nav: { label: string; href: `#${SectionId}` }[] = [
   { label: 'About', href: '#about' },
@@ -41,7 +25,6 @@ export const nav: { label: string; href: `#${SectionId}` }[] = [
 ];
 
 // Repos — found on https://github.com/albara-AI (Phase 1). All public.
-// Project text/numbers still come only from these READMEs or the CV.
 export const repos = {
   flyrank: 'https://github.com/albara-AI/flyrank-capstone-widget-platform',
   minirag: 'https://github.com/albara-AI/Mini-rag',
@@ -54,9 +37,211 @@ export const repos = {
 // Contact — number and English message confirmed by Albara (Phase 1).
 const waMessage = 'Hi Albara, I came across your portfolio and would like to talk.';
 export const contact = {
+  heading: "Let's build something *intelligent*.",
   email: 'albaraaljaberwork@gmail.com',
   whatsapp: `https://wa.me/97431066519?text=${encodeURIComponent(waMessage)}`,
   linkedin: 'https://linkedin.com/in/albara-aljaber',
   github: 'https://github.com/albara-AI',
   cv: '/cv/Albara_Aljaber_CV.pdf',
+  cvFilename: 'Albara_Aljaber_CV.pdf',
+  footer: '© 2026 Albara Aljaber · Doha, Qatar',
 } as const;
+
+// ---------- 1. Hero ----------
+export const hero = {
+  intro: { label: 'Portfolio — 2026', text: 'I build AI systems — from raw data to production backends.' },
+  sentence: 'AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them.',
+  scrollHint: 'Scroll',
+  // Static collage (Phase 2). Phase 4 replaces it with the fly-through.
+  media: ['albayan-landing', 'flyrank-overview', 'albayan-results-1', 'powerbi-report', 'flyrank-builder', 'fashion-pipeline'],
+} as const;
+
+// ---------- 2. About ----------
+export const about = {
+  label: '01 — About',
+  heading: 'Engineer by training, *builder* by habit.',
+  paragraphs: [
+    'Data Science & AI graduate from the Hashemite University, based in Doha. I build end-to-end AI systems — from data ingestion and OCR to fine-tuned transformers, RAG pipelines and production-style FastAPI backends.',
+    'I care about the parts most demos skip: evaluation, cost control, safety and tests.',
+  ],
+  facts: [
+    { value: '0.769', label: 'Macro-F1 · AL-BAYAN#' },
+    { value: '185', label: 'Tests · FlyRank' },
+    { value: 'Doha', label: 'Based in' },
+  ],
+  portrait: 'about-portrait',
+} as const;
+
+// ---------- 3. LLM projects (ring order) ----------
+export interface LlmProject {
+  id: string;
+  name: string;
+  title: string;
+  meta: string;
+  description: string;
+  metric?: string;
+  extra?: string;
+  tags: string[];
+  status?: 'In progress';
+  repo?: string;
+  /** asset ids from public/media/assets.json, in ring order */
+  media: string[];
+}
+
+export const work = {
+  label: '02 — LLM projects',
+  heading: 'LLM *projects*',
+  viewCode: 'View code',
+  projects: [
+    {
+      id: 'flyrank',
+      name: 'FlyRank Capstone',
+      title: 'Multi-tenant AI platform',
+      meta: 'Backend AI Engineering Intern · Jul 2026 – Nov 2026',
+      description:
+        'Embeddable lead-capture platform with an LLM layer: Gemini → Groq → rule-engine fallback chain, PII redaction before every LLM call, per-call cost attribution and daily quotas.',
+      metric: '185 automated tests on real PostgreSQL',
+      extra: '83-message Arabic evaluation set and harness to benchmark LLM providers.',
+      tags: ['FastAPI', 'PostgreSQL', 'LLMs', 'Docker'],
+      repo: repos.flyrank,
+      media: ['flyrank-pipeline', 'flyrank-overview', 'flyrank-quality', 'flyrank-builder'],
+    },
+    {
+      id: 'minirag',
+      name: 'Mini-RAG',
+      title: 'AI legal assistant for Qatari law',
+      meta: 'In progress',
+      description:
+        'RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next.',
+      tags: ['FastAPI', 'LangChain', 'MongoDB', 'Docker'],
+      status: 'In progress',
+      repo: repos.minirag,
+      media: ['minirag-pipeline', 'minirag-api', 'minirag-code'],
+    },
+    {
+      id: 'albayan',
+      name: 'AL-BAYAN#',
+      title: 'Legal document intelligence',
+      meta: 'Graduation project · 2026',
+      description:
+        'End-to-end pipeline: scrapes Official Gazette PDFs, extracts Arabic text with OCR, and classifies documents across 17 legal sectors with a 3-model transformer ensemble.',
+      metric: 'Macro-F1 0.769 vs 0.558 TF-IDF baseline (+38%)',
+      extra:
+        'Focal Loss, Hard Negative Mining, per-label thresholds; tag generation with AraT5 + InfoNCE bi-encoder + RAG fallback. Presented at Hashemite University Scientific Day (June 2026), five-member team.',
+      tags: ['PyTorch', 'Transformers', 'RAG', 'OCR'],
+      repo: repos.albayan,
+      media: ['albayan-loop', 'albayan-results-1', 'albayan-pipeline', 'albayan-results-2'],
+    },
+  ] satisfies LlmProject[],
+};
+
+// ---------- 4. Data & ML (2×2 grid, in this order) ----------
+export interface DataProject {
+  id: string;
+  title: string;
+  line: string;
+  detail?: string;
+  metric?: string;
+  tags: string[];
+  repo?: string;
+  media: string;
+}
+
+export const data = {
+  label: '03 — Data & ML',
+  heading: 'Data & *ML*',
+  projects: [
+    {
+      id: 'powerbi',
+      title: 'Olist E-commerce Sales Dashboard',
+      line: 'Kaggle Olist Brazilian e-commerce data (9 tables).',
+      detail:
+        'Pipeline: discovery → cleaning → transformation → integration; remodeled 9 tables into a star schema (1 fact + 5 dimension tables). Interactive Power BI report with KPI cards for sales, profit, cost and quantity; filters by date, seller, order status and state.',
+      tags: ['Power BI', 'DAX', 'Star schema', 'Data cleaning'],
+      media: 'powerbi-report',
+    },
+    {
+      id: 'fashion-mnist',
+      title: 'Semi-supervised Fashion-MNIST Classifier',
+      line: 'Semi-supervised Fashion-MNIST classifier (TensorFlow, 83.66% test accuracy with 960 labels).',
+      metric: '83.66% test accuracy with 960 labels',
+      tags: ['TensorFlow', 'Autoencoder', 'Pseudo-labeling'],
+      repo: repos.fashionMnist,
+      media: 'fashion-pipeline',
+    },
+    {
+      id: 'imdb',
+      title: 'IMDb Top-250 Scraper',
+      line: 'IMDb Top-250 scraper (Selenium, BeautifulSoup, SQLite).',
+      tags: ['Selenium', 'BeautifulSoup', 'SQLite'],
+      repo: repos.imdb,
+      media: 'imdb-pipeline',
+    },
+    {
+      id: 'co2-loan',
+      title: 'CO₂ & Loan-Approval Models',
+      line: 'Predictive models validated with 10-fold cross-validation.',
+      tags: ['Scikit-learn', 'Regression', 'Classification'],
+      repo: repos.co2Loan,
+      media: 'co2-loan-pipeline',
+    },
+  ] satisfies DataProject[],
+};
+
+// ---------- 5. Moments ----------
+export const moments = {
+  label: '04 — Moments',
+  heading: '*Moments*',
+  photos: [
+    { media: 'moment-1', caption: 'World Investment Forum 2026 · Doha' },
+    { media: 'moment-2', caption: 'World Investment Forum 2026 · Doha' },
+    { media: 'moment-3', caption: 'WIF 2026 · UNCTAD' },
+    { media: 'moment-4', caption: 'WIF 2026 · UNCTAD · Doha · 2026' },
+  ],
+} as const;
+
+// ---------- Contact labels ----------
+export const contactSection = {
+  label: '05 — Contact',
+  buttons: {
+    cv: 'Download CV',
+    whatsapp: 'WhatsApp',
+    email: 'Email',
+    linkedin: 'LinkedIn',
+    github: 'GitHub',
+    copy: 'Copy',
+    copied: 'Copied',
+  },
+} as const;
+
+// ---------- Image alt text (describes what is in each image) ----------
+export const alt: Record<string, string> = {
+  'albayan-landing': 'AL-BAYAN# web app landing page, in Arabic',
+  'albayan-upload': 'AL-BAYAN# document upload screen',
+  'albayan-uploading': 'AL-BAYAN# uploading a legal document',
+  'albayan-report': 'AL-BAYAN# analysis report for an uploaded document',
+  'albayan-loop': 'Screen recording: AL-BAYAN# landing page, upload, and analysis report',
+  'albayan-pipeline': 'AL-BAYAN# pipeline: fetch, OCR, augment, train, ensemble, generate',
+  'albayan-results-1': 'Bar chart: AL-BAYAN# macro-F1 from 0.558 baseline to 0.769 ensemble',
+  'albayan-results-2': 'Bar chart: AL-BAYAN# F1 for the strongest and weakest legal sectors',
+  'flyrank-overview': 'FlyRank platform dashboard overview with daily submissions chart',
+  'flyrank-builder': 'FlyRank widget builder with live preview',
+  'flyrank-theme': 'FlyRank widget builder with a custom-colored signup widget',
+  'flyrank-demo-site': 'FlyRank widget embedded on a demo customer site',
+  'flyrank-companies': 'FlyRank admin console listing demo companies',
+  'flyrank-pipeline': 'FlyRank architecture: submission, validation, geo, transaction, worker, LLM classification',
+  'flyrank-quality': 'FlyRank quality: 185 tests, checks and LLM guardrails',
+  'minirag-pipeline': 'Mini-RAG pipeline: upload, load and chunk built; embed, retrieve and answer next',
+  'minirag-api': 'Mini-RAG API endpoints and stack in the repo today',
+  'minirag-code': 'Mini-RAG code excerpts: streamed upload and text splitter',
+  'powerbi-report': 'Power BI sales summary report on the Olist e-commerce dataset',
+  'fashion-pipeline': 'Fashion-MNIST semi-supervised learning pipeline overview, 83.66% test accuracy',
+  'fashion-confusion': 'Confusion matrix for the Fashion-MNIST classifier',
+  'imdb-pipeline': 'IMDb pipeline: scrape, clean, query',
+  'co2-loan-pipeline': 'CO₂ and loan-approval pipeline: explore, regress, classify',
+  'about-portrait': 'Portrait of Albara Aljaber',
+  'moment-1': 'Albara at the World Investment Forum 2026 in Doha',
+  'moment-2': 'Albara at the World Investment Forum 2026 in Doha',
+  'moment-3': "Albara's World Investment Forum 2026 badge, UNCTAD",
+  'moment-4': 'Event screen at the World Investment Forum 2026, Doha',
+};
