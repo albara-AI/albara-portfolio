@@ -14,7 +14,7 @@ export const identity = {
   location: 'Doha, Qatar',
 } as const;
 
-export type SectionId = 'top' | 'about' | 'work' | 'data' | 'moments' | 'contact';
+export type SectionId = 'top' | 'about' | 'work' | 'data' | 'contact';
 
 // Nav labels from docs/DESIGN.md → "Nav".
 export const nav: { label: string; href: `#${SectionId}` }[] = [
@@ -52,8 +52,9 @@ export const hero = {
   intro: { label: 'Portfolio — 2026', text: 'I build AI systems — from raw data to production backends.' },
   sentence: 'AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them.',
   scrollHint: 'Scroll',
-  // Static collage (Phase 2). Phase 4 replaces it with the fly-through.
-  media: ['albayan-landing', 'flyrank-overview', 'albayan-results-1', 'powerbi-report', 'flyrank-builder', 'fashion-pipeline'],
+  // Albara's event photos (me-2 … me-5), in fly-through order. No project
+  // screenshots in the hero; me-1 is the About portrait only.
+  media: ['hero-1', 'hero-2', 'hero-3', 'hero-4'],
 } as const;
 
 // ---------- 2. About ----------
@@ -188,21 +189,9 @@ export const data = {
   ] satisfies DataProject[],
 };
 
-// ---------- 5. Moments ----------
-export const moments = {
-  label: '04 — Moments',
-  heading: '*Moments*',
-  photos: [
-    { media: 'moment-1', caption: 'World Investment Forum 2026 · Doha' },
-    { media: 'moment-2', caption: 'World Investment Forum 2026 · Doha' },
-    { media: 'moment-3', caption: 'WIF 2026 · UNCTAD' },
-    { media: 'moment-4', caption: 'WIF 2026 · UNCTAD · Doha · 2026' },
-  ],
-} as const;
-
 // ---------- Contact labels ----------
 export const contactSection = {
-  label: '05 — Contact',
+  label: '04 — Contact',
   buttons: {
     cv: 'Download CV',
     whatsapp: 'WhatsApp',
@@ -240,8 +229,8 @@ export const alt: Record<string, string> = {
   'imdb-pipeline': 'IMDb pipeline: scrape, clean, query',
   'co2-loan-pipeline': 'CO₂ and loan-approval pipeline: explore, regress, classify',
   'about-portrait': 'Portrait of Albara Aljaber',
-  'moment-1': 'Albara at the World Investment Forum 2026 in Doha',
-  'moment-2': 'Albara at the World Investment Forum 2026 in Doha',
-  'moment-3': "Albara's World Investment Forum 2026 badge, UNCTAD",
-  'moment-4': 'Event screen at the World Investment Forum 2026, Doha',
+  'hero-1': 'Albara at the World Investment Forum 2026 in Doha',
+  'hero-2': 'Albara at the World Investment Forum 2026 in Doha',
+  'hero-3': "Albara's World Investment Forum 2026 badge, UNCTAD",
+  'hero-4': 'Event screen at the World Investment Forum 2026, Doha',
 };

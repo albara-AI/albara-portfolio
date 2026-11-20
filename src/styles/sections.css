@@ -88,12 +88,10 @@
   width: 100%;
   height: auto;
 }
-.hero__card--1 { left: 5%;  top: 15%; width: 15vw; }
-.hero__card--2 { right: 6%; top: 12%; width: 16vw; }
-.hero__card--3 { right: 9%; top: 58%; width: 13vw; }
-.hero__card--4 { left: 13%; top: 47%; width: 11vw; }
-.hero__card--5 { left: 41%; top: 7%;  width: 9vw; opacity: 0.85; }
-.hero__card--6 { right: 26%; top: 74%; width: 9vw; opacity: 0.85; }
+.hero__card--1 { left: 4%;   top: 14%; width: 15vw; }  /* me-2, portrait */
+.hero__card--2 { right: 5%;  top: 9%;  width: 16vw; }  /* me-3, portrait */
+.hero__card--3 { right: 13%; top: 57%; width: 12vw; }  /* me-4, portrait */
+.hero__card--4 { left: 40%;  top: 76%; width: 18vw; }  /* me-5, landscape — below the sentence */
 
 /* ================= 2. About ================= */
 .about {
@@ -267,51 +265,7 @@
   margin-top: 6px;
 }
 
-/* ================= 5. Moments (dark) ================= */
-.moments {
-  background: var(--ink);
-  color: var(--paper);
-}
-.moments .label {
-  color: rgb(242 240 235 / 0.6);
-}
-.moments h2 em {
-  color: var(--accent); /* accent on dark — contrast-safe here */
-}
-.moments :focus-visible {
-  outline-color: var(--accent);
-}
-.moments__track {
-  display: flex;
-  align-items: flex-end;
-  gap: 3vw;
-  margin: 8vh calc(var(--gutter) * -1) 0;
-  padding: 0 var(--gutter) 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding: 0 var(--gutter);
-  list-style: none;
-  scrollbar-width: thin;
-  scrollbar-color: rgb(242 240 235 / 0.3) transparent;
-}
-.moment {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-.moment:nth-child(odd) {
-  margin-bottom: 6vh;
-}
-.moment img {
-  width: auto;
-  height: clamp(300px, 56vh, 620px);
-  border-radius: 3px;
-}
-.moment figcaption {
-  margin-top: 12px;
-  color: rgb(242 240 235 / 0.6);
-}
-
-/* ================= 6. Contact ================= */
+/* ================= 5. Contact ================= */
 .contact {
   display: flex;
   flex-direction: column;
@@ -373,13 +327,11 @@
     display: none;
   }
   .hero__card--3,
-  .hero__card--4,
-  .hero__card--5,
-  .hero__card--6 {
-    display: none; /* PERFORMANCE.md: fewer cards on mobile */
+  .hero__card--4 {
+    display: none; /* static mobile hero: two photos keep the name clear */
   }
-  .hero__card--1 { left: var(--gutter); top: 11%; width: 38vw; }
-  .hero__card--2 { right: var(--gutter); top: 17%; width: 34vw; }
+  .hero__card--1 { left: var(--gutter); top: 10%; width: 40vw; }
+  .hero__card--2 { right: var(--gutter); top: 15%; width: 36vw; }
   .hero__name {
     align-self: end;
     margin-bottom: 7vh;
@@ -420,15 +372,6 @@
   }
   .dcard__body {
     padding: 22px 22px 26px;
-  }
-
-  .moment img {
-    height: clamp(260px, 52vh, 480px);
-    max-width: 82vw;
-    object-fit: cover;
-  }
-  .moment:nth-child(odd) {
-    margin-bottom: 0;
   }
 
   .contact {

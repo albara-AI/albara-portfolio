@@ -16,7 +16,6 @@ import { bindContact, renderContact } from './sections/contact';
 import { renderAbout } from './sections/about';
 import { renderData } from './sections/data';
 import { renderHero } from './sections/hero';
-import { renderMoments } from './sections/moments';
 import { bindNav, renderNav } from './sections/nav';
 import { renderWork } from './sections/work';
 
@@ -30,7 +29,6 @@ fill('top', renderHero());
 fill('about', renderAbout());
 fill('work', renderWork());
 fill('data', renderData());
-fill('moments', renderMoments());
 fill('contact', renderContact());
 
 bindNav(document);
