@@ -1,6 +1,5 @@
 // Asset pipeline entry point (`npm run assets`).
-// Phase 0: only checks that the tools exist. Phase 1 adds frame
-// extraction, contact sheets and compression steps here.
+// Checks the tools, then runs the pipeline steps in order.
 import { execFileSync } from 'node:child_process';
 
 let ok = true;
@@ -21,5 +20,16 @@ try {
   console.error('✗ sharp not installed. Run: npm install');
 }
 
-console.log(ok ? '\nTools ready. No asset steps yet (added in Phase 1).' : '\nFix the tools above first.');
-process.exit(ok ? 0 : 1);
+if (!ok) {
+  console.log('\nFix the tools above first.');
+  process.exit(1);
+}
+
+// Review step: frames + contact sheets into .work/ (never public).
+// The export step (approved frames → public/media) is added after
+// Albara approves the contact sheets.
+const steps = ['frames.mjs', 'sheets.mjs'];
+for (const s of steps) {
+  console.log(`\n→ ${s}`);
+  execFileSync(process.execPath, [new URL(s, import.meta.url).pathname], { stdio: 'inherit' });
+}
