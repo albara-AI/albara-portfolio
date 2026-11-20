@@ -75,8 +75,10 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 ### 5. Contact
 - Huge serif line: "Let's build something *intelligent*."
 - Buttons (one primary, rest ghost): Download CV · WhatsApp · Email · LinkedIn · GitHub. Details in CONTENT.md.
-- Email shown as text with a Copy button (shows "Copied" for 2s).
+- Email shown as text with a Copy button (shows "Copied" for 2s; a screen-reader status announces it too).
 - Footer: © 2026 Albara Aljaber · Doha, Qatar.
+- Behaviour: Download CV downloads `Albara_Aljaber_CV.pdf` (the `download` attribute, plus a `Content-Disposition: attachment` header in `vercel.json` so it still downloads when opened directly or in in-app browsers that ignore `download`). WhatsApp, LinkedIn and GitHub open in a new tab (`rel="noopener noreferrer"`). Email is a plain `mailto:` link — Copy is there for visitors with no mail app set up.
+- Every tap target is at least 44px tall (buttons 48px, Copy 44px, the address link has an invisible padded hit area).
 
 ## Nav
 Fixed top bar, mono labels: name left; About · Work · Data · Contact right. Links smooth-scroll via Lenis and stop below the bar.

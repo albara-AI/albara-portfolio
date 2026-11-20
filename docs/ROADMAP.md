@@ -33,6 +33,7 @@
 ## Phase 6 — Contact (the Data & ML carousel was built with Phase 5)
 - Contact buttons: CV download, WhatsApp, email + copy, LinkedIn, GitHub.
 - Done when: every button works on desktop and phone (test WhatsApp on a real phone).
+- Status: built and tested at 1440 / 768 / 375 and with reduced motion; WhatsApp, Email (mail app) and the CV download still need a check on Albara's real phone.
 
 ## Phase 7 — Polish
 - PERFORMANCE.md checks, Lighthouse, meta/OG image, favicon, 404, keyboard focus states, alt text for every image.
