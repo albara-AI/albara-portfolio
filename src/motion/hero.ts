@@ -1,14 +1,20 @@
 // Hero fly-through (DESIGN.md §1).
 //
-// The hero is 340vh tall with a sticky 100vh stage, so there are 240vh of
-// scroll while the stage stays put. ScrollTrigger turns that scroll into a
-// progress value p (0 → 1), and render(p) places everything from p alone —
-// scrolling back up simply plays it in reverse.
+// The hero is 272vh tall (4 photos) with a sticky 100vh stage, so there are
+// 172vh of scroll while the stage stays put. After that, About slides up over
+// the hero (src/motion/sections.ts — the hero sinks back, shrinks, darkens).
+// ScrollTrigger turns the scroll from the top until About covers the hero
+// into a progress value p, and render(p) places everything from p alone —
+// scrolling back up simply plays it in reverse. Timings are set in screens
+// of scroll (× viewport height), so they hold for any photo count:
 //
-//   p 0.00–0.15  the text screen (name, role, buttons, corners) fades out
-//                and lifts slightly — no photos are visible yet
-//   p 0.15–0.90  the 4 photos fly past the camera one by one (brief overlaps)
-//   p 0.90–1.00  empty stage, then the page flows on into About
+//   0 → 0.36 screens   the text screen (name, role, buttons, corners) fades
+//                      out and lifts slightly
+//   0.22 → …           the photos fly past the camera one by one — the first
+//                      sets off (tiny, far away) as the text fades (brief
+//                      overlaps); the stage stops being sticky as the last
+//                      one arrives, and About starts rising from the bottom
+//   … → About 45% up   the last photo finishes fading out — no empty screen
 //
 // Photos move only in z (towards the camera); CSS perspective turns that into
 // "growing and drifting outwards". Only transform + opacity change per frame.
@@ -18,10 +24,10 @@ const FAR = -2600; // z where a photo appears (small, far away)
 const NEAR = 560; //  z where it ends (camera is at 900; here a photo is ~2.6× its size)
 const FADE_OUT_FROM = 40; //  starts fading as it passes (~1.05× size)...
 const FADE_OUT_TO = 320; //   ...gone by ~1.6× — no giant washed-out overlay
-const START = 0.15; // first photo appears as the text has gone
-const END = 0.9; //    last photo has passed
+const TEXT_OUT_SCREENS = 0.36; // text fades out over this much scroll
+const PHOTOS_START_SCREENS = 0.22; // first photo sets off while the text is still fading — never an empty screen
+const LAST_GONE_SCREENS = 0.45; // last photo gone when About is this far up the screen
 const OVERLAP = 0.4; // next photo starts when the current one is 60% through
-const TEXT_OUT = 0.15;
 const TEXT_LIFT = 40; // px the text rises while fading
 const Y_PATTERN = [-0.04, 0.05, -0.03, 0.04]; // small vertical offsets (× viewport height)
 
@@ -46,11 +52,13 @@ export function heroFlyThrough(): void {
     return { el, aspect: Number(img.getAttribute('width')) / Number(img.getAttribute('height')), w: 0, h: 0, x: 0, y: 0 };
   });
 
-  // Spread any number of photos evenly over START → END:
-  // n flights of SPAN, each starting STEP = SPAN·(1 − OVERLAP) after the last.
+  const hero = stage.closest<HTMLElement>('.hero')!;
   const n = cards.length;
-  const SPAN = (END - START) / (1 + (n - 1) * (1 - OVERLAP)); // 4 photos → 0.27
-  const STEP = SPAN * (1 - OVERLAP); //                          4 photos → 0.16
+  // Progress marks (0–1 of the trigger), recomputed from real heights on resize.
+  let TEXT_OUT = 0.13;
+  let SPAN = 0.2;
+  let STEP = 0.12;
+  let START = 0.13;
 
   // Sizes depend on the viewport only, so they're measured on load/resize —
   // never inside the scroll handler (PERFORMANCE.md).
@@ -58,6 +66,17 @@ export function heroFlyThrough(): void {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const mobile = vw < 820;
+    // The trigger runs from the hero's top at the top of the screen until its
+    // bottom reaches the top (= About fully over it): hero.offsetHeight of scroll.
+    const total = hero.offsetHeight;
+    const stickyEnd = total - stage.offsetHeight; // About starts rising here
+    TEXT_OUT = (TEXT_OUT_SCREENS * vh) / total;
+    START = (PHOTOS_START_SCREENS * vh) / total;
+    const END = (stickyEnd + LAST_GONE_SCREENS * vh) / total;
+    // Spread any number of photos evenly over START → END:
+    // n flights of SPAN, each starting STEP = SPAN·(1 − OVERLAP) after the last.
+    SPAN = (END - START) / (1 + (n - 1) * (1 - OVERLAP));
+    STEP = SPAN * (1 - OVERLAP);
     cards.forEach((c, i) => {
       const portrait = c.aspect < 1;
       // Size at z = 0: large, but never taller than ~62% of the screen.
@@ -100,7 +119,8 @@ export function heroFlyThrough(): void {
   ScrollTrigger.create({
     trigger: '.hero',
     start: 'top top',
-    end: 'bottom bottom',
+    end: 'bottom top',
+    invalidateOnRefresh: true,
     onUpdate: (self) => render(self.progress),
     onRefresh: (self) => render(self.progress),
   });

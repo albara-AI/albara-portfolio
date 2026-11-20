@@ -84,13 +84,15 @@
 }
 
 /* ---- Fly-through (only when src/motion/hero.ts is running) ----
-   The section is 340vh tall; the stage sticks for the extra 240vh of scroll.
+   The section is 272vh tall; the stage sticks for the extra 172vh of scroll,
+   then About slides up over it (layered, like the other sections).
    The text screen and the photos share the stage; photos are centred at
    z = 0, positioned only by transform (JS) and sized by JS on resize.
    perspective = how strong the 3D depth looks. */
 .has-motion .hero {
-  /* 100vh stage + 60vh of scroll per photo (4 photos → 340vh) */
-  height: calc(100vh + max(4, var(--photos, 4)) * 60vh);
+  /* 100vh stage + 43vh of scroll per photo (4 photos → 272vh); the last
+     photo finishes while About rises over the stage — no empty screen */
+  height: calc(100vh + max(4, var(--photos, 4)) * 43vh);
 }
 .has-motion .hero__stage {
   position: sticky;
@@ -705,6 +707,7 @@ html.modal-open body {
 .has-motion .contact {
   background: var(--paper);
 }
+.has-motion .hero,
 .has-motion .about,
 .has-motion .work,
 .has-motion .data {
@@ -718,6 +721,7 @@ html.modal-open body {
   min-height: 100vh; /* always tall enough to cover the section behind */
   min-height: 100svh;
 }
+.has-motion .about,
 .has-motion .work,
 .has-motion .data,
 .has-motion .contact {

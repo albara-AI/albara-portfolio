@@ -33,12 +33,12 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 ## Sections (in order)
 
 ### 1. Hero — fly-through
-- Sticky full-screen stage, section height ~340vh, `perspective: 900px`.
+- Sticky full-screen stage, section height 100vh + 43vh per photo (~272vh for 4), `perspective: 900px`. Timings are in screens of scroll, so they hold for any photo count.
 - Only Albara's personal/event photos: `photo/about/me-2 … me-5` (4 photos). **No project screenshots in the hero.** `me-1` is the About portrait only.
 - **On load (no scroll): text only, no photos.** Centred-left: mono label "Portfolio · 2026", name "Albara / *Aljaber*" (Aljaber italic, `--accent-ink`), role line, one sentence, buttons Download CV (primary) + GitHub (ghost). Bottom-left "Doha, Qatar", bottom-right "Scroll ↓" (mono).
-- 0–15% scroll: all of that text fades out and lifts slightly.
-- 15–90%: few and large, the photos pass the camera **slowly, one by one** — each starts deep in z, travels toward the camera, and fades as it passes before the next one takes over (at most a brief overlap). Alternate them left/right of centre.
-- End: the stage empties and the page flows into About. The name is **not** shown again.
+- First ~0.36 screens of scroll: all of that text fades out and lifts slightly.
+- From ~0.22 screens (the first photo sets off, tiny and far, while the text is still fading — the screen is never empty): few and large, the photos pass the camera **slowly, one by one** — each starts deep in z, travels toward the camera, and fades as it passes before the next one takes over (at most a brief overlap). Alternate them left/right of centre.
+- End: no empty stage. About slides up over the hero (the same layered transition as the other sections — the hero sinks back, scales down and darkens) while the last photo is still fading; it's gone when About is ~45% up. The name is **not** shown again.
 - Mobile: same 4 photos, smaller. Reduced motion: text screen on top, the photos in a row below (2 columns on phones), no movement.
 
 ### 2. About — split screen
@@ -65,7 +65,7 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Close with ✕, Esc, or a click outside. Focus is trapped inside while open and returns to the card on close. The page behind doesn't scroll.
 
 ### Scroll story after About (GSAP ScrollTrigger)
-- **Layered sections:** About → LLM projects → Data & ML → Contact are opaque sheets stacked in that order. As each section rises over the previous one (its top travelling from the bottom of the screen to the top), the one behind is held back (moves up only ~15% as fast), scales to 0.92 and darkens (ink shade up to 0.55) — scrubbed. The page behind the sheets is `--ink`, and the rising sheet has a soft top shadow. Implemented by counter-translating the section behind (no pinning).
+- **Layered sections:** Hero → About → LLM projects → Data & ML → Contact are opaque sheets stacked in that order. As each section rises over the previous one (its top travelling from the bottom of the screen to the top), the one behind is held back (moves up only ~15% as fast), scales to 0.92 and darkens (ink shade up to 0.55) — scrubbed. The page behind the sheets is `--ink`, and the rising sheet has a soft top shadow. Implemented by counter-translating the section behind (no pinning).
 - **LLM projects entrance:** heading word reveal; the carousel comes in from depth — cards spread out, turned (~40°), tilted and far back (z −900) — and settles into the coverflow as the section scrolls into view (scrubbed). Once settled the trigger is removed, so scroll never touches the carousel again (also when scrolling back up).
 - **Data & ML entrance:** cards rise and fade in with a stagger; light scrubbed parallax on the card images inside their frames.
 - **Contact:** the big line reveals word by word; buttons fade up one after another.

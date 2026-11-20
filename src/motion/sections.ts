@@ -12,7 +12,7 @@ import type Lenis from 'lenis';
  * so layout, Lenis and the carousels are untouched.
  */
 export function stackedSections(): void {
-  const ids = ['about', 'work', 'data', 'contact'];
+  const ids = ['top', 'about', 'work', 'data', 'contact']; // top = the hero
   const secs = ids.map((id) => document.getElementById(id)).filter((s): s is HTMLElement => !!s);
   secs.slice(0, -1).forEach((prev, i) => {
     const next = secs[i + 1];
