@@ -684,3 +684,50 @@ html.modal-open body {
   }
 }
 
+/* ================= Layered sections (only with motion — src/motion/sections.ts) =================
+   Each section is an opaque sheet stacked above the one before. As one
+   rises, the one behind is held back, scaled and shaded (--shade, 0 → .55). */
+/* Behind the sheets: ink, so a receding (scaled-down) section sits on dark. */
+.has-motion body {
+  background: var(--ink);
+}
+.has-motion .hero,
+.has-motion .about,
+.has-motion .work,
+.has-motion .data,
+.has-motion .contact {
+  background: var(--paper);
+}
+.has-motion .about,
+.has-motion .work,
+.has-motion .data {
+  will-change: transform;
+}
+.has-motion .about { z-index: 1; }
+.has-motion .work { z-index: 2; }
+.has-motion .data { z-index: 3; }
+.has-motion .contact {
+  z-index: 4;
+  min-height: 100vh; /* always tall enough to cover the section behind */
+  min-height: 100svh;
+}
+.has-motion .work,
+.has-motion .data,
+.has-motion .contact {
+  box-shadow: 0 -30px 60px -30px rgb(26 26 46 / 0.35); /* the edge of the rising sheet */
+}
+.has-motion .section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: var(--ink);
+  opacity: var(--shade, 0);
+  pointer-events: none;
+}
+/* Data images are 16% taller than their frames so the parallax never shows an edge. */
+.has-motion .pcard--flat .pcard__media img {
+  inset: -8% 0 auto;
+  height: 116%;
+}
+
