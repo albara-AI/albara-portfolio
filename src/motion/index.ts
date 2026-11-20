@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { heroFlyThrough } from './hero';
 import { fadeUps, headingReveals, portrait } from './reveals';
+import { ringScroll } from './ring';
 import { initAnchors, initProgress, initSmoothScroll } from './scroll';
 import { typewriter } from './typewriter';
 
@@ -18,6 +19,7 @@ export function initMotion(): void {
   initAnchors(lenis);
   initProgress();
   heroFlyThrough();
+  ringScroll(lenis);
   headingReveals();
   fadeUps();
   portrait();
