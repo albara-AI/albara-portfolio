@@ -18,7 +18,7 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Skills line: "I work with" + typewriter cycling: LLMs, RAG pipelines, LLM evaluation, Prompt engineering, LangChain, Arabic NLP, Hugging Face Transformers, PyTorch, FastAPI, PostgreSQL, Docker
 - Facts: `Doha` Based in | `Arabic · English` Languages | `2026` Graduated
 
-## LLM projects (ring, in this order)
+## LLM projects (carousel, one card each, in this order)
 
 ### 01 FlyRank Capstone — Backend AI Engineering Intern (Jul 2026 – Nov 2026)
 - Title: Multi-tenant AI platform
@@ -44,8 +44,8 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Media: frames/clips from `photo/videos/albayan.mp4` + `photo/projects/albayan-results-1.png`, `albayan-results-2.png`, `albayan-pipeline.png`
 - Repo: https://github.com/albara-AI/arabic-legal-classifier (README copy in `reference/README-albayan.md`)
 
-## Data & ML projects (2×2 grid, in this order)
-For each: text from the CV ("Additional projects") or the repo README; numbers only from those. AlexNet was removed (not in the CV; README accuracy ~12%) — 4 projects for the 2×2 grid.
+## Data & ML projects (carousel, in this order)
+For each: text from the CV ("Additional projects") or the repo README; numbers only from those. AlexNet was removed (not in the CV; README accuracy ~12%).
 1. Power BI — Olist E-commerce Sales Dashboard
    - Title: Olist E-commerce Sales Dashboard
    - Data: Kaggle Olist Brazilian e-commerce data (9 tables).

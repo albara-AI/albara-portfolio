@@ -1,6 +1,6 @@
 # How to update the site
 
-All text and data live in **`src/content.ts`**. Layout code never needs to change — the ring, grid, hero and buttons adapt to however many items you add.
+All text and data live in **`src/content.ts`**. Layout code never needs to change — the carousels, details panel, hero and buttons adapt to however many items you add.
 
 Every change follows the same loop:
 
@@ -14,9 +14,9 @@ Every change follows the same loop:
 
 ---
 
-## Add an LLM project (the ring)
+## Add an LLM project (top carousel)
 
-1. **Images** → `photo/projects/` (e.g. `myproject-1.png`). At least 1, ideally 3–4.
+1. **Images** → `photo/projects/` (e.g. `myproject-1.png`). At least 1 (the card cover); every image you add also appears in the project's details gallery.
    From a video instead? Put it in `photo/videos/myproject.mp4`, run `npm run frames`, open `.work/contact-sheets/myproject*.jpg`, pick frame numbers, and copy their `time` from `.work/frames/myproject/frames.json`.
 2. **Approve** — in `scripts/approved.json`, add one line per image to `"stills"`:
    ```json
@@ -24,7 +24,7 @@ Every change follows the same loop:
    ```
    (video frames go in `"frames"`: `{ "id": "...", "project": "...", "video": "myproject", "sheet": 12, "time": 34.5 }`)
 3. Run `npm run assets`.
-4. **Content** — in `src/content.ts`, add an entry to `work.projects` (the order there = the ring order):
+4. **Content** — in `src/content.ts`, add an entry to `work.projects` (the order there = the carousel order):
    ```ts
    {
      id: 'myproject',
@@ -36,7 +36,8 @@ Every change follows the same loop:
      tags: ['FastAPI', 'RAG'],
      status: 'In progress',                           // optional → shows the badge
      repo: 'https://github.com/albara-AI/my-project', // optional → "View code"
-     media: ['myproject-1', 'myproject-2'],
+     cover: 'myproject-1',                            // optional → card image (default: first media)
+     media: ['myproject-1', 'myproject-2'],           // details gallery, in order
    },
    ```
 5. **Alt text** — add one line per image to `alt` at the bottom of `content.ts`:
@@ -47,15 +48,16 @@ Every change follows the same loop:
    git commit -m "Add My Project to LLM projects"
    ```
 
-## Add a Data & ML project (the grid)
+## Add a Data & ML project (second carousel)
 
 Same as above, with two differences:
 
-- The entry goes in `data.projects`, and `media` is **one** id (not a list):
+- The entry goes in `data.projects` (the first media = the card image; all of them show in the details gallery):
   ```ts
-  { id: 'myproject', title: 'My Project', line: 'One line.', tags: ['SQL'], repo: '…', media: 'myproject-1' },
+  { id: 'myproject', title: 'My Project', line: 'One line.', tags: ['SQL'], repo: '…', media: ['myproject-1'] },
   ```
 - **No image?** Leave `media` out — the card shows a designed text card with the `metric` (or the title) in big type.
+- Optional `detail` (longer text) and `metric` appear in the details panel.
 
 ## Add a skill (About → "I work with …")
 
@@ -85,6 +87,7 @@ Edit the `links` array in `src/content.ts` (order = button order; `primary: true
   git add public/media && git commit -m "Update portrait photo"
   ```
 - **New file name:** also change its `"src"` in `scripts/approved.json` (keep the same `"id"`, so `content.ts` doesn't change), then run `npm run assets` and commit `scripts/approved.json` too.
+- **Change a project's card image:** set its `cover` (LLM) or put the image first in `media` (Data & ML).
 - **Remove an image:** delete its line from `approved.json` *and* its id from `content.ts`; `npm run assets` deletes the old files from `public/media`.
 
 ## Update the CV

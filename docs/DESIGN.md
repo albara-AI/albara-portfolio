@@ -28,7 +28,7 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Headings reveal word by word (each word slides up from a mask, stagger .06s).
 - Scroll-linked scenes use sticky stages (`position: sticky` inside a tall section) + ScrollTrigger progress 0→1.
 - Top progress bar (2px, `--accent`).
-- `prefers-reduced-motion: reduce` → no Lenis, no fly-through, no ring rotation; show static, readable layouts.
+- `prefers-reduced-motion: reduce` → no Lenis, no fly-through, no coverflow 3D (carousels slide plainly), clips don't autoplay; show static, readable layouts.
 
 ## Sections (in order)
 
@@ -47,18 +47,22 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 - Skills line: "I work with" + a typewriter that types a skill, pauses ~1.5s, deletes it, types the next, looping (list in CONTENT.md). The rotating word is `--accent-ink` with a blinking cursor; the line has a fixed height so nothing shifts (on phones the word gets its own line). Pauses off-screen. Reduced motion: a static comma-separated list.
 - Right: tall portrait (`photo/about/me-1`) with clip-path opening on scroll (`inset(12% 8%)` → `inset(0)`) and slow parallax inside.
 
-### 3. LLM projects — the ring (heart of the site)
-- Sticky stage, section ~520vh, slight `rotateX(14deg)` tilt.
-- Cards (220×290px desktop, 160×210 mobile) on a large arc; scroll rotates the arc so cards pass through top-center. Active card scales to ~1.18.
-- Cards = media of the 3 LLM projects, ~3 cards per project (frames/clips/result images), grouped by project in order: FlyRank Capstone → Mini-RAG → AL-BAYAN#.
-- Below the ring: info panel for the project of the active card — index `01 / 03`, serif title, description, key metric, tech tags, "View code" link. Cross-fades on change.
-- Active card may play its muted looping clip (if it has one); others show a still poster.
-- Clicking a card scrolls to it.
+### 3. LLM projects — coverflow carousel (heart of the site)
+- Normal section height (no sticky stage). Vertical page scroll never moves the carousel.
+- **One card per project**, in order: FlyRank Capstone → Mini-RAG → AL-BAYAN#. Card = cover image (`cover` in content.ts, else the first media) + serif title + one-line subtitle + index; Mini-RAG shows the "In progress" badge on its card.
+- Horizontal carousel built on native scroll + scroll-snap: drag/swipe, trackpad sideways scroll, ← → buttons with a `01 / 03` counter, keyboard ← → / Home / End. Snaps each card to the centre.
+- Light 3D (coverflow): the centred card full size; side cards slightly smaller (~0.86), turned (~24°) and a little faded; follows the scroll smoothly.
+- Clicking a card opens the **details panel** (below).
 
-### 4. Data & ML — calmer grid
-- No ring (don't repeat the same motion). 2×2 grid of large cards on `--paper-2`, staggered reveal + slight 3D tilt on hover (max 6deg, follows cursor).
-- Order: Power BI Dashboard → Fashion-MNIST SSL → IMDb Scraper → CO₂ & Loan Models.
-- Card = image (or designed metric/pipeline/code card if no image) + title + one line + tags.
+### 4. Data & ML — flat carousel
+- Same carousel, smaller cards (~24vw), **no 3D**, snapping to the left edge. Order: Power BI Dashboard → Fashion-MNIST SSL → IMDb Scraper → CO₂ & Loan Models.
+- Card = image (or a designed text card with the metric/title if there's no image) + title + one line. Gentle lift on hover.
+- Clicking a card opens the same details panel.
+
+### Project details panel (both sections)
+- Native `<dialog>`: centred modal (max ~940px, `--paper`, dimmed backdrop) on desktop; a full-screen sheet on phones.
+- Content: index/kicker (+ "In progress" badge), serif title, subtitle, meta; a small horizontal gallery of **all** the project's media (stills, the AL-BAYAN# clip — muted and looping, result images); full description; key result; extra details; tags; "View code".
+- Close with ✕, Esc, or a click outside. Focus is trapped inside while open and returns to the card on close. The page behind doesn't scroll.
 
 ### 5. Contact
 - Huge serif line: "Let's build something *intelligent*."

@@ -26,12 +26,12 @@
 - Per DESIGN.md §1, media from the manifest.
 - Done when: 60fps on desktop, the 4 photos pass one by one, name reveal lands cleanly.
 
-## Phase 5 — LLM ring
-- Per DESIGN.md §3: arc, rotation, active scaling, info panel cross-fade, clip play on active card, click-to-scroll.
-- Done when: every card maps to the right project and the info panel never lags or flickers.
+## Phase 5 — LLM projects (built as a ring, then replaced by a carousel + details panel)
+- Per DESIGN.md §3–4: coverflow carousel (one card per project), flat Data & ML carousel, shared details panel with gallery.
+- Done when: every card opens the right project; drag, arrows, keyboard and swipe all work; the panel closes with ✕/Esc/outside click and returns focus.
 
-## Phase 6 — Data grid, Contact
-- Grid with hover tilt; Contact buttons: CV download, WhatsApp, email + copy, LinkedIn, GitHub.
+## Phase 6 — Contact (the Data & ML carousel was built with Phase 5)
+- Contact buttons: CV download, WhatsApp, email + copy, LinkedIn, GitHub.
 - Done when: every button works on desktop and phone (test WhatsApp on a real phone).
 
 ## Phase 7 — Polish
