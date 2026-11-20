@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { heroFlyThrough } from './hero';
 import { fadeUps, headingReveals, portrait } from './reveals';
 import { initAnchors, initProgress, initSmoothScroll } from './scroll';
+import { typewriter } from './typewriter';
 
 export function initMotion(): void {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +21,7 @@ export function initMotion(): void {
   headingReveals();
   fadeUps();
   portrait();
+  typewriter();
 
   // Web fonts change text heights after first paint; re-measure trigger
   // positions once they're in (cheap, runs once — not on every scroll).

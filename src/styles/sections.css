@@ -151,6 +151,55 @@
 .about .body + .body {
   margin-top: 16px;
 }
+
+/* "I work with ___" — plain list without motion; typewriter with motion. */
+.skills {
+  max-width: 480px;
+  margin-top: 28px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.skills__lead {
+  color: var(--ink-2);
+}
+.skills__list {
+  color: var(--accent-ink);
+}
+.skills__tw {
+  display: none;
+}
+.has-motion .skills {
+  height: 1.7em; /* one fixed line: the page never shifts while it types */
+}
+.has-motion .skills__list {
+  /* still read by screen readers, hidden visually */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.has-motion .skills__tw {
+  display: inline;
+  white-space: nowrap;
+}
+.skills__word {
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+.skills__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--accent-ink);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
 .facts {
   display: flex;
   flex-wrap: wrap;
@@ -401,6 +450,14 @@
   .about__portrait {
     height: auto;
     aspect-ratio: 4 / 5;
+  }
+  /* Phones: the word gets its own line, so long skills never wrap;
+     the box stays two lines tall whatever is typed. */
+  .has-motion .skills {
+    height: 3.4em;
+  }
+  .has-motion .skills__tw {
+    display: block;
   }
 
   .project {

@@ -62,15 +62,31 @@ export const hero = {
 // ---------- 2. About ----------
 export const about = {
   label: '01 — About',
-  heading: 'Engineer by training, *builder* by habit.',
+  heading: 'Curious by nature, *engineer* by choice.',
   paragraphs: [
-    'Data Science & AI graduate from the Hashemite University, based in Doha. I build end-to-end AI systems — from data ingestion and OCR to fine-tuned transformers, RAG pipelines and production-style FastAPI backends.',
-    'I care about the parts most demos skip: evaluation, cost control, safety and tests.',
+    "I'm Albara — a Data Science & AI graduate from the Hashemite University in Jordan, now based in Doha.",
+    'Outside of code, I lead a volunteer team, served as faculty representative on the student council, and spend a lot of time behind a camera, filming people and events.',
+    "I like starting from a messy problem and staying with it until it's actually useful to someone. Every day I learn something new 🌱",
+  ],
+  // "I work with" + a typewriter cycling these (static list under reduced motion)
+  skillsLead: 'I work with',
+  skills: [
+    'LLMs',
+    'RAG pipelines',
+    'LLM evaluation',
+    'Prompt engineering',
+    'LangChain',
+    'Arabic NLP',
+    'Hugging Face Transformers',
+    'PyTorch',
+    'FastAPI',
+    'PostgreSQL',
+    'Docker',
   ],
   facts: [
-    { value: '0.769', label: 'Macro-F1 · AL-BAYAN#' },
-    { value: '185', label: 'Tests · FlyRank' },
     { value: 'Doha', label: 'Based in' },
+    { value: 'Arabic · English', label: 'Languages' },
+    { value: '2026', label: 'Graduated' },
   ],
   portrait: 'about-portrait',
 } as const;
