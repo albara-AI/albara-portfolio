@@ -8,6 +8,10 @@ export const esc = (s: string): string =>
 /** `Engineer by training, *builder* by habit.` → escaped text with <em>builder</em>. */
 export const emph = (s: string): string => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
 
+/** Escaped text with "₂" drawn as a real subscript 2 — for serif titles
+ *  (Instrument Serif has no ₂ glyph). Not for attributes. */
+export const sub2 = (s: string): string => esc(s).replace(/₂/g, '<sub class="sub2">2</sub>');
+
 /** Section label: "——  01 — About" */
 export const label = (text: string): string => `<p class="label mono">${esc(text)}</p>`;
 

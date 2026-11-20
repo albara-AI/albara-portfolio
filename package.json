@@ -11,7 +11,8 @@
     "frames": "node scripts/frames.mjs",
     "sheets": "node scripts/sheets.mjs",
     "results": "node scripts/results.mjs",
-    "export": "node scripts/export.mjs"
+    "export": "node scripts/export.mjs",
+    "glyphs": "node scripts/glyphs.mjs"
   },
   "dependencies": {
     "@fontsource/instrument-serif": "^5.3.0",

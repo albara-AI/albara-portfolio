@@ -1,0 +1,40 @@
+/* Extra glyphs (→ ← ₂) the @fontsource Latin subsets don't include.
+   Same family names + unicode-range: the browser only downloads these tiny
+   files when a page actually shows one of those characters, and draws them
+   in the site font instead of a system fallback. Made by scripts/glyphs.mjs.
+   Instrument Serif has none of these glyphs, so serif titles write "₂" as a
+   real subscript 2 instead (see sub2() in src/lib/html.ts).
+   One rule per weight the site uses (400, 500), so each joins that weight's
+   face — a weight *range* would lose to the exact 400/500 faces. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./fonts/inter-glyphs-normal.woff2) format('woff2');
+  unicode-range: U+2082, U+2190, U+2192;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./fonts/inter-glyphs-normal.woff2) format('woff2');
+  unicode-range: U+2082, U+2190, U+2192;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./fonts/jetbrains-mono-glyphs-normal.woff2) format('woff2');
+  unicode-range: U+2082, U+2190, U+2192;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./fonts/jetbrains-mono-glyphs-normal.woff2) format('woff2');
+  unicode-range: U+2082, U+2190, U+2192;
+}

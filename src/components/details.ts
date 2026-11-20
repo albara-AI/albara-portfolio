@@ -5,7 +5,7 @@
 //     card that opened it when closed
 //   • the page behind can't scroll while it's open
 import { data, ui, work, type DataProject, type LlmProject } from '../content';
-import { badge, emph, esc, extLink, tags } from '../lib/html';
+import { badge, emph, esc, extLink, sub2, tags } from '../lib/html';
 import { img } from '../lib/media';
 
 export type DetailsKind = 'llm' | 'data';
@@ -47,7 +47,7 @@ function llmBody(p: LlmProject, i: number): string {
 function dataBody(p: DataProject): string {
   return `
     <p class="details__kicker mono">${esc(data.label)}</p>
-    <h2 id="details-title">${esc(p.title)}</h2>
+    <h2 id="details-title">${sub2(p.title)}</h2>
     ${gallery(p.media ?? [])}
     <p class="details__desc">${esc(p.line)}</p>
     ${p.metric ? `<p class="details__metric"><span class="mono">${esc(ui.keyMetric)}</span>${esc(p.metric)}</p>` : ''}

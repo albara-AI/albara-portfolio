@@ -138,3 +138,12 @@ html.menu-open body {
 .noscript a {
   border-bottom: 1px solid var(--accent-ink);
 }
+
+/* "CO₂" in serif titles: a real subscript that doesn't change line height */
+.sub2 {
+  font-size: 0.62em;
+  line-height: 0;
+  vertical-align: baseline;
+  position: relative;
+  top: 0.24em;
+}
