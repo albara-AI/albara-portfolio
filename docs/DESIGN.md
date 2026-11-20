@@ -53,7 +53,7 @@ Subtle film-grain overlay over the whole page (SVG noise, ~7% opacity, `mix-blen
 
 ### 4. Data & ML — calmer grid
 - No ring (don't repeat the same motion). 2×2 grid of large cards on `--paper-2`, staggered reveal + slight 3D tilt on hover (max 6deg, follows cursor).
-- Order: Power BI Dashboard → IMDb Warehouse → CO₂ & Loan Models → AlexNet Classifier.
+- Order: Power BI Dashboard → Fashion-MNIST SSL → IMDb Scraper → CO₂ & Loan Models.
 - Card = image (or designed metric/pipeline/code card if no image) + title + one line + tags.
 
 ### 5. Moments

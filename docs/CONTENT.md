@@ -4,7 +4,7 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 
 ## Identity
 - Name: Albara Aljaber
-- Role line: AI Engineer — LLMs · RAG · NLP
+- Role line: AI Engineer — LLMs · RAG · Arabic NLP
 - Hero sentence: "AI Engineer — I build AI systems end to end: LLMs, RAG, NLP, and the tested backends that ship them."
 - Intro (hero bottom-left): "Portfolio — 2026" / "I build AI systems — from raw data to production backends."
 - Location: Doha, Qatar
@@ -23,14 +23,15 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Key metric: 185 automated tests on real PostgreSQL
 - Tags: FastAPI · PostgreSQL · LLMs · Docker
 - Media: frames/clips from `photo/videos/flyrank.mp4` + any `photo/projects/flyrank-*`
-- Repo: TODO — ask Albara (may be private; then no link)
+- Extra (from CV): 83-message Arabic evaluation set and harness to benchmark LLM providers. (No accuracy number on the site.)
+- Repo: https://github.com/albara-AI/flyrank-capstone-widget-platform (public)
 
 ### 02 Mini-RAG — AI legal assistant for Qatari law (in progress)
 - Description: "RAG system for Qatari legal documents — upload API, mixed Arabic–English PDF loading and configurable chunking with overlap. Embeddings and vector search are next."
 - Tags: FastAPI · LangChain · MongoDB · Docker
 - Status badge: In progress
 - Media: `photo/projects/minirag-pipeline.png` (generated from repo structure)
-- Repo: https://github.com/albara-AI/Mini-Rag
+- Repo: https://github.com/albara-AI/Mini-rag
 
 ### 03 AL-BAYAN# — Legal document intelligence (graduation project, 2026)
 - Description: "End-to-end pipeline: scrapes Official Gazette PDFs, extracts Arabic text with OCR, and classifies documents across 17 legal sectors with a 3-model transformer ensemble."
@@ -40,8 +41,8 @@ Rules: English site. Use this text as written. Numbers only from the CV (`photo/
 - Media: frames/clips from `photo/videos/albayan.mp4` + `photo/projects/albayan-results-1.png`, `albayan-results-2.png`, `albayan-pipeline.png`
 - Repo: https://github.com/albara-AI/arabic-legal-classifier (README copy in `reference/README-albayan.md`)
 
-## Data & ML projects (grid, in this order)
-For each: read the repo README; take title, one-line description, and the main result number from it. If the link is TODO, ask Albara.
+## Data & ML projects (2×2 grid, in this order)
+For each: text from the CV ("Additional projects") or the repo README; numbers only from those. AlexNet was removed (not in the CV; README accuracy ~12%) — 4 projects for the 2×2 grid.
 1. Power BI — Olist E-commerce Sales Dashboard
    - Title: Olist E-commerce Sales Dashboard
    - Data: Kaggle Olist Brazilian e-commerce data (9 tables).
@@ -49,13 +50,17 @@ For each: read the repo README; take title, one-line description, and the main r
    - Report: interactive Power BI report with KPIs: Sales 19.26M, Profit 3.41M, Cost 15.84M, Quantity 112.65K; filters by date, seller, order status and state.
    - Tags: Power BI · DAX · Star schema · Data cleaning
    - Media: `photo/projects/powerbi-1.png`
-2. IMDb Top-250 Warehouse — "Selenium scraper feeding a star-schema data warehouse." Repo: TODO
-3. CO₂ & Loan-Approval Models — "Predictive models validated with 10-fold cross-validation." Repo: TODO
-4. AlexNet Image Classifier — "TensorFlow image classifier across 1,000+ classes." Repo: TODO
-5. Fashion-MNIST SSL — semi-supervised learning pipeline (TensorFlow).
-   Source: photo/projects/fashion-mnist/ (README.md, PARAMETERS.md, plots/, screenshot).
-   Take the title, one-line description and main accuracy from README.md only.
-   Media: best 1–2 images from plots/ + the dashboard screenshot.
+2. Semi-supervised Fashion-MNIST Classifier — "Semi-supervised Fashion-MNIST classifier (TensorFlow, 83.66% test accuracy with 960 labels)." (CV wording)
+   - Key metric: 83.66% test accuracy with 960 labels
+   - Tags: TensorFlow · Autoencoder · Pseudo-labeling (from README)
+   - Source: `photo/projects/ssl_fashion_mnist_best/` (real folder name; ignore its .git)
+   - Media: the pipeline screenshot + `plots/05_confusion_matrix.png` (approved)
+   - Repo: https://github.com/albara-AI/fashion-mnist-ssl
+3. IMDb Top-250 Scraper — "IMDb Top-250 scraper (Selenium, BeautifulSoup, SQLite)." (CV wording; README agrees: scrape → clean → SQLite → SQL queries. No result number.)
+   - Tags: Selenium · BeautifulSoup · SQLite
+   - Repo: https://github.com/albara-AI/imdb-top250-scraper
+4. CO₂ & Loan-Approval Models — "Predictive models validated with 10-fold cross-validation." (README has no result numbers → designed pipeline card.)
+   - Repo: https://github.com/albara-AI/ml-co2-loan-analysis
 If a project has no image → designed card (metric / pipeline / code) per DESIGN.md, using README data only.
 
 ## Moments
@@ -66,13 +71,13 @@ If a project has no image → designed card (metric / pipeline / code) per DESIG
 ## Contact
 - Heading: "Let's build something *intelligent*."
 - Download CV: `/cv/Albara_Aljaber_CV.pdf` (copied from `photo/cv/`), `download` attribute, filename `Albara_Aljaber_CV.pdf`
-- WhatsApp: `https://wa.me/97431066519?text=` + URL-encoded "Hi Albara, I came across your portfolio and would like to talk." (confirm number and message language with Albara)
+- WhatsApp: `https://wa.me/97431066519?text=` + URL-encoded "Hi Albara, I came across your portfolio and would like to talk." (number and English message confirmed by Albara)
 - Email: albaraaljaberwork@gmail.com — `mailto:` link + visible text + Copy button
 - LinkedIn: https://linkedin.com/in/albara-aljaber
 - GitHub: https://github.com/albara-AI
 - Footer: © 2026 Albara Aljaber · Doha, Qatar
 
 ## Meta / SEO
-- Title: Albara Aljaber — AI Engineer (LLMs · RAG · NLP)
+- Title: Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)
 - Description: AI Engineer in Doha building end-to-end LLM, RAG and NLP systems.
 - OG image: generate 1200×630 in site style (name + role on `--paper`).
