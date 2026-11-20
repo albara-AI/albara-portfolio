@@ -7,7 +7,11 @@
 }
 
 /* ================= 1. Hero ================= */
-.hero {
+.section.hero {
+  padding: 0; /* the stage pads itself; .section.hero beats the mobile .section rule */
+}
+.hero__stage {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr auto;
@@ -16,8 +20,7 @@
     'intro hint';
   min-height: 100vh;
   min-height: 100svh;
-  padding-top: var(--nav-h);
-  padding-bottom: 6vh;
+  padding: var(--nav-h) var(--gutter) 6vh;
   overflow: hidden;
 }
 .hero__name {
@@ -99,6 +102,41 @@
 .hero__card--2 { right: 5%;  top: 9%;  width: 16vw; }  /* me-3, portrait */
 .hero__card--3 { right: 13%; top: 57%; width: 12vw; }  /* me-4, portrait */
 .hero__card--4 { left: 40%;  top: 76%; width: 18vw; }  /* me-5, landscape — below the sentence */
+
+/* ---- Fly-through (only when src/motion/hero.ts is running) ----
+   The section is 340vh tall; the stage sticks for the extra 240vh of scroll.
+   Photos are centred at z=0 and positioned only by transform (JS), sized
+   by JS on resize. perspective = how strong the 3D depth looks. */
+.has-motion .hero {
+  height: 340vh;
+}
+.has-motion .hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 0;
+  perspective: 900px;
+}
+.has-motion .hero__collage {
+  transform-style: preserve-3d;
+}
+.has-motion .hero__card {
+  left: 50%;
+  top: 50%;
+  right: auto;
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.has-motion .hero__card img {
+  height: 100%;
+  object-fit: cover;
+}
+.has-motion .hero__name {
+  opacity: 0; /* revealed by the fly-through at the end */
+  will-change: transform, opacity;
+}
 
 /* ================= 2. About ================= */
 .about {
@@ -337,7 +375,7 @@
     padding: 14vh var(--gutter);
   }
 
-  .hero {
+  .hero__stage {
     grid-template-columns: 1fr;
     grid-template-areas: 'name' 'intro';
     padding-top: calc(var(--nav-h) + 4vh);
@@ -345,8 +383,8 @@
   .hero__hint {
     display: none;
   }
-  .hero__card--3,
-  .hero__card--4 {
+  :root:not(.has-motion) .hero__card--3,
+  :root:not(.has-motion) .hero__card--4 {
     display: none; /* static mobile hero: two photos keep the name clear */
   }
   .hero__card--1 { left: var(--gutter); top: 10%; width: 40vw; }
