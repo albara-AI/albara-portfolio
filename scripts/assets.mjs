@@ -25,10 +25,10 @@ if (!ok) {
   process.exit(1);
 }
 
-// Review step: frames + contact sheets into .work/ (never public).
-// The export step (approved frames → public/media) is added after
-// Albara approves the contact sheets.
-const steps = ['frames.mjs', 'sheets.mjs'];
+// 1–2 review: frames + contact sheets into .work/ (never public)
+// 3 generate result images from README/CV data
+// 4 export only what scripts/approved.json lists → public/media + assets.json
+const steps = ['frames.mjs', 'sheets.mjs', 'results.mjs', 'export.mjs'];
 for (const s of steps) {
   console.log(`\n→ ${s}`);
   execFileSync(process.execPath, [new URL(s, import.meta.url).pathname], { stdio: 'inherit' });
