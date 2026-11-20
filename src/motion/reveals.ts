@@ -64,18 +64,6 @@ export function fadeUps(): void {
     });
   });
 
-  // Data & ML cards: same fade-up; the right-hand card of each row starts
-  // .12s later, so a row enters as a gentle stagger.
-  gsap.utils.toArray<HTMLElement>('.dcard').forEach((card, i) => {
-    gsap.from(card, {
-      y: 40,
-      autoAlpha: 0,
-      duration: 1.1,
-      ease: 'power3.out',
-      delay: (i % 2) * 0.12,
-      scrollTrigger: { trigger: card, start: 'clamp(top 88%)', once: true },
-    });
-  });
 }
 
 /** About portrait: frame opens from inset(12% 8%) to full; the photo drifts inside it. */

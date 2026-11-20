@@ -12,6 +12,8 @@ import './styles/base.css';
 import './styles/components.css';
 import './styles/sections.css';
 
+import { initCarousel } from './components/carousel';
+import { detailsMarkup, initDetails } from './components/details';
 import { bindContact, renderContact } from './sections/contact';
 import { renderAbout } from './sections/about';
 import { renderData } from './sections/data';
@@ -40,8 +42,12 @@ fill('work', renderWork());
 fill('data', renderData());
 fill('contact', renderContact());
 
+document.body.insertAdjacentHTML('beforeend', detailsMarkup());
+
 bindNav(document);
 bindContact(document);
+document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+initDetails();
 
 // Sections are rendered with JS, so the browser's own jump to #hash on load
 // happens before the content exists — redo it once the sections are filled.

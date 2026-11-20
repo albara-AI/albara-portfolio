@@ -85,28 +85,6 @@
   color: var(--ink);
 }
 
-/* ---------- Media card (LLM projects) ---------- */
-.mcard {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 3px;
-  background: var(--paper-2);
-  box-shadow: 0 20px 50px -28px rgb(26 26 46 / 0.35);
-}
-.mcard__media {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.mcard .badge {
-  /* bottom-right: the one corner every Mini-RAG image leaves empty, and it
-     stays visible when Phase 5 crops cards to portrait */
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-}
-
 /* ---------- Mobile menu (sibling of the blended nav bar) ---------- */
 .menu:not([hidden]) {
   position: fixed;

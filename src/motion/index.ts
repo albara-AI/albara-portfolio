@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { heroFlyThrough } from './hero';
 import { fadeUps, headingReveals, portrait } from './reveals';
-import { ringScroll } from './ring';
 import { initAnchors, initProgress, initSmoothScroll } from './scroll';
 import { typewriter } from './typewriter';
 
@@ -19,7 +18,6 @@ export function initMotion(): void {
   initAnchors(lenis);
   initProgress();
   heroFlyThrough();
-  ringScroll(lenis);
   headingReveals();
   fadeUps();
   portrait();
@@ -29,8 +27,8 @@ export function initMotion(): void {
   // positions once they're in (cheap, runs once — not on every scroll).
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
-  // Dev builds only: ?shot=ring:0.45 shows 45% through the ring (also
-  // ?shot=top:0.5, ?shot=data:0). Headless Chrome's --screenshot captures the
+  // Dev builds only: ?shot=work:0 shows the top of the LLM projects (also
+  // ?shot=top:0.5 = halfway through the hero, ?shot=data:0). Headless Chrome's --screenshot captures the
   // top of the document, not the scrolled view, so after scrolling there (to
   // let every animation render) we freeze the animations, pin what's on
   // screen to the viewport and scroll back to 0. Used for review screenshots.
@@ -39,10 +37,14 @@ export function initMotion(): void {
     if (shot) {
       const [id, p = '0'] = shot.split(':');
       // Headless virtual time doesn't finish CSS transitions — show end states.
-      document.head.insertAdjacentHTML('beforeend', '<style>*,*::before,*::after{transition:none!important}</style>');
+      document.head.insertAdjacentHTML('beforeend', '<style>*,*::before,*::after{transition:none!important;animation:none!important}</style>');
+      // &slide=1 → put card 2 of the first carousel in front; &open=llm:2 → open that details panel
+      const params = new URLSearchParams(location.search);
+      const slide = Number(params.get('slide') ?? 0);
+      const open = params.get('open');
       document.fonts.ready.then(() => {
         ScrollTrigger.refresh();
-        const el = id === 'ring' ? document.querySelector<HTMLElement>('.ring') : document.getElementById(id);
+        const el = document.getElementById(id);
         if (!el) return;
         const top = el.getBoundingClientRect().top + window.scrollY;
         lenis.resize();
@@ -51,13 +53,22 @@ export function initMotion(): void {
           const y = window.scrollY;
           ScrollTrigger.getAll().forEach((t) => t.disable(false)); // keep rendered state
           lenis.destroy();
-          const stage = el.querySelector<HTMLElement>('.hero__stage, .ring__stage');
+          const stage = el.querySelector<HTMLElement>('.hero__stage');
           if (stage) {
             Object.assign(stage.style, { position: 'fixed', inset: '0', zIndex: '40', background: 'var(--paper)' });
           } else {
             document.querySelector('main')!.style.transform = `translateY(${-y}px)`;
           }
           window.scrollTo(0, 0);
+          if (slide) {
+            const track = document.querySelector<HTMLElement>('.carousel__track')!;
+            const li = track.children[slide] as HTMLElement;
+            track.scrollLeft = li.offsetLeft + li.offsetWidth / 2 - track.clientWidth / 2;
+          }
+          if (open) {
+            const [kind, i] = open.split(':');
+            document.querySelector<HTMLElement>(`[data-details="${kind}"][data-index="${i}"]`)?.click();
+          }
           document.documentElement.dataset.shotReady = '1';
         }, 900);
       });

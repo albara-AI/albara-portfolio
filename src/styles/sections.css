@@ -244,47 +244,265 @@
   will-change: transform;
 }
 
-/* ================= 3. LLM projects ================= */
-.projects {
-  display: grid;
-  gap: 14vh;
-  margin-top: 10vh;
+/* ================= 3 + 4. Project carousels (LLM projects, Data & ML) =================
+   Native horizontal scroll + scroll-snap (src/components/carousel.ts).
+   The carousel bleeds to the screen edges; --cw is the card width. */
+.carousel {
+  margin: 6vh calc(var(--gutter) * -1) 0;
 }
-.project {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 5vw;
-  align-items: start;
+.carousel--cover {
+  --cw: clamp(260px, 34vw, 480px);
 }
-.project__idx {
+.carousel--flat {
+  --cw: clamp(220px, 24vw, 330px);
+}
+.carousel__controls {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
+  padding: 0 var(--gutter);
+}
+.carousel__count {
+  margin-right: 10px;
   color: var(--muted);
 }
-.project h3 {
-  margin-top: 14px;
-  font-size: var(--fs-h3);
+.carousel__arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(26 26 46 / 0.3);
+  border-radius: 50%;
+  font-size: 18px;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.carousel__arrow:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+.carousel__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.carousel__track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain; /* a sideways swipe never turns into "back" */
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 28px var(--gutter) 44px;
+  scroll-padding-inline: var(--gutter);
+  list-style: none;
+  cursor: grab;
+}
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+.carousel__track.is-dragging {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+.carousel__item {
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+/* Cover variant: cards snap to the centre; side padding lets the first and
+   last card reach the centre too. */
+.carousel--cover .carousel__track {
+  padding-inline: calc(50% - var(--cw) / 2);
+}
+.carousel--cover .carousel__item {
+  scroll-snap-align: center;
+}
+
+/* ---- Project card ---- */
+.pcard {
+  display: flex;
+  flex-direction: column;
+  width: var(--cw);
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--paper-2);
+  box-shadow: 0 24px 50px -28px rgb(26 26 46 / 0.45);
+  text-align: left;
+  -webkit-user-drag: none;
+}
+.pcard img,
+.pcard video {
+  -webkit-user-drag: none;
+  pointer-events: none; /* drag the card, not the image */
+}
+.pcard--cover {
+  will-change: transform, opacity; /* coverflow transforms (JS) */
+}
+.pcard--flat {
+  transition: transform 0.3s var(--ease-out);
+}
+.pcard--flat:hover {
+  transform: translateY(-4px);
+}
+.pcard__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--paper);
+}
+.pcard--flat .pcard__media {
+  aspect-ratio: 16 / 10;
+}
+.pcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pcard__media .badge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.pcard__designed {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+.pcard__designed b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 4vw, 60px);
+  color: var(--accent-ink);
+}
+.pcard__body {
+  display: grid;
+  gap: 6px;
+  padding: 18px 22px 24px;
+}
+.pcard__idx {
+  color: var(--muted);
+}
+.pcard__name {
+  font-family: var(--serif);
+  font-size: clamp(26px, 2.4vw, 36px);
+  line-height: 1.05;
+}
+.pcard--flat .pcard__name {
+  font-size: clamp(22px, 1.8vw, 28px);
+}
+.pcard__sub {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ================= Project details panel (<dialog>) ================= */
+dialog.details {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+dialog.details[open] {
+  display: grid;
+  place-items: center;
+}
+dialog.details::backdrop {
+  background: rgb(26 26 46 / 0.55);
+}
+.details__box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(940px, 92vw);
+  max-height: 88vh;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 40px 100px -30px rgb(0 0 0 / 0.5);
+  animation: details-in 0.4s var(--ease-out);
+}
+@keyframes details-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+}
+@keyframes sheet-in {
+  from { transform: translateY(40px); opacity: 0; }
+}
+.details__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--paper-2);
+  box-shadow: 0 6px 18px -6px rgb(26 26 46 / 0.35); /* stays readable over scrolled text */
+  font-size: 18px;
+}
+.details__body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 44px 48px 44px;
+}
+.details__kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+.details h2 {
+  margin-top: 12px;
+  font-size: clamp(36px, 4vw, 58px);
   line-height: 1;
 }
-.project__title {
+.details__title {
   margin-top: 10px;
   font-size: 18px;
   font-weight: 500;
 }
-.project__meta {
-  margin-top: 8px;
+.details__meta {
+  margin-top: 6px;
   color: var(--muted);
 }
-.project__desc {
-  max-width: 52ch;
-  margin-top: 20px;
+.gallery {
+  display: flex;
+  gap: 12px;
+  margin: 28px -48px 0;
+  padding: 0 48px 6px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 48px;
+  list-style: none;
+  scrollbar-width: thin;
+}
+.gallery__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+.gallery__item img,
+.gallery__item video {
+  width: auto;
+  height: clamp(200px, 36vh, 360px);
+  border-radius: 3px;
+  background: var(--paper-2);
+}
+.details__desc {
+  max-width: 68ch;
+  margin-top: 26px;
   color: var(--ink-2);
-  font-size: 16px;
   line-height: 1.65;
 }
-.project__metric {
-  max-width: 52ch;
+.details__metric {
   margin-top: 20px;
   padding-top: 14px;
   border-top: 1px solid var(--line);
@@ -293,91 +511,27 @@
   line-height: 1.2;
   color: var(--accent-ink);
 }
-.project__extra {
-  max-width: 52ch;
+.details__metric .mono {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+.details__extra {
+  max-width: 68ch;
   margin-top: 14px;
   color: var(--ink-2);
   font-size: 14px;
   line-height: 1.6;
 }
-.project .tags {
+.details .tags {
   margin-top: 22px;
 }
-.project__code {
+.details .project__code {
   margin-top: 22px;
 }
-.project__media {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  list-style: none;
-}
-
-/* ================= 4. Data & ML ================= */
-.dgrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3vw;
-  margin-top: 10vh;
-}
-.dcard {
-  display: flex;
-  flex-direction: column;
+html.modal-open,
+html.modal-open body {
   overflow: hidden;
-  border-radius: 4px;
-  background: var(--paper-2);
-}
-.dcard__media {
-  /* 16:10 fits the wide screenshots; the 4:3 generated images share the
-     --paper background, so their side bands are invisible */
-  aspect-ratio: 16 / 10;
-  background: var(--paper);
-}
-.dcard__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* charts and screenshots: never crop the numbers */
-}
-/* No image in content.ts → a designed card: big serif metric (or title). */
-.dcard__media--designed {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px 28px;
-}
-.dcard__media--designed b {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(40px, 5vw, 72px);
-  line-height: 1;
-  color: var(--accent-ink);
-}
-.dcard__body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 28px 32px 34px;
-}
-.dcard__idx {
-  color: var(--muted);
-}
-.dcard h3 {
-  font-size: clamp(28px, 2.6vw, 38px);
-  line-height: 1.05;
-}
-.dcard__line {
-  color: var(--ink-2);
-  font-size: 16px;
-  line-height: 1.6;
-}
-.dcard__detail {
-  color: var(--ink-2);
-  font-size: 14px;
-  line-height: 1.6;
-}
-.dcard .tags {
-  margin-top: 6px;
 }
 
 /* ================= 5. Contact ================= */
@@ -475,31 +629,46 @@
     display: block;
   }
 
-  .project {
-    grid-template-columns: 1fr;
-    gap: 5vh;
+
+
+  .carousel--cover {
+    --cw: 78vw;
   }
-  /* media cards become a swipeable row */
-  .project__media {
-    display: flex;
-    gap: 12px;
-    margin: 0 calc(var(--gutter) * -1);
-    padding: 0 var(--gutter) 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 0 var(--gutter);
+  .carousel--flat {
+    --cw: 70vw;
   }
-  .project__media .mcard {
-    flex: 0 0 78%;
-    scroll-snap-align: start;
+  .carousel__track {
+    gap: 14px;
+  }
+  .carousel__arrow {
+    width: 44px;
+    height: 44px;
   }
 
-  .dgrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  /* Details: a full-screen sheet on phones */
+  dialog.details[open] {
+    place-items: stretch;
   }
-  .dcard__body {
-    padding: 22px 22px 26px;
+  .details__box {
+    width: 100%;
+    max-height: none;
+    height: 100%;
+    border-radius: 0;
+    animation-name: sheet-in;
+  }
+  .details__body {
+    padding: 64px var(--gutter) 40px;
+  }
+  .gallery {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+  .gallery__item img,
+  .gallery__item video {
+    height: 30vh;
+    max-width: 86vw;
+    object-fit: cover;
   }
 
   .contact {
@@ -510,236 +679,3 @@
   }
 }
 
-/* Tablet: two media cards per row still fit */
-@media (min-width: 600px) and (max-width: 820px) {
-  .project__media .mcard {
-    flex-basis: 46%;
-  }
-}
-
-/* ================= 3b. LLM ring (only with motion — src/motion/ring.ts) =================
-   Without motion the static .projects blocks above are shown instead. */
-.ring {
-  display: none;
-}
-.has-motion .work {
-  padding: 0;
-}
-.has-motion .work__head,
-.has-motion .projects {
-  display: none;
-}
-.has-motion .ring {
-  display: block;
-  /* 100vh stage + ~38vh of scroll per card (11 cards → ~520vh). --cards is
-     set from content.ts, so adding a project lengthens the ring by itself. */
-  height: calc(100vh + var(--cards, 11) * 38vh);
-}
-
-/* Stage: head / ring area / info panel stacked in a grid, so the info panel
-   can never sit on top of the cards. */
-.ring__stage {
-  position: sticky;
-  top: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: 100vh;
-  height: 100svh;
-  padding: calc(var(--nav-h) + 3vh) var(--gutter) 5vh;
-}
-.ring__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-}
-.ring__head h2 {
-  margin-top: 14px;
-  font-size: clamp(36px, 4.2vw, 64px);
-  line-height: 1;
-}
-.ring__hint {
-  color: var(--muted);
-}
-
-/* Ring area: clipped, so cards curving down the arc stay out of the panel. */
-.ring__area {
-  position: relative;
-  min-height: 0;
-  overflow: hidden;
-  perspective: 1400px;
-  /* soft bottom edge instead of a hard cut where cards dip down the arc */
-  -webkit-mask-image: linear-gradient(#000 calc(100% - 48px), transparent);
-  mask-image: linear-gradient(#000 calc(100% - 48px), transparent);
-}
-.ring__wrap {
-  /* centre of the active card; JS sets --ring-y */
-  position: absolute;
-  left: 50%;
-  top: var(--ring-y, 50%);
-  transform-style: preserve-3d;
-  transform: rotateX(14deg); /* slight tilt — the arc leans back */
-}
-.ring__track {
-  list-style: none;
-}
-
-/* Card size from JS: --cw × --ch (220×290 desktop, 160×210 mobile,
-   scaled down only if the screen is too short). */
-.rcard {
-  position: absolute;
-  left: calc(var(--cw, 220px) / -2);
-  top: calc(var(--ch, 290px) / -2);
-  width: var(--cw, 220px);
-  height: var(--ch, 290px);
-  will-change: transform, opacity;
-}
-.rcard__btn {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 4px;
-  background: var(--paper-2);
-  box-shadow: 0 24px 50px -24px rgb(26 26 46 / 0.45);
-}
-.rcard__media {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.rcard--generated .rcard__media {
-  object-position: 0% 50%; /* chart titles sit on the left */
-}
-.rcard .badge {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  pointer-events: none;
-}
-.rcard.is-active .rcard__btn {
-  box-shadow: 0 30px 60px -22px rgb(26 26 46 / 0.55);
-}
-
-/* Info panels: all three in one grid cell; only the active one is visible.
-   Cross-fade = opacity/transform transition (no content swapping → no flicker). */
-.ring__info {
-  display: grid;
-  max-width: 1080px;
-  width: 100%;
-  margin: 0 auto;
-}
-.rpanel {
-  grid-area: 1 / 1;
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 8px 48px;
-  opacity: 0;
-  transform: translateY(10px);
-  visibility: hidden;
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    visibility 0s linear 0.35s;
-}
-.rpanel.is-active {
-  opacity: 1;
-  transform: none;
-  visibility: visible;
-  transition:
-    opacity 0.45s ease 0.1s,
-    transform 0.45s ease 0.1s,
-    visibility 0s;
-}
-.rpanel__idx {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--muted);
-}
-.rpanel h3 {
-  margin-top: 10px;
-  font-size: clamp(30px, 3vw, 46px);
-  line-height: 1;
-}
-.rpanel__title {
-  margin-top: 8px;
-  font-weight: 500;
-}
-.rpanel__meta {
-  margin-top: 6px;
-  color: var(--muted);
-}
-.rpanel__desc {
-  color: var(--ink-2);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.rpanel__metric {
-  margin-top: 10px;
-  font-family: var(--serif);
-  font-size: 22px;
-  line-height: 1.2;
-  color: var(--accent-ink);
-}
-.rpanel__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 20px;
-  margin-top: 14px;
-}
-
-@media (max-width: 820px) {
-  .has-motion .ring {
-    height: calc(100vh + var(--cards, 11) * 33vh);
-  }
-  .ring__stage {
-    padding: calc(var(--nav-h) + 2vh) var(--gutter) 3vh;
-  }
-  .ring__hint {
-    display: none;
-  }
-  .ring__head h2 {
-    margin-top: 10px;
-    font-size: 34px;
-  }
-  .rpanel {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .rpanel h3 {
-    margin-top: 6px;
-    font-size: 28px;
-  }
-  .rpanel__title {
-    margin-top: 4px;
-    font-size: 15px;
-  }
-  .rpanel__meta {
-    display: none; /* saves a line on phones; it's in the static layout + CV */
-  }
-  .rpanel__desc {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .rpanel__metric {
-    margin-top: 6px;
-    font-size: 18px;
-  }
-  .rpanel__foot {
-    margin-top: 10px;
-    gap: 8px 14px;
-  }
-  .rpanel .tags li {
-    padding: 4px 9px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rpanel,
-  .rpanel.is-active {
-    transition: none;
-  }
-}

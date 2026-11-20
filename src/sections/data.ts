@@ -1,35 +1,30 @@
-import { data, work } from '../content';
-import { emph, esc, extLink, label, tags } from '../lib/html';
+import { data, ui } from '../content';
+import { carouselMarkup } from '../components/carousel';
+import { emph, esc, label } from '../lib/html';
 import { img } from '../lib/media';
 
+// Data & ML: smaller cards in a flat carousel (no 3D); a card opens the same
+// details panel. A project without media gets a designed text card.
 export function renderData(): string {
-  const cards = data.projects
-    .map(
-      (p, i) => `
-      <article class="dcard" aria-labelledby="data-${p.id}">
-        ${
-          p.media
-            ? `<figure class="dcard__media">${img(p.media, { sizes: '(max-width: 820px) 100vw, 45vw' })}</figure>`
-            : `<div class="dcard__media dcard__media--designed" aria-hidden="true">
-                 <span class="mono">${String(i + 1).padStart(2, '0')} — ${esc(p.title)}</span>
-                 <b>${esc(p.metric ?? p.title)}</b>
-               </div>`
-        }
-        <div class="dcard__body">
-          <p class="dcard__idx mono">${String(i + 1).padStart(2, '0')}</p>
-          <h3 id="data-${p.id}">${esc(p.title)}</h3>
-          <p class="dcard__line">${esc(p.line)}</p>
-          ${p.detail ? `<p class="dcard__detail">${esc(p.detail)}</p>` : ''}
-          ${tags(p.tags)}
-          ${p.repo ? extLink(p.repo, `${work.viewCode} →`, 'project__code mono') : ''}
-        </div>
-      </article>`,
-    )
-    .join('');
+  const items = data.projects.map((p, i) => {
+    const media = p.media?.length
+      ? img(p.media[0], { sizes: '(max-width: 820px) 72vw, 340px' })
+      : `<span class="pcard__designed" aria-hidden="true"><b>${esc(p.metric ?? p.title)}</b></span>`;
+    return `
+    <button class="pcard pcard--flat" type="button" data-details="data" data-index="${i}"
+      aria-label="${esc(p.title)} — ${esc(ui.openDetails)}">
+      <span class="pcard__media">${media}</span>
+      <span class="pcard__body">
+        <span class="pcard__idx mono">${String(i + 1).padStart(2, '0')}</span>
+        <span class="pcard__name">${esc(p.title)}</span>
+        <span class="pcard__sub">${esc(p.line)}</span>
+      </span>
+    </button>`;
+  });
   return `
     <header class="section-head">
       ${label(data.label)}
       <h2 data-split>${emph(data.heading)}</h2>
     </header>
-    <div class="dgrid">${cards}</div>`;
+    ${carouselMarkup({ label: data.heading.replace(/\*/g, ''), variant: 'flat', items })}`;
 }

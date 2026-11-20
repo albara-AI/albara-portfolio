@@ -23,8 +23,9 @@ export function initSmoothScroll(): Lenis {
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0); // don't "catch up" after a slow frame — Lenis handles timing
 
-  // The mobile menu locks the page: pause Lenis while it's open.
-  document.addEventListener('menu:toggle', (e) => {
+  // The mobile menu and the project details panel lock the page: pause
+  // Lenis while either is open.
+  document.addEventListener('scroll-lock', (e) => {
     if ((e as CustomEvent<boolean>).detail) lenis.stop();
     else lenis.start();
   });

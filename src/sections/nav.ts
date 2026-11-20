@@ -28,8 +28,8 @@ export function bindNav(root: ParentNode): void {
     btn.textContent = open ? ui.close : ui.menu;
     menu.hidden = !open;
     document.documentElement.classList.toggle('menu-open', open);
-    // Smooth scroll (Phase 3) listens to pause/resume while the menu is open.
-    document.dispatchEvent(new CustomEvent('menu:toggle', { detail: open }));
+    // Smooth scroll (Lenis, when loaded) pauses while the menu is open.
+    document.dispatchEvent(new CustomEvent('scroll-lock', { detail: open }));
   };
   btn.addEventListener('click', () => set(menu.hasAttribute('hidden')));
   menu.addEventListener('click', (e) => {
