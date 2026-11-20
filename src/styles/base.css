@@ -140,7 +140,8 @@ h3 em {
 }
 
 /* ---------- Nav ---------- */
-/* mix-blend-mode: difference + white text = readable on paper AND on the dark Moments section. */
+/* Desktop: transparent bar with mix-blend-mode: difference (white text inverts
+   over whatever is underneath, so it stays readable on light and dark images). */
 .nav {
   position: fixed;
   top: 0;
@@ -178,8 +179,25 @@ h3 em {
   text-transform: uppercase;
 }
 
-/* Mobile: links hidden, replaced by the Menu button + full-screen panel. */
+/* Anchor jumps (nav links, #hash) stop below the fixed bar, so a section's
+   label is never hidden under it. */
+[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+/* Mobile: links hidden, replaced by the Menu button + full-screen panel.
+   The bar becomes solid paper (no blending), so content scrolls *under* it
+   instead of text overlapping text — section labels never collide with it. */
 @media (max-width: 820px) {
+  :root {
+    --nav-h: 56px;
+  }
+  .nav {
+    mix-blend-mode: normal;
+    background: var(--paper);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
   .nav__links {
     display: none;
   }
