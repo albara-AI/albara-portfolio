@@ -114,11 +114,16 @@ for (const loop of approved.pendingLoops ?? []) {
 }
 
 // Generated result images (scripts/results.mjs — README/CV data only).
+// (Re)build them first if they're missing — e.g. on a fresh clone, where
+// .work/ doesn't exist — otherwise the cleanup below would delete them.
+const loadGenerated = async () => JSON.parse(await readFile(path.join(GENERATED, 'index.json'), 'utf8'));
 let generated = [];
 try {
-  generated = JSON.parse(await readFile(path.join(GENERATED, 'index.json'), 'utf8'));
+  generated = await loadGenerated();
 } catch {
-  console.log('no generated images yet — run scripts/results.mjs first');
+  console.log('generated images missing → running scripts/results.mjs first');
+  await run(process.execPath, [path.join(ROOT, 'scripts/results.mjs')]);
+  generated = await loadGenerated();
 }
 for (const g of generated) {
   const r = await exportImage(g.id, path.join(GENERATED, `${g.id}.png`));
