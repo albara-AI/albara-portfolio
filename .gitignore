@@ -11,3 +11,6 @@ dist
 
 # Asset pipeline working files (frames, contact sheets) — may hold sensitive data
 /.work
+
+# Review screenshots (generated)
+/shots
