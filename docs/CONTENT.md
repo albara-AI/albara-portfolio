@@ -79,3 +79,11 @@ If a project has no image → designed card (metric / pipeline / code) per DESIG
 - Title: Albara Aljaber — AI Engineer (LLMs · RAG · Arabic NLP)
 - Description: AI Engineer in Doha building end-to-end LLM, RAG and NLP systems.
 - OG image: generate 1200×630 in site style (name + role on `--paper`).
+
+## Education & Certifications (data only — not on the site yet, see ROADMAP → Future)
+From the CV. Lives in `education` / `certificates` in `src/content.ts`.
+- B.Sc. Data Science & Artificial Intelligence — The Hashemite University, Jordan (2026)
+- Microsoft Certified: Azure AI Fundamentals (AI-901), 2026 — Verify link: TODO (Albara to send the credential URL)
+- AIDEL — International AI Driving License
+- Python & AI/ML Training, Al-Raja International (2024)
+- Business Intelligence & Data Analysis, Sigma Agency (2024)
