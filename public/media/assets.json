@@ -170,54 +170,6 @@
       "height": 739
     },
     {
-      "id": "albayan-pipeline",
-      "project": "albayan",
-      "type": "image",
-      "source": "photo/projects/albayan-pipeline.png",
-      "path": "/media/albayan-pipeline.webp",
-      "card": "/media/albayan-pipeline-800.webp",
-      "thumb": "/media/albayan-pipeline-400.webp",
-      "poster": null,
-      "width": 1600,
-      "height": 1200
-    },
-    {
-      "id": "albayan-results-1",
-      "project": "albayan",
-      "type": "image",
-      "source": "photo/projects/albayan-results-1.png",
-      "path": "/media/albayan-results-1.webp",
-      "card": "/media/albayan-results-1-800.webp",
-      "thumb": "/media/albayan-results-1-400.webp",
-      "poster": null,
-      "width": 1600,
-      "height": 1200
-    },
-    {
-      "id": "albayan-results-2",
-      "project": "albayan",
-      "type": "image",
-      "source": "photo/projects/albayan-results-2.png",
-      "path": "/media/albayan-results-2.webp",
-      "card": "/media/albayan-results-2-800.webp",
-      "thumb": "/media/albayan-results-2-400.webp",
-      "poster": null,
-      "width": 1600,
-      "height": 1200
-    },
-    {
-      "id": "minirag-pipeline",
-      "project": "minirag",
-      "type": "image",
-      "source": "photo/projects/minirag-pipeline.png",
-      "path": "/media/minirag-pipeline.webp",
-      "card": "/media/minirag-pipeline-800.webp",
-      "thumb": "/media/minirag-pipeline-400.webp",
-      "poster": null,
-      "width": 1600,
-      "height": 1200
-    },
-    {
       "id": "powerbi-report",
       "project": "powerbi",
       "type": "image",
@@ -254,23 +206,6 @@
       "height": 1069
     },
     {
-      "id": "flyrank-loop",
-      "project": "flyrank",
-      "type": "loop",
-      "source": "flyrank.mp4 62–74s",
-      "path": "/media/flyrank-loop.mp4",
-      "webm": "/media/flyrank-loop.webm",
-      "poster": "/media/flyrank-loop-poster-800.webp",
-      "posterFull": "/media/flyrank-loop-poster.webp",
-      "width": 960,
-      "height": 516,
-      "duration": 11.92,
-      "bytes": {
-        "mp4": 43209,
-        "webm": 47437
-      }
-    },
-    {
       "id": "albayan-loop",
       "project": "albayan",
       "type": "loop",
@@ -286,6 +221,78 @@
         "mp4": 81780,
         "webm": 74645
       }
+    },
+    {
+      "id": "albayan-pipeline",
+      "project": "albayan",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/arabic-legal-classifier — README",
+      "path": "/media/albayan-pipeline.webp",
+      "card": "/media/albayan-pipeline-800.webp",
+      "thumb": "/media/albayan-pipeline-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "id": "albayan-results-1",
+      "project": "albayan",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/arabic-legal-classifier — README",
+      "path": "/media/albayan-results-1.webp",
+      "card": "/media/albayan-results-1-800.webp",
+      "thumb": "/media/albayan-results-1-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "id": "albayan-results-2",
+      "project": "albayan",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/arabic-legal-classifier — README",
+      "path": "/media/albayan-results-2.webp",
+      "card": "/media/albayan-results-2-800.webp",
+      "thumb": "/media/albayan-results-2-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "id": "minirag-pipeline",
+      "project": "minirag",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/Mini-rag — app/ structure",
+      "path": "/media/minirag-pipeline.webp",
+      "card": "/media/minirag-pipeline-800.webp",
+      "thumb": "/media/minirag-pipeline-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "id": "minirag-api",
+      "project": "minirag",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/Mini-rag — app/routers, app/controllers, requirements.txt",
+      "path": "/media/minirag-api.webp",
+      "card": "/media/minirag-api-800.webp",
+      "thumb": "/media/minirag-api-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "id": "minirag-code",
+      "project": "minirag",
+      "type": "generated",
+      "source": "Source: github.com/albara-AI/Mini-rag — app/routers/data_routers.py, app/controllers/process_controllers.py",
+      "path": "/media/minirag-code.webp",
+      "card": "/media/minirag-code-800.webp",
+      "thumb": "/media/minirag-code-400.webp",
+      "poster": null,
+      "width": 1600,
+      "height": 1200
     },
     {
       "id": "flyrank-pipeline",
