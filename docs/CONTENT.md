@@ -47,9 +47,9 @@ For each: text from the CV ("Additional projects") or the repo README; numbers o
    - Title: Olist E-commerce Sales Dashboard
    - Data: Kaggle Olist Brazilian e-commerce data (9 tables).
    - Pipeline: discovery → cleaning → transformation → integration; remodeled 9 tables into a star schema (1 fact + 5 dimension tables).
-   - Report: interactive Power BI report with KPIs: Sales 19.26M, Profit 3.41M, Cost 15.84M, Quantity 112.65K; filters by date, seller, order status and state.
+   - Report: interactive Power BI report with KPI cards for sales, profit, cost and quantity; filters by date, seller, order status and state. (No KPI numbers on the site until the unfiltered screenshot replaces the current image.)
    - Tags: Power BI · DAX · Star schema · Data cleaning
-   - Media: `photo/projects/powerbi-1.png`
+   - Media: `photo/projects/powerbi-1-1.png` (temporary — filtered view, state = AC; Albara will replace it)
 2. Semi-supervised Fashion-MNIST Classifier — "Semi-supervised Fashion-MNIST classifier (TensorFlow, 83.66% test accuracy with 960 labels)." (CV wording)
    - Key metric: 83.66% test accuracy with 960 labels
    - Tags: TensorFlow · Autoencoder · Pseudo-labeling (from README)
