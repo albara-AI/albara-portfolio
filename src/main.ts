@@ -48,3 +48,6 @@ bindContact(document);
 if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
 
 if (motion) import('./motion').then((m) => m.initMotion());
+
+// Dev only: point out content mistakes clearly in the console.
+if (import.meta.env.DEV) import('./lib/check-content').then((m) => m.checkContent());
